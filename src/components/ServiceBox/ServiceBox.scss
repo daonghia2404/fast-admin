@@ -1,0 +1,47 @@
+@import '../../assets/styles/global';
+
+.ServiceBox {
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  background: $rose-white;
+  border-radius: 1rem;
+  padding: 3rem 1.5rem;
+  cursor: pointer;
+  transition: $common-transition;
+
+  &-image {
+    min-height: 33rem;
+    border-radius: 1rem;
+  }
+
+  &-icon {
+    width: 12rem;
+    height: 12rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-title {
+    display: inline-block;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &-description {
+    font-size: 1.6rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  &-badge {
+    margin-left: .5rem;
+    display: inline-block;
+    font-size: 1.4rem;
+    color: $white;
+    padding: 0.1rem 0.3rem;
+    border-radius: 2rem;
+    background: $shamrock;
+    transform: translateY(-1rem);
+  }
+}

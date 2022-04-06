@@ -1,0 +1,18 @@
+@import '../../assets/styles/global';
+
+.Input {
+  .ant-input {
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    min-height: 4.4rem;
+    font-size: 1.6rem;
+    padding: 1rem 1.5rem;
+    font-weight: 300;
+
+    &::placeholder {
+      color: $gray;
+      font-weight: 300;
+    }
+  }
+}

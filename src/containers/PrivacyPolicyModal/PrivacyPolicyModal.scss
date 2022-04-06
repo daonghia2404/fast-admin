@@ -1,0 +1,33 @@
+@import '../../assets/styles/global';
+
+.PrivacyPolicyModal {
+  &-wrapper {
+    .Modal-body {
+      padding: 4rem 0 8rem;
+    }
+  }
+  &-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &-image {
+    margin-bottom: 2.4rem;
+    box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.15);
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-list {
+    list-style: disc;
+    padding: 0 2.4rem 0 4.8rem;
+
+    &-item {
+      font-size: 2rem;
+      font-weight: 300;
+    }
+  }
+}

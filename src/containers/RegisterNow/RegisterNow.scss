@@ -1,0 +1,70 @@
+@import '../../assets/styles/global';
+
+.RegisterNow {
+  background-color: $shamrock-alpha-80;
+  padding: 8rem 0;
+
+  &-wrapper {
+    &-item {
+      &:nth-child(1) {
+        flex: 0 0 40%;
+        max-width: 40%;
+        margin-right: 5rem;
+        padding-right: 5rem;
+        border-right: 1px solid $shamrock;
+
+        @media (max-width: 991px) {
+          margin: 0 0 3rem 0;
+          padding: 0;
+          border: none;
+        }
+      }
+
+      &:nth-child(2) {
+        flex: 1;
+      }
+
+      @media (max-width: 991px) {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+      }
+    }
+  }
+
+  &-logo {
+    max-width: 41.5rem;
+    margin-bottom: 3rem;
+
+    @media (max-width: 991px) {
+      margin: 0 auto 3rem;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    &-description {
+      text-align: center;
+      color: $fun-green;
+      font-size: 3.2rem;
+    }
+  }
+
+  &-title,
+  &-description {
+    color: $woodsmoke;
+    text-align: center;
+  }
+
+  &-title {
+    font-size: 2.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &-description {
+    font-size: 1.8rem;
+    font-weight: 300;
+    max-width: 66rem;
+    margin: 0 auto 2rem;
+  }
+}

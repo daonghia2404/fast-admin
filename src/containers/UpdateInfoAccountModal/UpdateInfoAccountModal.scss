@@ -1,0 +1,119 @@
+@import '../../assets/styles/global';
+
+.UpdateInfoAccountModal {
+  &-wrapper {
+    .Modal-body {
+      padding: 4rem 5rem 7rem 5rem;
+
+      @media (max-width: 768px) {
+        padding: 2rem 2.5rem 3.5rem 2.5rem;
+      }
+    }
+  }
+
+  &-avatar {
+    margin-bottom: 1rem;
+  }
+
+  &-name {
+    text-transform: uppercase;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  &-form {
+    margin-top: 4rem;
+  }
+
+  &-control {
+    padding: 1rem 2rem;
+    background: $white;
+    border-radius: 1rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3rem;
+    position: relative;
+
+    &-item {
+      font-size: 1.6rem;
+      color: $gray;
+
+      &:nth-child(1) {
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+
+      &:nth-child(2) {
+        flex: 1;
+        padding-left: 1rem;
+
+        @media (max-width: 768px) {
+          padding-left: 0;
+        }
+      }
+
+      .ant-form-item {
+        margin-bottom: 0;
+
+        .ant-form-item-control-input {
+          min-height: auto;
+        }
+      }
+
+      .DatePicker .ant-picker,
+      .Input .ant-input {
+        background: transparent;
+        box-shadow: none !important;
+        border: none !important;
+        outline: none;
+        color: $shamrock;
+        text-align: right;
+        padding: 0;
+        min-height: auto;
+        border-radius: 0;
+
+        @media (max-width: 768px) {
+          text-align: left;
+        }
+
+        &::placeholder {
+          color: $shamrock;
+        }
+      }
+
+      .DatePicker .ant-picker .ant-picker-input {
+        .ant-picker-suffix {
+          display: none;
+        }
+
+        input {
+          color: $shamrock;
+          text-align: right;
+
+          @media (max-width: 768px) {
+            text-align: left;
+          }
+
+          &::placeholder {
+            color: $shamrock;
+          }
+        }
+
+      }
+    }
+
+    .ant-col {
+      position: static;
+    }
+
+    .ant-form-item-explain {
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+  }
+
+  &-submit {
+    margin: 4rem 0 0;
+  }
+}

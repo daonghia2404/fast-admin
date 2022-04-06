@@ -1,0 +1,21 @@
+@import '../../assets/styles/global';
+
+.Avatar {
+  .ant-avatar-circle {
+    border: 1px solid $silver;
+    background: $silver;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .ant-avatar-string {
+      font-size: 14px;
+      font-weight: bold;
+      color: $white;
+      top: 50%;
+      transform: translate(-50%, -50%) !important;
+    }
+  }
+};
+
