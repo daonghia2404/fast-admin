@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Tabs from '@/components/Tabs';
-import UsersTable from '@/pages/Users/UserTable';
+import UsersTable from '@/pages/Users/UsersTable';
 
 import './Users.scss';
 

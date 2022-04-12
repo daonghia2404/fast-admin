@@ -20,6 +20,7 @@ import { THeaderProps } from '@/containers/Header/Header.types';
 import { useOnClickOutside } from '@/utils/hooks';
 
 import './Header.scss';
+import { Paths } from '@/pages/routers';
 
 const Header: React.FC<THeaderProps> = () => {
   const deviceType = useSelector((state: TRootState) => state.uiReducer.device);
@@ -156,7 +157,9 @@ const Header: React.FC<THeaderProps> = () => {
     <div className={classNames('Header flex justify-between items-center', { visible: visibleMenu })}>
       <div className="Header-item">
         <div className="Header-logo">
-          <img src={Logo} alt="" />
+          <Link to={Paths.Home}>
+            <img src={Logo} alt="" />
+          </Link>
         </div>
       </div>
       <div className="Header-item flex items-center">

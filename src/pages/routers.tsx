@@ -28,6 +28,9 @@ const Login = lazy(() => retryLoadComponent(() => import('@/pages/Login')));
 
 const Dashboard = lazy(() => retryLoadComponent(() => import('@/pages/Dashboard')));
 const Users = lazy(() => retryLoadComponent(() => import('@/pages/Users')));
+const Members = lazy(() => retryLoadComponent(() => import('@/pages/Members')));
+const Banners = lazy(() => retryLoadComponent(() => import('@/pages/Banners')));
+const Blogs = lazy(() => retryLoadComponent(() => import('@/pages/Blogs')));
 const Settings = lazy(() => retryLoadComponent(() => import('@/pages/Settings')));
 
 export const LayoutPaths = {
@@ -39,7 +42,10 @@ export const LayoutPaths = {
 export const ModulePaths = {
   Services: '/dich-vu',
   Settings: '/cai-dat',
-  Users: '/nguoi-dung',
+  Users: '/khach-hang',
+  Members: '/nhan-vien',
+  Banners: '/banners',
+  Blogs: '/bai-viet',
 };
 
 export const Paths = {
@@ -52,7 +58,10 @@ export const Paths = {
 
   Dashboard: '/',
   Users: ModulePaths.Users,
+  Members: ModulePaths.Members,
   Settings: ModulePaths.Settings,
+  Banners: ModulePaths.Banners,
+  Blogs: ModulePaths.Blogs,
 
   Rest: '*',
 };
@@ -67,7 +76,10 @@ export const Pages = {
 
   Dashboard,
   Users,
+  Members,
   Settings,
+  Banners,
+  Blogs,
 };
 
 interface IRouteProps extends RouteComponentProps {

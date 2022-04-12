@@ -7,6 +7,7 @@ export type TInputProps = {
   type?: 'text' | 'password';
   placeholder?: string;
   adminStyle?: boolean;
+  numberOnly?: boolean;
   style?: CSSProperties;
   value?: string;
   onChange?: (value: string) => void;

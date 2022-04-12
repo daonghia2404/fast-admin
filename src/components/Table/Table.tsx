@@ -25,6 +25,7 @@ export const Table: React.FC<TTableProps> = ({
   dataSources,
   loading,
   rowKey,
+  checkedValue,
   hideHeader,
   hideFooter,
   title,
@@ -123,6 +124,16 @@ export const Table: React.FC<TTableProps> = ({
           loading={loading}
           rowKey={rowKey}
           bordered
+          rowSelection={{
+            type: 'checkbox',
+            onChange: (selectedRowKeys: React.Key[], selectedRows: any[]): void => {
+              console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            },
+            getCheckboxProps: (record: any): any => ({
+              // disabled: record.name === 'Disabled User', // Column configuration not to be checked
+              // name: record.name,
+            }),
+          }}
           scroll={{ x: 'scroll' }}
           title={title}
         />
@@ -141,8 +152,12 @@ export const Table: React.FC<TTableProps> = ({
             />
           </div>
           {page && pageSize && total && (
-            <div className="Table-main-footer-item">
+            <div className="Table-main-footer-item flex items-center">
               <Pagination page={page} pageSize={pageSize} total={total} onChange={onPaginationChange} />
+              <div className="Table-main-footer-item-goto flex items-center">
+                <Input adminStyle numberOnly />
+                <Button title="Đi đến" adminStyle />
+              </div>
             </div>
           )}
         </div>

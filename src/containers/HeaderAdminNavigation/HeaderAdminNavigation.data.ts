@@ -6,9 +6,9 @@ export const dataHeaderAdminNavigation = [
   { icon: EIconName.Grid, disabled: true, title: 'Quản lý chung', link: `${LayoutPaths.Admin}${Paths.Dashboard}` },
   {
     icon: EIconName.Members,
-    disabled: true,
+    disabled: false,
     title: 'Quản lý nhân viên',
-    link: `${LayoutPaths.Admin}${Paths.Dashboard}`,
+    link: `${LayoutPaths.Admin}${Paths.Members}`,
   },
   {
     icon: EIconName.Users,
@@ -25,11 +25,11 @@ export const dataHeaderAdminNavigation = [
   { icon: EIconName.DocumentReward, disabled: true, title: 'Dịch vụ', link: `${LayoutPaths.Admin}${Paths.Dashboard}` },
   {
     icon: EIconName.DocumentSigned,
-    disabled: true,
+    disabled: false,
     title: 'Quản lý banner',
-    link: `${LayoutPaths.Admin}${Paths.Dashboard}`,
+    link: `${LayoutPaths.Admin}${Paths.Banners}`,
   },
-  { icon: EIconName.Blog, disabled: true, title: 'Bài viết', link: `${LayoutPaths.Admin}${Paths.Dashboard}` },
+  { icon: EIconName.Blog, disabled: false, title: 'Bài viết', link: `${LayoutPaths.Admin}${Paths.Blogs}` },
   {
     icon: EIconName.Settings,
     disabled: true,

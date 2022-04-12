@@ -157,3 +157,11 @@ export const formatAbbreviationsName = (value: string): string => {
 
   return `${firstLastWordFirstLetter}${secondLastWordFirstLetter}`.toUpperCase();
 };
+
+export const convertImageToBase64File = (file: File, callback: (dataBase64: string) => void): void => {
+  const fileData = new FileReader();
+  fileData.readAsDataURL(file);
+  fileData.onloadend = (): void => {
+    callback((fileData.result as string) || '');
+  };
+};

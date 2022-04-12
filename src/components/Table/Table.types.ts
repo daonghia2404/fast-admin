@@ -10,6 +10,7 @@ export type TTableProps = {
   hideHeader?: boolean;
   hideFooter?: boolean;
   dataSources: Array<any>;
+  checkedValue?: Array<any>;
   rowKey?: string;
   loading?: boolean;
   title?: () => React.ReactElement;

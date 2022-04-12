@@ -1,0 +1,22 @@
+@import '../../assets/styles/global';
+
+.UploadSingleImage {
+  background: $white;
+  border-radius: .3rem;
+  border: 1px solid $mercury;
+  transition: $common-transition;
+
+  &:hover {
+    border-color: $shamrock;
+  }
+
+  &-control {
+    min-height: 18rem;
+  }
+
+  &-preview {
+    img {
+      width: 100%;
+    }
+  }
+}

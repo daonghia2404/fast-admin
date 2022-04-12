@@ -3,6 +3,13 @@
 .Table {
   padding: 2rem 2.2rem;
 
+  &-image {
+    img {
+      max-width: 20rem;
+      width: 100%;
+    }
+  }
+
   .ant-table-thead>tr>th,
   .ant-table-tbody>tr>td,
   .ant-table tfoot>tr>th,
@@ -41,6 +48,7 @@
           border-color: $mercury;
           font-size: 1.6rem;
           font-weight: 300;
+          background: $white;
         }
       }
     }
@@ -93,6 +101,29 @@
 
         .Select {
           margin-left: 1.2rem;
+        }
+
+        &-goto {
+          .Input {
+            margin: 0 1rem;
+            width: 10rem;
+
+            .ant-input {
+              height: 5rem;
+            }
+          }
+
+          .Button {
+            .ant-btn {
+              height: 5rem;
+
+              &.ant-btn-default {
+                border-color: $mercury;
+                background-color: $alabaster;
+                color: $black;
+              }
+            }
+          }
         }
       }
     }
@@ -215,6 +246,59 @@
           width: 2.5rem;
           height: 2.5rem;
           padding: 0;
+        }
+      }
+    }
+  }
+
+  .ant-table-selection-column {
+    .ant-checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span {
+        font-size: 1.6rem;
+        color: $black;
+        font-weight: 300;
+      }
+
+      .ant-checkbox {
+        top: 0;
+
+        &-inner {
+          background: $white;
+          border-color: $white;
+          width: 2rem;
+          height: 2rem;
+          border-radius: .5rem;
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+
+          &::after {
+            top: 45%;
+            left: 20%;
+            display: table;
+            width: .6rem;
+            height: 1.2rem;
+          }
+        }
+      }
+
+      &:hover .ant-checkbox-inner,
+      .ant-checkbox:hover .ant-checkbox-inner,
+      .ant-checkbox-input:focus+.ant-checkbox-inner {
+        border-color: $shamrock;
+      }
+
+      .ant-checkbox-checked {
+        .ant-checkbox-inner {
+          background-color: $shamrock;
+          border-color: $shamrock;
+        }
+
+        &::after {
+          border-radius: .5rem;
+          border-color: $shamrock;
         }
       }
     }

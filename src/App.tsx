@@ -39,8 +39,11 @@ const App: React.FC = () => {
 
         <Admin path={LayoutPaths.Admin}>
           <ProtectedRoute path={Paths.Dashboard} component={Pages.Dashboard} />
+          <PublicRoute path={Paths.Members} component={Pages.Members} />
           <PublicRoute path={Paths.Users} component={Pages.Users} />
           <PublicRoute path={Paths.Settings} component={Pages.Settings} />
+          <PublicRoute path={Paths.Banners} component={Pages.Banners} />
+          <PublicRoute path={Paths.Blogs} component={Pages.Blogs} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Admin}${Paths.Dashboard}`} />
         </Admin>
       </Router>

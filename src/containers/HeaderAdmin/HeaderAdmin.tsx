@@ -1,27 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import classNames from 'classnames';
+import { Link } from '@reach/router';
 
 import Logo from '@/assets/images/logo.svg';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
-import { TRootState } from '@/redux/reducers';
-import { EDeviceType } from '@/redux/reducers/ui';
 import PrivacyPolicyModal from '@/containers/PrivacyPolicyModal';
 import Avatar from '@/components/Avatar';
 import DropdownCustom from '@/components/DropdownCustom';
 import ChangePasswordModal from '@/containers/ChangePasswordModal';
 import UpdateInfoAccountModal from '@/containers/UpdateInfoAccountModal';
-import { useOnClickOutside } from '@/utils/hooks';
+import { Paths } from '@/pages/routers';
 
 import './HeaderAdmin.scss';
 
 const HeaderAdmin: React.FC = () => {
-  const deviceType = useSelector((state: TRootState) => state.uiReducer.device);
-  const isMobile = deviceType.type === EDeviceType.MOBILE;
-  const menuRef = useRef<HTMLDivElement | null>(null);
-
-  const [visibleMenu, setVisibleMenu] = useState<boolean>(false);
-
   const [privacyPolicyModalState, setPrivacyPolicyModalState] = useState<{
     visible: boolean;
   }>({
@@ -37,12 +29,6 @@ const HeaderAdmin: React.FC = () => {
   }>({
     visible: false,
   });
-
-  useOnClickOutside(menuRef, (): void => setVisibleMenu(false));
-
-  const handleToggleVisibleMenu = (): void => {
-    setVisibleMenu(!visibleMenu);
-  };
 
   const handleOpenPrivacyPolicyModal = (): void => {
     setPrivacyPolicyModalState({
@@ -123,24 +109,16 @@ const HeaderAdmin: React.FC = () => {
     );
   };
 
-  useEffect(() => {
-    if (!isMobile) setVisibleMenu(false);
-  }, [isMobile]);
-
   return (
-    <div className={classNames('HeaderAdmin flex justify-between items-center', { visible: visibleMenu })}>
+    <div className={classNames('HeaderAdmin flex justify-between items-center')}>
       <div className="HeaderAdmin-item">
         <div className="HeaderAdmin-logo">
-          <img src={Logo} alt="" />
+          <Link to={Paths.Home}>
+            <img src={Logo} alt="" />
+          </Link>
         </div>
       </div>
       <div className="HeaderAdmin-item flex items-center">
-        {isMobile && (
-          <div className="HeaderAdmin-btn-menu" onClick={handleToggleVisibleMenu}>
-            <Icon name={EIconName.Menu} color={EIconColor.WHITE} />
-          </div>
-        )}
-
         <div className="HeaderAdmin-actions flex items-center">
           <div className="HeaderAdmin-actions-item">
             <Icon name={EIconName.House} color={EIconColor.WHITE} />

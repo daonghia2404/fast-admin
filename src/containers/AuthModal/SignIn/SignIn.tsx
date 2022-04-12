@@ -1,25 +1,60 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Slider } from 'antd';
+import { useDispatch } from 'react-redux';
 
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
 import Input from '@/components/Input';
-import { validationRules } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
+import { loginAction } from '@/redux/actions';
+import AuthHelpers from '@/services/helpers';
 
 import { TSignInProps } from './SignIn.types';
+import { ETypeNotification } from '@/common/enums';
 
 const SignIn: React.FC<TSignInProps> = ({ onClickForgotPassword, onSubmit }) => {
+  const dispatch = useDispatch();
+
   const [form] = Form.useForm();
   const [sliderValue, setSliderValue] = useState(0);
   const isDisabledSubmit = sliderValue !== 100;
 
   const handleSubmit = (values: any): void => {
+    if (values.remember) {
+      AuthHelpers.storeRememberAccountPhone(values.phone);
+      AuthHelpers.storeRememberAccountPassword(values.password);
+    } else {
+      AuthHelpers.clearRememberAccount();
+    }
+
+    const body = {
+      phone: values.phone,
+      password: values.password,
+    };
+    dispatch(loginAction.request(body, handleLoginSuccess));
+  };
+
+  const handleLoginSuccess = (): void => {
+    showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công');
     onSubmit?.();
   };
 
   const handleChangeSliderValue = (value: number): void => {
     setSliderValue(value);
   };
+
+  useEffect(() => {
+    const rmPhone = AuthHelpers.getRememberAccountPhone();
+    const rmPassword = AuthHelpers.getRememberAccountPassword();
+
+    if (rmPhone && rmPassword) {
+      form.setFieldsValue({
+        phone: rmPhone,
+        password: rmPassword,
+        remember: true,
+      });
+    }
+  }, [form]);
 
   return (
     <Form className="AuthModal-form" form={form} onFinish={handleSubmit}>

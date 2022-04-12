@@ -26,6 +26,8 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
     visible: false,
   });
 
+  const [usersTableCheckedValue, setUsersTableCheckedValue] = useState<any>([]);
+
   const total = 24;
 
   const handleOpenUserConfigModal = (): void => {
@@ -109,6 +111,7 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
       <Table
         columns={columns}
         dataSources={[1, 2, 3, 4]}
+        checkedValue={usersTableCheckedValue}
         page={getParamsRequest.page}
         pageSize={getParamsRequest.pageSize}
         total={total}

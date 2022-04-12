@@ -1,7 +1,39 @@
 import { createActionCreator } from 'deox';
 
-import { TLoginFailed, TLoginRequest, TLoginSuccess } from '@/redux/actions/auth-controller/types';
-import { TLoginBody, TLoginResponse } from '@/services/api/auth-controller/types';
+import {
+  TChangePasswordByOtpFailed,
+  TChangePasswordByOtpRequest,
+  TChangePasswordByOtpSuccess,
+  TConfirmEmailOtpFailed,
+  TConfirmEmailOtpRequest,
+  TConfirmEmailOtpSuccess,
+  TForgotPasswordFailed,
+  TForgotPasswordRequest,
+  TForgotPasswordSuccess,
+  TLoginFailed,
+  TLoginRequest,
+  TLoginSuccess,
+  TRegisterFailed,
+  TRegisterRequest,
+  TRegisterSuccess,
+  TResendEmailOtpFailed,
+  TResendEmailOtpRequest,
+  TResendEmailOtpSuccess,
+} from '@/redux/actions/auth-controller/types';
+import {
+  TChangePasswordByOtpBody,
+  TChangePasswordByOtpResponse,
+  TConfirmEmailOtpBody,
+  TConfirmEmailOtpResponse,
+  TForgotPasswordBody,
+  TForgotPasswordResponse,
+  TLoginBody,
+  TLoginResponse,
+  TRegisterBody,
+  TRegisterResponse,
+  TResendEmailOtpBody,
+  TResendEmailOtpResponse,
+} from '@/services/api/auth-controller/types';
 
 import { EAuthControllerAction } from './constants';
 
@@ -22,6 +54,114 @@ export const loginAction = {
     EAuthControllerAction.LOGIN_FAILED,
     (resolve) =>
       (error: unknown): TLoginFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const registerAction = {
+  request: createActionCreator(
+    EAuthControllerAction.REGISTER_REQUEST,
+    (resolve) =>
+      (body: TRegisterBody, cb?: (response: TRegisterResponse) => void): TRegisterRequest =>
+        resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EAuthControllerAction.REGISTER_SUCCESS,
+    (resolve) =>
+      (response: TRegisterResponse): TRegisterSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EAuthControllerAction.REGISTER_FAILED,
+    (resolve) =>
+      (error: unknown): TRegisterFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const forgotPasswordAction = {
+  request: createActionCreator(
+    EAuthControllerAction.FORGOT_PASSWORD_REQUEST,
+    (resolve) =>
+      (body: TForgotPasswordBody, cb?: (response: TForgotPasswordResponse) => void): TForgotPasswordRequest =>
+        resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EAuthControllerAction.FORGOT_PASSWORD_SUCCESS,
+    (resolve) =>
+      (response: TForgotPasswordResponse): TForgotPasswordSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EAuthControllerAction.FORGOT_PASSWORD_FAILED,
+    (resolve) =>
+      (error: unknown): TForgotPasswordFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const confirmEmailOtpAction = {
+  request: createActionCreator(
+    EAuthControllerAction.CONFIRM_EMAIL_OTP_REQUEST,
+    (resolve) =>
+      (body: TConfirmEmailOtpBody, cb?: (response: TConfirmEmailOtpResponse) => void): TConfirmEmailOtpRequest =>
+        resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EAuthControllerAction.CONFIRM_EMAIL_OTP_SUCCESS,
+    (resolve) =>
+      (response: TConfirmEmailOtpResponse): TConfirmEmailOtpSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EAuthControllerAction.CONFIRM_EMAIL_OTP_FAILED,
+    (resolve) =>
+      (error: unknown): TConfirmEmailOtpFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const resendEmailOtpAction = {
+  request: createActionCreator(
+    EAuthControllerAction.RESEND_EMAIL_OTP_REQUEST,
+    (resolve) =>
+      (body: TResendEmailOtpBody, cb?: (response: TResendEmailOtpResponse) => void): TResendEmailOtpRequest =>
+        resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EAuthControllerAction.RESEND_EMAIL_OTP_SUCCESS,
+    (resolve) =>
+      (response: TResendEmailOtpResponse): TResendEmailOtpSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EAuthControllerAction.RESEND_EMAIL_OTP_FAILED,
+    (resolve) =>
+      (error: unknown): TResendEmailOtpFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const changePasswordByOtpAction = {
+  request: createActionCreator(
+    EAuthControllerAction.CHANGE_PASSWORD_BY_OTP_REQUEST,
+    (resolve) =>
+      (
+        body: TChangePasswordByOtpBody,
+        cb?: (response: TChangePasswordByOtpResponse) => void,
+      ): TChangePasswordByOtpRequest =>
+        resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EAuthControllerAction.CHANGE_PASSWORD_BY_OTP_SUCCESS,
+    (resolve) =>
+      (response: TChangePasswordByOtpResponse): TChangePasswordByOtpSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EAuthControllerAction.CHANGE_PASSWORD_BY_OTP_FAILED,
+    (resolve) =>
+      (error: unknown): TChangePasswordByOtpFailed =>
         resolve({ error }),
   ),
 };
