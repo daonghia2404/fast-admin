@@ -1,0 +1,54 @@
+@import '../../assets/styles/global';
+
+.HeaderAdminNavigation {
+  padding: 0 2.5rem;
+  overflow: auto;
+
+  &-item {
+    cursor: pointer;
+    padding: 2.2rem 0;
+
+    &:not(.disabled):hover,
+    &.active {
+      .HeaderAdminNavigation-item {
+        &-icon {
+          svg path {
+            fill: $black;
+          }
+        }
+
+        &-title {
+          color: $black;
+        }
+      }
+    }
+
+    &:not(:last-child) {
+      margin-right: 3.5rem;
+    }
+
+    &.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &-icon {
+      margin-right: 1rem;
+      flex: 0 0 1.8rem;
+      max-width: 1.8rem;
+
+      svg path {
+        transition: $common-transition;
+      }
+    }
+
+    &-title {
+      text-transform: uppercase;
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: $gray;
+      white-space: nowrap;
+      transition: $common-transition;
+    }
+  }
+}

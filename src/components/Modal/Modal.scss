@@ -39,4 +39,26 @@
   &-body {
     background: $ahthens-gray;
   }
+
+  &-title {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.8rem;
+  }
+
+  &-submit {
+    width: 100%;
+
+    .Button {
+      margin-right: 1rem;
+
+      .ant-btn {
+        &.ant-btn-default {
+          border-color: $silver;
+          background-color: $ahthens-gray;
+          color: $black;
+        }
+      }
+    }
+  }
 }

@@ -74,7 +74,7 @@ const AuthModal: React.FC<TAuthModalProps> = ({ visible, tabKey, onClose, onSign
       wrapClassName="AuthModal-wrapper"
       onClose={onClose}
     >
-      <div className="AuthModal-main flex items-center">
+      <div className="AuthModal-main flex">
         <div className="AuthModal-main-item">
           <img className="AuthModal-main-item-image" src={BgAuth} alt="" />
         </div>

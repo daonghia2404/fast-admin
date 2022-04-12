@@ -1,0 +1,42 @@
+@import '../../assets/styles/global';
+
+.TextArea {
+  .ant-input {
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    min-height: 14rem;
+    font-size: 1.6rem;
+    padding: 1rem 1.5rem;
+    font-weight: 300;
+
+    &::placeholder {
+      color: $gray;
+      font-weight: 300;
+    }
+  }
+
+  &.admin-style {
+    .ant-input {
+      box-shadow: none;
+      border-radius: .3rem;
+      padding: .5rem 1rem;
+      border: 1px solid $mercury;
+      min-height: 14rem;
+
+      &.ant-input-lg {
+        min-height: 5.5rem;
+      }
+
+      &:hover {
+        border-color: $shamrock;
+      }
+
+      &:focus,
+      &.ant-input-focused {
+        border-color: $shamrock;
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.3);
+      }
+    }
+  }
+}

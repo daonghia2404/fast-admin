@@ -1,0 +1,54 @@
+@import '../../assets/styles/global';
+
+.Tabs {
+  .ant-tabs-nav {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0;
+    padding: 0 2.4rem;
+  }
+
+  .ant-tabs-top>.ant-tabs-nav::before,
+  .ant-tabs-bottom>.ant-tabs-nav::before,
+  .ant-tabs-top>div>.ant-tabs-nav::before,
+  .ant-tabs-bottom>div>.ant-tabs-nav::before {
+    display: none;
+  }
+
+  .ant-tabs-tab {
+    font-size: 1.8rem;
+    padding: 1rem 5rem;
+    background: $geyser;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    text-transform: uppercase;
+
+    .ant-tabs-tab-btn {
+      color: $black;
+      font-weight: 300;
+      transition: $common-transition;
+    }
+
+    &.ant-tabs-tab-active {
+      background: $white;
+
+      .ant-tabs-tab-btn {
+        font-weight: 400;
+      }
+    }
+  }
+
+  .ant-tabs-ink-bar {
+    display: none;
+  }
+
+  .ant-tabs-tab+.ant-tabs-tab {
+    margin-left: .1rem;
+  }
+
+  .ant-tabs-content-holder {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background: $white;
+  }
+}

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form } from 'antd';
+import React, { useState } from 'react';
+import { Form, Slider } from 'antd';
 
 import Button from '@/components/Button';
 import Input from '@/components/Input';
@@ -9,9 +9,15 @@ import { TSignUpProps } from './SignUp.types';
 
 const SignUp: React.FC<TSignUpProps> = ({ onSubmit }) => {
   const [form] = Form.useForm();
+  const [sliderValue, setSliderValue] = useState(0);
+  const isDisabledSubmit = sliderValue !== 100;
 
   const handleSubmit = (values: any): void => {
     onSubmit?.();
+  };
+
+  const handleChangeSliderValue = (value: number): void => {
+    setSliderValue(value);
   };
 
   return (
@@ -38,8 +44,20 @@ const SignUp: React.FC<TSignUpProps> = ({ onSubmit }) => {
         <Input placeholder="Địa Chỉ" />
       </Form.Item>
 
+      <div className="AuthModal-slider-submit">
+        <div className="AuthModal-slider-submit-text">Trượt để gửi</div>
+        <Slider
+          disabled={!isDisabledSubmit}
+          max={100}
+          min={0}
+          value={sliderValue}
+          tooltipVisible={false}
+          onChange={handleChangeSliderValue}
+        />
+      </div>
+
       <Form.Item className="AuthModal-submit">
-        <Button type="primary" htmlType="submit" title="Đăng Nhập" />
+        <Button type="primary" htmlType="submit" title="Đăng Ký" disabled={isDisabledSubmit} />
       </Form.Item>
     </Form>
   );

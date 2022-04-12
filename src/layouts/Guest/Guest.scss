@@ -1,0 +1,8 @@
+@import '../../assets/styles/global';
+
+.Guest {
+  &-body {
+    min-height: 80vh;
+    background: $wild-sand;
+  }
+}

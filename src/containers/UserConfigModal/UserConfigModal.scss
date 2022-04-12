@@ -1,0 +1,15 @@
+@import '../../assets/styles/global';
+
+.UserConfigModal {
+  &-wrapper {
+    .Modal {
+      &-body {
+        padding: 2.8rem;
+      }
+    }
+  }
+
+  &-form {
+    margin-top: 2rem;
+  }
+}

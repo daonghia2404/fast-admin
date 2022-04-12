@@ -168,7 +168,7 @@ const Header: React.FC<THeaderProps> = () => {
 
         <div className="Header-nav flex items-center" ref={menuRef}>
           {dataHeaderMenu.map((item) => (
-            <div className="Header-nav-item">
+            <div className={classNames('Header-nav-item', { disabled: item.disabled })}>
               <Link to={item.link}>{item.title}</Link>
             </div>
           ))}

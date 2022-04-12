@@ -7,6 +7,32 @@
     }
   }
 
+  &.only-icon {
+    .ant-btn {
+      width: 4.4rem;
+      padding: 0;
+    }
+
+    .Button {
+      &-icon {
+        margin: 0;
+      }
+    }
+  }
+
+  &.reverse {
+    .Button {
+      &-icon {
+        margin-left: 0;
+        margin-right: .4rem;
+      }
+    }
+
+    .ant-btn {
+      flex-direction: row-reverse;
+    }
+  }
+
   &-icon {
     flex: 0 0 1.4rem;
     max-width: 1.4rem;
@@ -36,6 +62,12 @@
       border-color: $shamrock;
     }
 
+    &.ant-btn-dangerous {
+      background: $pomegranate;
+      border-color: $pomegranate;
+      color: $white;
+    }
+
     &.ant-btn-primary {
       border-color: $shamrock;
       background: $shamrock;
@@ -49,5 +81,71 @@
       background: $shamrock;
       color: $white;
     }
+  }
+
+  &.black {
+    .ant-btn {
+      border-color: $woodsmoke;
+      background: $woodsmoke;
+      color: $white;
+    }
+  }
+
+  &.violet {
+    .ant-btn {
+      border-color: $electric-violet;
+      background: $electric-violet;
+      color: $white;
+    }
+  }
+
+  &.admin-style {
+    &.black {
+      .ant-btn {
+        border-color: $woodsmoke;
+      }
+    }
+
+    &.violet {
+      .ant-btn {
+        border-color: $electric-violet;
+      }
+    }
+
+    .ant-btn {
+      border-color: $mercury;
+      border-radius: .3rem;
+      font-size: 1.6rem;
+      font-weight: 300;
+
+      &.ant-btn-lg {
+        height: 5.5rem;
+      }
+
+      &.atn-btn-primary {
+        border-color: $shamrock;
+      }
+
+      &.ant-btn-dangerous {
+        border-color: $pomegranate;
+      }
+
+      &:hover {
+        border-color: $shamrock;
+        ;
+      }
+    }
+  }
+
+  .ant-btn[disabled],
+  .ant-btn[disabled]:hover,
+  .ant-btn[disabled]:focus,
+  .ant-btn[disabled]:active {
+    color: rgba($black, 0.25) !important;
+    border-color: $mercury !important;
+    background: $mercury !important;
+    cursor: not-allowed !important;
+    text-shadow: none;
+    box-shadow: none;
   }
 }

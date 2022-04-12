@@ -1,0 +1,84 @@
+@import '../../assets/styles/global';
+
+.Pagination {
+  background: $alabaster;
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    height: 5rem;
+    margin: 0;
+
+    &:not(.ant-pagination-disabled):hover {
+      .Pagination {
+        &-first,
+        &-last {
+          color: $shamrock;
+        }      
+      }
+    }
+  }
+
+  &-first,
+  &-last {
+    font-size: 1.6rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    text-align: center;
+    border: 1px solid $mercury;
+    transition: $common-transition;
+  }
+
+  &-first {
+    border-top-left-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+  }
+
+  &-last {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+  }
+
+  .ant-pagination-item {
+    border-radius: 0;
+    width: 5rem;
+    height: 5rem;
+    background: transparent;
+    margin: 0;
+    border: 1px solid $mercury;
+
+    a {
+      height: 5rem;
+      line-height: 5rem;
+      font-size: 1.6rem;
+      color: $black;
+      display: block;
+      transition: $common-transition;
+    }
+
+    &:focus-visible,
+    &:hover {
+      a {
+        color: $shamrock;
+      }
+    }
+
+    &.ant-pagination-item-active {
+      &:hover {
+        a {
+          color: $white;
+        }
+      }
+    }
+
+    &-active {
+      background: $shamrock;
+      border-color: $shamrock;
+
+      a {
+        color: $white;
+      }
+    }
+  }
+}

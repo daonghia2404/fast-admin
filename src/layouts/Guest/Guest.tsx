@@ -4,6 +4,8 @@ import Header from '@/containers/Header';
 import Footer from '@/containers/Footer';
 import { TGuestProps } from './Guest.types';
 
+import './Guest.scss';
+
 const Guest: React.FC<TGuestProps> = ({ children }) => {
   return (
     <div className="Guest">

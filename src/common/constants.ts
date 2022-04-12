@@ -9,3 +9,18 @@ export const regex = {
   numeric: /^\d+$/i,
   onlySpecialKey: /[$&+,:;=?@#|'<>.^*()%`~_!\-"\]\[\\}{'/]/g,
 };
+
+export const dataOptionsPageSize = [
+  { label: '10', value: '10' },
+  { label: '25', value: '25' },
+  { label: '50', value: '50' },
+  { label: '100', value: '100' },
+];
+
+export const dataGenderOptions = [
+  { label: 'Nam', value: 'male' },
+  { label: 'Nữ', value: 'female' },
+];
+
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_PAGE_SIZE = 10;

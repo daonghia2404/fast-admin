@@ -1,0 +1,8 @@
+@import '../../assets/styles/global';
+
+.Admin {
+  &-body {
+    min-height: 95vh;
+    background: $wild-sand;
+  }
+}

@@ -1,0 +1,6 @@
+export enum EKeyOrderTab {
+  INPUT_STORAGE = 'INPUT_STORAGE',
+  RETURN_GOODS = 'RETURN_GOODS',
+  RULES = 'RULES',
+  SEARCH = 'SEARCH',
+}

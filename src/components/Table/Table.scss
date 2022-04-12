@@ -1,0 +1,222 @@
+@import '../../assets/styles/global';
+
+.Table {
+  padding: 2rem 2.2rem;
+
+  .ant-table-thead>tr>th,
+  .ant-table-tbody>tr>td,
+  .ant-table tfoot>tr>th,
+  .ant-table tfoot>tr>td {
+    padding: 1.6rem;
+  }
+
+  .ant-table {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+    border-color: $mercury;
+
+    .ant-table-thead>tr>th {
+      background: $white;
+      white-space: nowrap;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 1.8rem;
+
+      &::before {
+        height: 100% !important;
+      }
+    }
+
+    .ant-table-content {
+      overflow: auto hidden;
+    }
+
+    .ant-table-tbody {
+      &>tr {
+        &:nth-child(even)>td {
+          background: rgba($porcelain, 0.7);
+        }
+
+        &>td {
+          text-align: center;
+          border-color: $mercury;
+          font-size: 1.6rem;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  &-main {
+    &-header {
+      margin-bottom: -1rem;
+
+      &-item {
+        &:first-child {
+          .Table-main-header-item {
+            &-control {
+              &:not(:last-child) {
+                margin-right: 1rem;
+              }
+            }
+          }
+        }
+
+        &:last-child {
+          .Table-main-header-item {
+            &-control {
+              &:not(:last-child) {
+                margin-right: 1rem;
+              }
+            }
+          }
+        }
+
+        &-control {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+
+    &-body {
+      margin: 2rem 0;
+
+      .ant-spin {
+        .ant-spin-dot-item {
+          background: $shamrock;
+        }
+      }
+    }
+
+    &-footer {
+      &-item {
+        font-size: 1.6rem;
+
+        .Select {
+          margin-left: 1.2rem;
+        }
+      }
+    }
+  }
+
+  &-image {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // background: $aqua-haze;
+    // border: 1px solid $alto;
+    cursor: pointer;
+    transition: $common-transition;
+
+    &:hover {
+      // border-color: $crimson;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &-tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -4px;
+
+    &-item {
+      margin: 0 4px 4px 0;
+      padding: 4px;
+      font-size: 11px;
+      line-height: 1;
+      white-space: nowrap;
+      transition: $common-transition;
+
+      &.inactive {
+        // background: $flame-pea;
+        color: $white;
+      }
+
+      &.warning {
+        // background: $amber;
+        // color: $charade;
+      }
+
+      &.attention {
+        // background: orange;
+        // color: $charade;
+      }
+
+      &.active {
+        // background: $eucalyptus;
+        color: $white;
+      }
+
+      &.inprocess {
+        // background: $tory-blue;
+        color: $white;
+      }
+
+      &.category {
+        // background: $charade;
+        color: $white;
+
+        &:hover {
+          // background: lighten($charade, 5%);
+        }
+      }
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &-link {
+    // color: $crimson;
+    font-weight: 600;
+    text-decoration: underline;
+
+    &:hover {
+      // color: $charade;
+      text-decoration: underline;
+    }
+  }
+
+  &-dropdown {
+    .Button {
+      &-control {
+        width: 35px;
+        height: 35px;
+        padding: 0;
+
+        &-icon {
+          max-width: 18px;
+          flex: 0 0 18px;
+        }
+      }
+    }
+  }
+
+  &-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-item {
+      flex: 0 0 2.5rem;
+      max-width: 2.5rem;
+      margin: 0 .5rem;
+
+      .Button {
+        .ant-btn {
+          width: 2.5rem;
+          height: 2.5rem;
+          padding: 0;
+        }
+      }
+    }
+  }
+}

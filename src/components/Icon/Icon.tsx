@@ -22,6 +22,27 @@ import Logout from './Logout';
 import Phone from './Phone';
 import Facebook from './Facebook';
 import Wechat from './Wechat';
+import ArrowRight from './ArrowRight';
+import CaretDown from './CaretDown';
+import Search from './Search';
+import CalendarGrid from './CalendarGrid';
+import Filter from './Filter';
+import Blog from './Blog';
+import Dashboard from './Dashboard';
+import DocumentReward from './DocumentReward';
+import DocumentSigned from './DocumentSigned';
+import Grid from './Grid';
+import Members from './Members';
+import Settings from './Settings';
+import Users from './Users';
+import House from './House';
+import Bell from './Bell';
+import Mail from './Mail';
+import Reload from './Reload';
+import Pencil from './Pencil';
+import Trash from './Trash';
+import SettingCheck from './SettingCheck';
+import Plus from './Plus';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -60,6 +81,48 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <Facebook color={color} />;
       case EIconName.Wechat:
         return <Wechat color={color} />;
+      case EIconName.ArrowRight:
+        return <ArrowRight color={color} />;
+      case EIconName.CaretDown:
+        return <CaretDown color={color} />;
+      case EIconName.Search:
+        return <Search color={color} />;
+      case EIconName.CalendarGrid:
+        return <CalendarGrid color={color} />;
+      case EIconName.Filter:
+        return <Filter color={color} />;
+      case EIconName.Blog:
+        return <Blog color={color} />;
+      case EIconName.Dashboard:
+        return <Dashboard color={color} />;
+      case EIconName.DocumentReward:
+        return <DocumentReward color={color} />;
+      case EIconName.DocumentSigned:
+        return <DocumentSigned color={color} />;
+      case EIconName.Grid:
+        return <Grid color={color} />;
+      case EIconName.Members:
+        return <Members color={color} />;
+      case EIconName.Settings:
+        return <Settings color={color} />;
+      case EIconName.Users:
+        return <Users color={color} />;
+      case EIconName.House:
+        return <House color={color} />;
+      case EIconName.Bell:
+        return <Bell color={color} />;
+      case EIconName.Mail:
+        return <Mail color={color} />;
+      case EIconName.Reload:
+        return <Reload color={color} />;
+      case EIconName.Pencil:
+        return <Pencil color={color} />;
+      case EIconName.Trash:
+        return <Trash color={color} />;
+      case EIconName.SettingCheck:
+        return <SettingCheck color={color} />;
+      case EIconName.Plus:
+        return <Plus color={color} />;
 
       default:
         return <></>;

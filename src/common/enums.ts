@@ -73,4 +73,5 @@ export enum TIMEOUT_DEBOUNCE {
 }
 export enum EEmpty {
   STRIKE_THROUGH = '-',
+  TRIPLE_STRIKE_THROUGH = '---',
 }

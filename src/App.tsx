@@ -27,6 +27,7 @@ const App: React.FC = () => {
         <Guest path={LayoutPaths.Guest}>
           <PublicRoute path={Paths.Home} component={Pages.Home} />
           <PublicRoute path={Paths.Services} component={Pages.Services} />
+          <PublicRoute path={Paths.Orders} component={Pages.Orders} />
           <PublicRoute path={Paths.ServiceDetail()} component={Pages.ServiceDetail} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>
@@ -38,6 +39,8 @@ const App: React.FC = () => {
 
         <Admin path={LayoutPaths.Admin}>
           <ProtectedRoute path={Paths.Dashboard} component={Pages.Dashboard} />
+          <PublicRoute path={Paths.Users} component={Pages.Users} />
+          <PublicRoute path={Paths.Settings} component={Pages.Settings} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Admin}${Paths.Dashboard}`} />
         </Admin>
       </Router>

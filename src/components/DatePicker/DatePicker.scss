@@ -18,7 +18,44 @@
         font-weight: 300;
       }
     }
+  }
 
+  &.admin-style {
+    .ant-picker {
+      box-shadow: none;
+      border-radius: .3rem;
+      padding: .5rem 1rem;
+      border: 1px solid $mercury;
 
+      &:hover {
+        border-color: $shamrock;
+      }
+
+      &:focus,
+      &.ant-picker-focused {
+        border-color: $shamrock;
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.3);
+      }
+    }
+  }
+
+  &-dropdown {
+    .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+      border-color: $shamrock;
+    }
+
+    .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+    .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+    .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+      background-color: $shamrock;
+    }
+
+    .ant-picker-today-btn {
+      color: $shamrock;
+    }
+
+    .ant-picker-header-view button:hover {
+      color: $shamrock;
+    }
   }
 }

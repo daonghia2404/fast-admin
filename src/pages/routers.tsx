@@ -22,29 +22,38 @@ const retryLoadComponent = (fn: () => Promise<unknown>, retriesLeft = 5, interva
 const Home = lazy(() => retryLoadComponent(() => import('@/pages/Home')));
 const Services = lazy(() => retryLoadComponent(() => import('@/pages/Services')));
 const ServiceDetail = lazy(() => retryLoadComponent(() => import('@/pages/ServiceDetail')));
+const Orders = lazy(() => retryLoadComponent(() => import('@/pages/Orders')));
 
 const Login = lazy(() => retryLoadComponent(() => import('@/pages/Login')));
 
 const Dashboard = lazy(() => retryLoadComponent(() => import('@/pages/Dashboard')));
+const Users = lazy(() => retryLoadComponent(() => import('@/pages/Users')));
+const Settings = lazy(() => retryLoadComponent(() => import('@/pages/Settings')));
 
 export const LayoutPaths = {
   Guest: '/',
   Auth: '/auth',
-  Admin: '/admin',
+  Admin: '/quan-ly',
 };
 
 export const ModulePaths = {
   Services: '/dich-vu',
+  Settings: '/cai-dat',
+  Users: '/nguoi-dung',
 };
 
 export const Paths = {
   Home: '/',
   Services: ModulePaths.Services,
   ServiceDetail: (id?: string): string => `${ModulePaths.Services}/chi-tiet/${id || ':id'}`,
+  Orders: '/tra-van-don',
 
   Login: '/',
 
   Dashboard: '/',
+  Users: ModulePaths.Users,
+  Settings: ModulePaths.Settings,
+
   Rest: '*',
 };
 
@@ -52,10 +61,13 @@ export const Pages = {
   Home,
   Services,
   ServiceDetail,
+  Orders,
 
   Login,
 
   Dashboard,
+  Users,
+  Settings,
 };
 
 interface IRouteProps extends RouteComponentProps {

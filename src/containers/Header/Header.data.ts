@@ -1,7 +1,9 @@
+import { Paths } from '@/pages/routers';
+
 export const dataHeaderMenu = [
-  { link: '/', title: 'Trang chủ' },
-  { link: '/', title: 'về chúng tôi' },
-  { link: '/', title: 'Liên hệ' },
-  { link: '/', title: 'Dịch vụ' },
-  { link: '/', title: 'Tra vận đơn' },
+  { link: Paths.Home, title: 'Trang chủ' },
+  { link: '/', title: 'Về chúng tôi', disabled: true },
+  { link: '/', title: 'Liên hệ', disabled: true },
+  { link: '/', title: 'Dịch vụ', disabled: true },
+  { link: Paths.Orders, title: 'Tra vận đơn' },
 ];

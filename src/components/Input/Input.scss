@@ -15,4 +15,27 @@
       font-weight: 300;
     }
   }
+
+  &.admin-style {
+    .ant-input {
+      box-shadow: none;
+      border-radius: .3rem;
+      padding: .5rem 1rem;
+      border: 1px solid $mercury;
+
+      &.ant-input-lg {
+        min-height: 5.5rem;
+      }
+
+      &:hover {
+        border-color: $shamrock;
+      }
+
+      &:focus,
+      &.ant-input-focused {
+        border-color: $shamrock;
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.3);
+      }
+    }
+  }
 }

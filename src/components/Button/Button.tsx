@@ -7,13 +7,32 @@ import { TButtonProps } from '@/components/Button/Button.types';
 
 import './Button.scss';
 
-const Button: React.FC<TButtonProps> = ({ className, title, icon, uppercase, link, onClick, ...rest }) => {
+const Button: React.FC<TButtonProps> = ({
+  className,
+  adminStyle,
+  title,
+  icon,
+  uppercase,
+  reverse,
+  link,
+  onClick,
+  ...rest
+}) => {
   const handleClick = (): void => {
     if (link) navigate(link);
     else onClick?.();
   };
   return (
-    <div className={classNames('Button', className, { uppercase })}>
+    <div
+      className={classNames(
+        'Button',
+        className,
+        { uppercase },
+        { 'only-icon': !title && icon },
+        { 'admin-style': adminStyle },
+        { reverse },
+      )}
+    >
       <AntdButton {...rest} onClick={handleClick}>
         {title}
         {icon && <div className="Button-icon">{icon}</div>}
