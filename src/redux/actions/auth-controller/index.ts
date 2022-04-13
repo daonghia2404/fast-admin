@@ -22,6 +22,9 @@ import {
   TResendEmailOtpFailed,
   TResendEmailOtpRequest,
   TResendEmailOtpSuccess,
+  TUpdateUserInfoFailed,
+  TUpdateUserInfoRequest,
+  TUpdateUserInfoSuccess,
 } from '@/redux/actions/auth-controller/types';
 import {
   TChangePasswordByOtpBody,
@@ -37,6 +40,8 @@ import {
   TRegisterResponse,
   TResendEmailOtpBody,
   TResendEmailOtpResponse,
+  TUpdateUserInfoBody,
+  TUpdateUserInfoResponse,
 } from '@/services/api/auth-controller/types';
 
 import { EAuthControllerAction } from './constants';
@@ -187,6 +192,27 @@ export const getUserInfoAction = {
     EAuthControllerAction.GET_USER_INFO_FAILED,
     (resolve) =>
       (error: unknown): TGetUserInfoFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const updateUserInfoAction = {
+  request: createActionCreator(
+    EAuthControllerAction.UPDATE_USER_INFO_REQUEST,
+    (resolve) =>
+      (body: TUpdateUserInfoBody, cb?: (response: TUpdateUserInfoResponse) => void): TUpdateUserInfoRequest =>
+        resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EAuthControllerAction.UPDATE_USER_INFO_SUCCESS,
+    (resolve) =>
+      (response: TUpdateUserInfoResponse): TUpdateUserInfoSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EAuthControllerAction.UPDATE_USER_INFO_FAILED,
+    (resolve) =>
+      (error: unknown): TUpdateUserInfoFailed =>
         resolve({ error }),
   ),
 };

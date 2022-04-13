@@ -75,3 +75,6 @@ export enum EEmpty {
   STRIKE_THROUGH = '-',
   TRIPLE_STRIKE_THROUGH = '---',
 }
+export enum EFormatDate {
+  COMMON = 'DD/MM/YYYY',
+}

@@ -7,6 +7,7 @@ export type TInputProps = {
   type?: 'text' | 'password';
   placeholder?: string;
   adminStyle?: boolean;
+  disabled?: boolean;
   numberOnly?: boolean;
   style?: CSSProperties;
   value?: string;

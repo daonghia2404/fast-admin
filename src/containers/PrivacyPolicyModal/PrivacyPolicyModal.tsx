@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from '@/components/Modal';
 import ImagePrivacyPolicy from '@/assets/images/image-privacy-policy.png';
+import { getPolicyAction } from '@/redux/actions';
+import { TRootState } from '@/redux/reducers';
 
 import { TPrivacyPolicyModalProps } from './PrivacyPolicyModal.types';
 import './PrivacyPolicyModal.scss';
 
 const PrivacyPolicyModal: React.FC<TPrivacyPolicyModalProps> = ({ visible, onClose }) => {
+  const dispatch = useDispatch();
+
+  const policyState = useSelector((state: TRootState) => state.articleReducer.policy);
+
+  const getPolicyData = useCallback(() => {
+    dispatch(getPolicyAction.request());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (visible && !policyState) {
+      getPolicyData();
+    }
+  }, [getPolicyData, visible, policyState]);
+
   return (
     <Modal visible={visible} onClose={onClose} maxWidth="84rem" radius wrapClassName="PrivacyPolicyModal-wrapper">
       <div className="PrivacyPolicyModal-title">Điều khoản chính sách</div>

@@ -5,6 +5,7 @@ import { DatePicker as AntdDatePicker } from 'antd';
 
 import { TDatePickerProps } from './DatePicker.types';
 import Icon, { EIconName } from '@/components/Icon';
+import { EFormatDate } from '@/common/enums';
 
 import './DatePicker.scss';
 
@@ -17,6 +18,7 @@ const DatePicker: React.FC<TDatePickerProps> = ({ className, adminStyle, dropdow
     <div className={classNames('DatePicker', { 'admin-style': adminStyle })}>
       <AntdDatePicker
         {...rest}
+        format={EFormatDate.COMMON}
         dropdownClassName={classNames('DatePicker-dropdown', dropdownClassName)}
         onChange={handleChange}
         suffixIcon={<Icon name={EIconName.CalendarGrid} />}

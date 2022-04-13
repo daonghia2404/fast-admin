@@ -110,7 +110,6 @@ const Header: React.FC<THeaderProps> = () => {
   };
 
   const handleSignInSuccess = (): void => {
-    getUserInfoData();
     handleCloseAuthModal();
   };
 
@@ -137,7 +136,7 @@ const Header: React.FC<THeaderProps> = () => {
           <div className="Header-account-overlay-info-avatar flex justify-center items-center">
             <Avatar size={120} />
           </div>
-          <div className="Header-account-overlay-info-name">Admin</div>
+          <div className="Header-account-overlay-info-name">{userInfoState.data.username}</div>
         </div>
         <div className="Header-account-overlay-list">
           <div
@@ -229,7 +228,7 @@ const Header: React.FC<THeaderProps> = () => {
               <div className="Header-account-avatar">
                 <Avatar size={24} />
               </div>
-              <div className="Header-account-name">Admin</div>
+              <div className="Header-account-name">{userInfoState.data.username}</div>
               <div className="Header-account-arrow">
                 <Icon name={EIconName.AngleDown} color={EIconColor.WHITE} />
               </div>
@@ -258,7 +257,11 @@ const Header: React.FC<THeaderProps> = () => {
 
       <ChangePasswordModal {...changePasswordModalState} onClose={handleCloseChangePasswordModal} />
 
-      <UpdateInfoAccountModal {...updateInfoAccountModalState} onClose={handleCloseUpdateInfoAccountModal} />
+      <UpdateInfoAccountModal
+        {...updateInfoAccountModalState}
+        onClose={handleCloseUpdateInfoAccountModal}
+        onSubmit={getUserInfoData}
+      />
 
       <AuthModal {...authModalState} onClose={handleCloseAuthModal} onSignInSuccess={handleSignInSuccess} />
 

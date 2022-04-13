@@ -36,7 +36,7 @@ const AuthorizedInstance = (baseURL: string): AxiosInstance => {
     const authBearer = authHelpers.getAccessToken();
 
     if (authBearer) {
-      request.headers.Authorization = `Bearer ${authBearer}`;
+      request.headers.Authorization = `${authBearer}`;
     }
 
     return request;

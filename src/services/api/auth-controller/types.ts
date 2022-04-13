@@ -39,4 +39,29 @@ export type TChangePasswordByOtpBody = {
 };
 export type TChangePasswordByOtpResponse = unknown;
 
-export type TGetUserInfoResponse = unknown;
+export type TGetUserInfoResponse = TCommonResponse & {
+  data: {
+    address: number;
+    code: number;
+    createdDate: number;
+    customerStatus: unknown;
+    email: string;
+    employeeId: number;
+    fullname: string;
+    id: number;
+    isAdmin: boolean;
+    listRole: unknown;
+    modifiedDate: string;
+    password: string;
+    phone: string;
+    socialLink: string;
+    username: string;
+  };
+};
+
+export type TUpdateUserInfoBody = {
+  username: string;
+  phone: string;
+  address: string;
+};
+export type TUpdateUserInfoResponse = unknown;

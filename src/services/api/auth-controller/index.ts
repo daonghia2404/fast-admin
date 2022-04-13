@@ -15,6 +15,8 @@ import {
   TRegisterResponse,
   TResendEmailOtpBody,
   TResendEmailOtpResponse,
+  TUpdateUserInfoBody,
+  TUpdateUserInfoResponse,
 } from '@/services/api/auth-controller/types';
 
 class Controller {
@@ -49,7 +51,12 @@ class Controller {
   };
 
   getUserInfo = async (): Promise<TGetUserInfoResponse> => {
-    const response = await Service.get('/api/Account/getUserInfo');
+    const response = await Service.post('/api/User/getUserInfo');
+    return response.data;
+  };
+
+  updateUserInfo = async (body: TUpdateUserInfoBody): Promise<TUpdateUserInfoResponse> => {
+    const response = await Service.post('/api/User/updateUserInfo', body);
     return response.data;
   };
 

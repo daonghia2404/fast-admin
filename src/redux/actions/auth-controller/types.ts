@@ -12,6 +12,8 @@ import {
   TRegisterResponse,
   TResendEmailOtpBody,
   TResendEmailOtpResponse,
+  TUpdateUserInfoBody,
+  TUpdateUserInfoResponse,
 } from '@/services/api/auth-controller/types';
 import { EAuthControllerAction } from './constants';
 
@@ -128,5 +130,23 @@ export type TGetUserInfoSuccess = {
 
 export type TGetUserInfoFailed = {
   type: EAuthControllerAction.GET_USER_INFO_FAILED;
+  payload: { error: unknown };
+};
+
+export type TUpdateUserInfoRequest = {
+  type: EAuthControllerAction.UPDATE_USER_INFO_REQUEST;
+  payload: {
+    body: TUpdateUserInfoBody;
+    cb?: (response: TUpdateUserInfoResponse) => void;
+  };
+};
+
+export type TUpdateUserInfoSuccess = {
+  type: EAuthControllerAction.UPDATE_USER_INFO_SUCCESS;
+  payload: { response: TUpdateUserInfoResponse };
+};
+
+export type TUpdateUserInfoFailed = {
+  type: EAuthControllerAction.UPDATE_USER_INFO_FAILED;
   payload: { error: unknown };
 };
