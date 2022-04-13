@@ -10,6 +10,9 @@ import {
   TForgotPasswordFailed,
   TForgotPasswordRequest,
   TForgotPasswordSuccess,
+  TGetUserInfoFailed,
+  TGetUserInfoRequest,
+  TGetUserInfoSuccess,
   TLoginFailed,
   TLoginRequest,
   TLoginSuccess,
@@ -27,6 +30,7 @@ import {
   TConfirmEmailOtpResponse,
   TForgotPasswordBody,
   TForgotPasswordResponse,
+  TGetUserInfoResponse,
   TLoginBody,
   TLoginResponse,
   TRegisterBody,
@@ -162,6 +166,27 @@ export const changePasswordByOtpAction = {
     EAuthControllerAction.CHANGE_PASSWORD_BY_OTP_FAILED,
     (resolve) =>
       (error: unknown): TChangePasswordByOtpFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getUserInfoAction = {
+  request: createActionCreator(
+    EAuthControllerAction.GET_USER_INFO_REQUEST,
+    (resolve) =>
+      (cb?: (response: TGetUserInfoResponse) => void): TGetUserInfoRequest =>
+        resolve({ cb }),
+  ),
+  success: createActionCreator(
+    EAuthControllerAction.GET_USER_INFO_SUCCESS,
+    (resolve) =>
+      (response: TGetUserInfoResponse): TGetUserInfoSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EAuthControllerAction.GET_USER_INFO_FAILED,
+    (resolve) =>
+      (error: unknown): TGetUserInfoFailed =>
         resolve({ error }),
   ),
 };

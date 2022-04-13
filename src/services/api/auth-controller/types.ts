@@ -1,9 +1,15 @@
+import { TCommonResponse } from '@/common/types';
+
 export type TLoginBody = {
   phone: string;
   password: string;
 };
 
-export type TLoginResponse = unknown;
+export type TLoginResponse = TCommonResponse & {
+  data: {
+    token: string;
+  };
+};
 
 export type TRefreshTokenBody = unknown;
 
@@ -14,6 +20,7 @@ export type TRegisterBody = {
   fullName: string;
   email: string;
   phone: string;
+  address: string;
   password: string;
 };
 
@@ -28,7 +35,8 @@ export type TResendEmailOtpResponse = unknown;
 export type TChangePasswordByOtpBody = {
   otp: string;
   email: string;
-  currentPassword: string;
   newPassword: string;
 };
 export type TChangePasswordByOtpResponse = unknown;
+
+export type TGetUserInfoResponse = unknown;

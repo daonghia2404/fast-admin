@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Link } from '@reach/router';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Link, navigate } from '@reach/router';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import Logo from '@/assets/images/logo.svg';
@@ -18,17 +18,24 @@ import ChangePasswordModal from '@/containers/ChangePasswordModal';
 import UpdateInfoAccountModal from '@/containers/UpdateInfoAccountModal';
 import { THeaderProps } from '@/containers/Header/Header.types';
 import { useOnClickOutside } from '@/utils/hooks';
+import { Paths } from '@/pages/routers';
+import AuthHelpers from '@/services/helpers';
+import { getUserInfoAction } from '@/redux/actions';
+import ModalConfirm from '@/containers/ModalConfirm';
 
 import './Header.scss';
-import { Paths } from '@/pages/routers';
 
 const Header: React.FC<THeaderProps> = () => {
+  const dispatch = useDispatch();
   const deviceType = useSelector((state: TRootState) => state.uiReducer.device);
   const isMobile = deviceType.type === EDeviceType.MOBILE;
   const isSmallMobile = deviceType.width <= 991;
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const atk = AuthHelpers.getAccessToken();
 
-  const [isLogged, setIsLogged] = useState<boolean>(false);
+  const [visibleLogoutModal, setVisibleLogoutModal] = useState<boolean>(false);
+
+  const userInfoState = useSelector((state: TRootState) => state.authReducer.user);
 
   const [visibleMenu, setVisibleMenu] = useState<boolean>(false);
   const [authModalState, setAuthModalState] = useState<{
@@ -103,8 +110,24 @@ const Header: React.FC<THeaderProps> = () => {
   };
 
   const handleSignInSuccess = (): void => {
-    setIsLogged(true);
+    getUserInfoData();
     handleCloseAuthModal();
+  };
+
+  const getUserInfoData = useCallback(() => {
+    dispatch(getUserInfoAction.request());
+  }, [dispatch]);
+
+  const handleOpenLogoutModal = (): void => {
+    setVisibleLogoutModal(true);
+  };
+  const handleCloseLogoutModal = (): void => {
+    setVisibleLogoutModal(false);
+  };
+  const handleSubmitLogoutModal = (): void => {
+    handleCloseLogoutModal();
+    AuthHelpers.clearTokens();
+    navigate(Paths.Home);
   };
 
   const renderHeaderAccountDropdown = (): React.ReactElement => {
@@ -138,7 +161,7 @@ const Header: React.FC<THeaderProps> = () => {
             </div>
             <div className="Header-account-overlay-list-item-title">Đổi mật khẩu</div>
           </div>
-          <div className="Header-account-overlay-list-item flex items-center">
+          <div className="Header-account-overlay-list-item flex items-center" onClick={handleOpenLogoutModal}>
             <div className="Header-account-overlay-list-item-icon">
               <Icon name={EIconName.Logout} />
             </div>
@@ -152,6 +175,10 @@ const Header: React.FC<THeaderProps> = () => {
   useEffect(() => {
     if (!isMobile) setVisibleMenu(false);
   }, [isMobile]);
+
+  useEffect(() => {
+    if (atk) getUserInfoData();
+  }, [atk, getUserInfoData]);
 
   return (
     <div className={classNames('Header flex justify-between items-center', { visible: visibleMenu })}>
@@ -196,7 +223,7 @@ const Header: React.FC<THeaderProps> = () => {
             </>
           )}
         </div>
-        {isLogged ? (
+        {userInfoState ? (
           <DropdownCustom overlayClassName="Header-account-overlay" overlay={renderHeaderAccountDropdown()}>
             <div className="Header-account flex items-center">
               <div className="Header-account-avatar">
@@ -236,6 +263,14 @@ const Header: React.FC<THeaderProps> = () => {
       <AuthModal {...authModalState} onClose={handleCloseAuthModal} onSignInSuccess={handleSignInSuccess} />
 
       <PrivacyPolicyModal {...privacyPolicyModalState} onClose={handleClosePrivacyPolicyModal} />
+
+      <ModalConfirm
+        visible={visibleLogoutModal}
+        title="Đăng xuất"
+        description="Bạn có chắc chắn muốn đăng xuất tài khoản ở phiên đăng nhập này?"
+        onClose={handleCloseLogoutModal}
+        onSubmit={handleSubmitLogoutModal}
+      />
     </div>
   );
 };

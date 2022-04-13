@@ -7,6 +7,7 @@ import {
   changePasswordByOtpAction,
   confirmEmailOtpAction,
   forgotPasswordAction,
+  getUserInfoAction,
   loginAction,
   registerAction,
   resendEmailOtpAction,
@@ -15,6 +16,7 @@ import {
   TChangePasswordByOtpResponse,
   TConfirmEmailOtpResponse,
   TForgotPasswordResponse,
+  TGetUserInfoResponse,
   TLoginResponse,
   TRegisterResponse,
   TResendEmailOtpResponse,
@@ -25,7 +27,7 @@ export function* loginSaga(action: ActionType<typeof loginAction.request>): Gene
   try {
     const response = (yield call(AuthControllerInstance.login, body)) as TLoginResponse;
 
-    authHelpers.storeAccessToken('');
+    authHelpers.storeAccessToken(response.data.token);
     authHelpers.storeRefreshToken('');
 
     yield put(loginAction.success(response));
@@ -95,6 +97,18 @@ export function* changePasswordByOtpSaga(action: ActionType<typeof changePasswor
   }
 }
 
+export function* getUserInfoSaga(action: ActionType<typeof getUserInfoAction.request>): Generator {
+  const { cb } = action.payload;
+  try {
+    const response = (yield call(AuthControllerInstance.getUserInfo)) as TGetUserInfoResponse;
+
+    yield put(getUserInfoAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getUserInfoAction.failure(err));
+  }
+}
+
 export default function* root(): Generator {
   yield all([takeLatest(loginAction.request.type, loginSaga)]);
   yield all([takeLatest(registerAction.request.type, registerSaga)]);
@@ -102,4 +116,5 @@ export default function* root(): Generator {
   yield all([takeLatest(confirmEmailOtpAction.request.type, confirmEmailOtpSaga)]);
   yield all([takeLatest(resendEmailOtpAction.request.type, resendEmailOtpSaga)]);
   yield all([takeLatest(changePasswordByOtpAction.request.type, changePasswordByOtpSaga)]);
+  yield all([takeLatest(getUserInfoAction.request.type, getUserInfoSaga)]);
 }

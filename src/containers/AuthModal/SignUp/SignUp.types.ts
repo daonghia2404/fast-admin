@@ -1,3 +1,5 @@
+import { TRegisterBody } from '@/services/api/auth-controller/types';
+
 export type TSignUpProps = {
-  onSubmit?: () => void;
+  onSubmit?: (data: TRegisterBody) => void;
 };

@@ -9,60 +9,84 @@ import SignUp from '@/containers/AuthModal/SignUp';
 import VetifyAccount from '@/containers/AuthModal/VetifyAccount';
 import FindAccount from '@/containers/AuthModal/FindAccount';
 import ChangePassword from '@/containers/AuthModal/ChangePassword';
+import { TForgotPasswordBody, TRegisterBody } from '@/services/api/auth-controller/types';
 
 import { TAuthModalProps } from './AuthModal.types';
 import './AuthModal.scss';
 
 const AuthModal: React.FC<TAuthModalProps> = ({ visible, tabKey, onClose, onSignInSuccess }) => {
-  const [keyTab, setKeyTab] = useState<EKeyTabAuthModal>(tabKey || EKeyTabAuthModal.SIGN_IN);
-  const isSignInTab = keyTab === EKeyTabAuthModal.SIGN_IN;
+  const [keyTab, setKeyTab] = useState<{
+    data?: any;
+    prevKey?: EKeyTabAuthModal;
+    key: EKeyTabAuthModal;
+  }>({
+    key: tabKey || EKeyTabAuthModal.SIGN_IN,
+  });
+  const isSignInTab = keyTab.key === EKeyTabAuthModal.SIGN_IN;
 
-  const isAuthLayout = [EKeyTabAuthModal.SIGN_IN, EKeyTabAuthModal.SIGN_UP].includes(keyTab);
+  const isAuthLayout = [EKeyTabAuthModal.SIGN_IN, EKeyTabAuthModal.SIGN_UP].includes(keyTab.key);
 
-  const handleChangeKeyTab = (key: EKeyTabAuthModal): void => {
-    setKeyTab(key);
+  const handleChangeKeyTab = (key: EKeyTabAuthModal, data?: any, prevKey?: EKeyTabAuthModal): void => {
+    setKeyTab({
+      key,
+      data,
+      prevKey,
+    });
   };
 
-  const handleNextStep = (): void => {
-    switch (keyTab) {
-      case EKeyTabAuthModal.SIGN_IN:
-        setKeyTab(EKeyTabAuthModal.FIND_ACCOUNT);
-        break;
-      case EKeyTabAuthModal.FIND_ACCOUNT:
-        setKeyTab(EKeyTabAuthModal.VETIFY_ACCOUNT);
-        break;
-      case EKeyTabAuthModal.VETIFY_ACCOUNT:
-        setKeyTab(EKeyTabAuthModal.CHANGE_PASSWORD);
-        break;
-      case EKeyTabAuthModal.CHANGE_PASSWORD:
-      case EKeyTabAuthModal.SIGN_UP:
-        setKeyTab(EKeyTabAuthModal.SIGN_IN);
-        break;
+  const handleClickForgotPassword = (): void => {
+    handleChangeKeyTab(EKeyTabAuthModal.FIND_ACCOUNT);
+  };
 
-      default:
-        break;
-    }
+  const handleForgotPasswordSuccess = (data: TForgotPasswordBody): void => {
+    handleChangeKeyTab(EKeyTabAuthModal.CHANGE_PASSWORD, data);
+  };
+
+  const handleSignUpSuccess = (data: TRegisterBody): void => {
+    handleChangeKeyTab(EKeyTabAuthModal.VETIFY_ACCOUNT, data, EKeyTabAuthModal.SIGN_UP);
+  };
+
+  const handleConfirmOtpForgotPasswordSuccess = (data: any): void => {
+    handleChangeKeyTab(EKeyTabAuthModal.CHANGE_PASSWORD, data);
+  };
+
+  const handleConfirmOtpSignInSuccess = (): void => {
+    handleChangeKeyTab(EKeyTabAuthModal.SIGN_IN);
+  };
+
+  const handleChangePasswordSuccess = (): void => {
+    handleChangeKeyTab(EKeyTabAuthModal.SIGN_IN);
   };
 
   const renderSectionTab = (): React.ReactNode => {
-    switch (keyTab) {
+    switch (keyTab.key) {
       case EKeyTabAuthModal.SIGN_IN:
-        return <SignIn onClickForgotPassword={handleNextStep} onSubmit={onSignInSuccess} />;
+        return <SignIn onClickForgotPassword={handleClickForgotPassword} onSubmit={onSignInSuccess} />;
       case EKeyTabAuthModal.SIGN_UP:
-        return <SignUp onSubmit={handleNextStep} />;
+        return <SignUp onSubmit={handleSignUpSuccess} />;
       case EKeyTabAuthModal.FIND_ACCOUNT:
-        return <FindAccount onSubmit={handleNextStep} />;
+        return <FindAccount onSubmit={handleForgotPasswordSuccess} />;
       case EKeyTabAuthModal.VETIFY_ACCOUNT:
-        return <VetifyAccount onSubmit={handleNextStep} />;
+        return (
+          <VetifyAccount
+            prevKey={keyTab.prevKey}
+            data={keyTab.data}
+            onConfirmOtpSignIn={handleConfirmOtpSignInSuccess}
+            onConfirmOtpForgotPassword={handleConfirmOtpForgotPasswordSuccess}
+          />
+        );
       case EKeyTabAuthModal.CHANGE_PASSWORD:
-        return <ChangePassword onSubmit={handleNextStep} />;
+        return <ChangePassword data={keyTab.data} onSubmit={handleChangePasswordSuccess} />;
       default:
         return <></>;
     }
   };
 
   useEffect(() => {
-    if (tabKey) setKeyTab(tabKey);
+    if (tabKey)
+      setKeyTab({
+        key: tabKey,
+      });
   }, [tabKey]);
 
   return (
@@ -79,12 +103,12 @@ const AuthModal: React.FC<TAuthModalProps> = ({ visible, tabKey, onClose, onSign
           <img className="AuthModal-main-item-image" src={BgAuth} alt="" />
         </div>
         <div className="AuthModal-main-item">
-          {isAuthLayout ? (
+          {isAuthLayout && (
             <>
               <div className="AuthModal-tabs flex items-center">
                 <div
                   className={classNames('AuthModal-tabs-item flex items-center justify-center', {
-                    active: keyTab === EKeyTabAuthModal.SIGN_IN,
+                    active: keyTab.key === EKeyTabAuthModal.SIGN_IN,
                   })}
                   onClick={(): void => handleChangeKeyTab(EKeyTabAuthModal.SIGN_IN)}
                 >
@@ -92,7 +116,7 @@ const AuthModal: React.FC<TAuthModalProps> = ({ visible, tabKey, onClose, onSign
                 </div>
                 <div
                   className={classNames('AuthModal-tabs-item flex items-center justify-center', {
-                    active: keyTab === EKeyTabAuthModal.SIGN_UP,
+                    active: keyTab.key === EKeyTabAuthModal.SIGN_UP,
                   })}
                   onClick={(): void => handleChangeKeyTab(EKeyTabAuthModal.SIGN_UP)}
                 >
@@ -103,12 +127,9 @@ const AuthModal: React.FC<TAuthModalProps> = ({ visible, tabKey, onClose, onSign
               <div className="AuthModal-description">
                 {isSignInTab ? 'Đăng nhập để tiếp tục.' : 'Đăng ký để tham gia cùng chúng tôi.'}
               </div>
-
-              {renderSectionTab()}
             </>
-          ) : (
-            <>{renderSectionTab()}</>
           )}
+          {renderSectionTab()}
         </div>
       </div>
     </Modal>

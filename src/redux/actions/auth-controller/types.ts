@@ -5,6 +5,7 @@ import {
   TConfirmEmailOtpResponse,
   TForgotPasswordBody,
   TForgotPasswordResponse,
+  TGetUserInfoResponse,
   TLoginBody,
   TLoginResponse,
   TRegisterBody,
@@ -110,5 +111,22 @@ export type TChangePasswordByOtpSuccess = {
 
 export type TChangePasswordByOtpFailed = {
   type: EAuthControllerAction.CHANGE_PASSWORD_BY_OTP_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetUserInfoRequest = {
+  type: EAuthControllerAction.GET_USER_INFO_REQUEST;
+  payload: {
+    cb?: (response: TGetUserInfoResponse) => void;
+  };
+};
+
+export type TGetUserInfoSuccess = {
+  type: EAuthControllerAction.GET_USER_INFO_SUCCESS;
+  payload: { response: TGetUserInfoResponse };
+};
+
+export type TGetUserInfoFailed = {
+  type: EAuthControllerAction.GET_USER_INFO_FAILED;
   payload: { error: unknown };
 };

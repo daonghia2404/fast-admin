@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Slider } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
@@ -11,13 +11,17 @@ import AuthHelpers from '@/services/helpers';
 
 import { TSignInProps } from './SignIn.types';
 import { ETypeNotification } from '@/common/enums';
+import { TRootState } from '@/redux/reducers';
+import { EAuthControllerAction } from '@/redux/actions/auth-controller/constants';
 
 const SignIn: React.FC<TSignInProps> = ({ onClickForgotPassword, onSubmit }) => {
   const dispatch = useDispatch();
-
   const [form] = Form.useForm();
+
   const [sliderValue, setSliderValue] = useState(0);
   const isDisabledSubmit = sliderValue !== 100;
+
+  const loginLoading = useSelector((state: TRootState) => state.loadingReducer[EAuthControllerAction.LOGIN]);
 
   const handleSubmit = (values: any): void => {
     if (values.remember) {
@@ -36,11 +40,17 @@ const SignIn: React.FC<TSignInProps> = ({ onClickForgotPassword, onSubmit }) => 
 
   const handleLoginSuccess = (): void => {
     showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công');
+    resetFields();
     onSubmit?.();
   };
 
   const handleChangeSliderValue = (value: number): void => {
     setSliderValue(value);
+  };
+
+  const resetFields = (): void => {
+    form.resetFields();
+    setSliderValue(0);
   };
 
   useEffect(() => {
@@ -54,6 +64,12 @@ const SignIn: React.FC<TSignInProps> = ({ onClickForgotPassword, onSubmit }) => 
         remember: true,
       });
     }
+
+    return (): void => {
+      resetFields();
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
 
   return (
@@ -86,7 +102,7 @@ const SignIn: React.FC<TSignInProps> = ({ onClickForgotPassword, onSubmit }) => 
       </div>
 
       <Form.Item className="AuthModal-submit">
-        <Button type="primary" htmlType="submit" title="Đăng Nhập" disabled={isDisabledSubmit} />
+        <Button type="primary" htmlType="submit" title="Đăng Nhập" disabled={isDisabledSubmit} loading={loginLoading} />
       </Form.Item>
     </Form>
   );

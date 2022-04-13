@@ -161,6 +161,7 @@
   &-resend {
     margin-top: 2.5rem;
     text-align: center;
+    cursor: pointer;
 
     &-title {
       font-size: 1.6rem;
@@ -170,10 +171,18 @@
     &-action {
       font-size: 1.6rem;
       color: $shamrock;
+      transition: $common-transition;
 
       &:hover {
         cursor: pointer;
         text-decoration: underline;
+      }
+  
+      &.disabled {
+        &:hover {
+          cursor: not-allowed;
+          text-decoration: none;
+        }
       }
     }
   }
@@ -200,6 +209,7 @@
       padding: 0;
       margin: 0;
       height: 6.3rem;
+
       &.ant-slider-disabled {
         .ant-slider-handle {
           opacity: 0.7;

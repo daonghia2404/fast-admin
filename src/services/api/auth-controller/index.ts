@@ -6,6 +6,7 @@ import {
   TConfirmEmailOtpResponse,
   TForgotPasswordBody,
   TForgotPasswordResponse,
+  TGetUserInfoResponse,
   TLoginBody,
   TLoginResponse,
   TRefreshTokenBody,
@@ -44,6 +45,11 @@ class Controller {
 
   changePasswordByOtp = async (body: TChangePasswordByOtpBody): Promise<TChangePasswordByOtpResponse> => {
     const response = await Service.post('/api/Account/reCreatePasswordByOtp', body);
+    return response.data;
+  };
+
+  getUserInfo = async (): Promise<TGetUserInfoResponse> => {
+    const response = await Service.get('/api/Account/getUserInfo');
     return response.data;
   };
 

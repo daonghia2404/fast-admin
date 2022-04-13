@@ -83,6 +83,14 @@
     }
   }
 
+  &.outline-primary {
+    .ant-btn {
+      border-color: $shamrock;
+      background: $white;
+      color: $shamrock;
+    }
+  }
+
   &.black {
     .ant-btn {
       border-color: $woodsmoke;

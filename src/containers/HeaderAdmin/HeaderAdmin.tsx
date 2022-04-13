@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 
 import Logo from '@/assets/images/logo.svg';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
@@ -10,8 +10,10 @@ import DropdownCustom from '@/components/DropdownCustom';
 import ChangePasswordModal from '@/containers/ChangePasswordModal';
 import UpdateInfoAccountModal from '@/containers/UpdateInfoAccountModal';
 import { Paths } from '@/pages/routers';
+import AuthHelpers from '@/services/helpers';
 
 import './HeaderAdmin.scss';
+import ModalConfirm from '@/containers/ModalConfirm';
 
 const HeaderAdmin: React.FC = () => {
   const [privacyPolicyModalState, setPrivacyPolicyModalState] = useState<{
@@ -29,6 +31,8 @@ const HeaderAdmin: React.FC = () => {
   }>({
     visible: false,
   });
+
+  const [visibleLogoutModal, setVisibleLogoutModal] = useState<boolean>(false);
 
   const handleOpenPrivacyPolicyModal = (): void => {
     setPrivacyPolicyModalState({
@@ -59,6 +63,18 @@ const HeaderAdmin: React.FC = () => {
     setUpdateInfoAccountModalState({
       visible: false,
     });
+  };
+
+  const handleOpenLogoutModal = (): void => {
+    setVisibleLogoutModal(true);
+  };
+  const handleCloseLogoutModal = (): void => {
+    setVisibleLogoutModal(false);
+  };
+  const handleSubmitLogoutModal = (): void => {
+    handleCloseLogoutModal();
+    AuthHelpers.clearTokens();
+    navigate(Paths.Home);
   };
 
   const renderHeaderAdminAccountDropdown = (): React.ReactElement => {
@@ -98,7 +114,7 @@ const HeaderAdmin: React.FC = () => {
             </div>
             <div className="HeaderAdmin-account-overlay-list-item-title">Đổi mật khẩu</div>
           </div>
-          <div className="HeaderAdmin-account-overlay-list-item flex items-center">
+          <div className="HeaderAdmin-account-overlay-list-item flex items-center" onClick={handleOpenLogoutModal}>
             <div className="HeaderAdmin-account-overlay-list-item-icon">
               <Icon name={EIconName.Logout} />
             </div>
@@ -151,6 +167,14 @@ const HeaderAdmin: React.FC = () => {
       <UpdateInfoAccountModal {...updateInfoAccountModalState} onClose={handleCloseUpdateInfoAccountModal} />
 
       <PrivacyPolicyModal {...privacyPolicyModalState} onClose={handleClosePrivacyPolicyModal} />
+
+      <ModalConfirm
+        visible={visibleLogoutModal}
+        title="Đăng xuất"
+        description="Bạn có chắc chắn muốn đăng xuất tài khoản ở phiên đăng nhập này?"
+        onClose={handleCloseLogoutModal}
+        onSubmit={handleSubmitLogoutModal}
+      />
     </div>
   );
 };
