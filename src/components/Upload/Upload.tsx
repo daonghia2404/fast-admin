@@ -2,10 +2,13 @@ import React, { useRef, useState } from 'react';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
 
+import { convertImageToBase64File } from '@/utils/functions';
+
 import { TUploadProps } from './Upload.types';
 import { EUploadType } from './Upload.enums';
 import './Upload.scss';
-import { convertImageToBase64File } from '@/utils/functions';
+import { uploadFileAction } from '@/redux/actions';
+import { TUploadFileResponse } from '@/services/api/upload-controller/types';
 
 export const Upload: React.FC<TUploadProps> = ({
   className,
@@ -18,6 +21,7 @@ export const Upload: React.FC<TUploadProps> = ({
   onChange,
   onChangeFile,
 }) => {
+  const dispatch = useDispatch();
   const inputFilesRef = useRef<HTMLInputElement>(null);
   const isSingleUpload = !multiple;
   const isMultipleUpload = multiple;
@@ -35,10 +39,18 @@ export const Upload: React.FC<TUploadProps> = ({
     if (isSingleUpload) {
       const singleFile = files?.[0];
 
-      if (singleFile) {
-        if (useFile) {
+      switch (true) {
+        case singleFile && useFile:
           onChangeFile?.(files);
-        } else if (isBase64Upload) convertImageToBase64File(singleFile, handleConvertImageToBase64FileSuccess);
+          break;
+        case singleFile && isBase64Upload:
+          convertImageToBase64File(singleFile, handleConvertImageToBase64FileSuccess);
+          break;
+        case singleFile && isApiUpload:
+          handleUploadFile(singleFile);
+          break;
+        default:
+          break;
       }
     }
     if (isMultipleUpload) {
@@ -46,6 +58,18 @@ export const Upload: React.FC<TUploadProps> = ({
     }
 
     if (inputFilesRef.current) inputFilesRef.current.value = '';
+  };
+
+  const handleUploadFile = (file?: File): void => {
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      dispatch(uploadFileAction.request(formData, hanldeUploadSuccess));
+    }
+  };
+
+  const hanldeUploadSuccess = (response: TUploadFileResponse): void => {
+    onChange?.(response.data.path);
   };
 
   const handleConvertImageToBase64FileSuccess = (data: string): void => {

@@ -6,7 +6,7 @@ import {
   TGetBannerCategoryResponse,
   TGetHomeBannerResponse,
 } from '@/services/api/banner-controller/types';
-import { getBannerAction, getBannersAction, getAllRolesAction } from '@/redux/actions';
+import { getBannerAction, getBannersAction, getBannerCategoryAction } from '@/redux/actions';
 
 export interface IState {
   bannerCategory?: TGetBannerCategoryResponse;
@@ -38,7 +38,7 @@ const reducer = createReducer(initialState, (handleAction) => [
       banner: response,
     };
   }),
-  handleAction(getAllRolesAction.success, (state, { payload }) => {
+  handleAction(getBannerCategoryAction.success, (state, { payload }) => {
     const { response } = payload;
 
     return {

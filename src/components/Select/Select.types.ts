@@ -18,7 +18,7 @@ export type TSelectProps = {
 
 export type TSelectOption = {
   label: string;
-  value: string;
+  value: any;
   data?: any;
   disabled?: boolean;
 };

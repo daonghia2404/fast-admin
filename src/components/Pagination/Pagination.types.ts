@@ -3,5 +3,6 @@ export type TPaginationProps = {
   page: number;
   pageSize: number;
   total: number;
+  hideOnSinglePage?: boolean;
   onChange?: (page: number, pageSize?: number) => void;
 };

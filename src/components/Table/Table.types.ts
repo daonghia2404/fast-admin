@@ -9,13 +9,18 @@ export type TTableProps = {
   columns: TTableColumn[];
   hideHeader?: boolean;
   hideFooter?: boolean;
+  showOrder?: boolean;
   dataSources: Array<any>;
   checkedValue?: Array<any>;
   rowKey?: string;
   loading?: boolean;
+  filtersRender?: React.ReactNode;
   title?: () => React.ReactElement;
   onPaginationChange?: (page: number, pageSize?: number) => void;
   onSearch?: (keyword: string) => void;
+  onReload?: () => void;
+  onJumpingPage?: (page: string) => void;
+  onAdd?: () => void;
 };
 
 export type TTableColumn = {

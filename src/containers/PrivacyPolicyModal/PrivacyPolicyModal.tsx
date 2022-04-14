@@ -13,6 +13,7 @@ const PrivacyPolicyModal: React.FC<TPrivacyPolicyModalProps> = ({ visible, onClo
   const dispatch = useDispatch();
 
   const policyState = useSelector((state: TRootState) => state.articleReducer.policy);
+  const policyData = policyState?.data?.ListArticle?.[0];
 
   const getPolicyData = useCallback(() => {
     dispatch(getPolicyAction.request());
@@ -27,7 +28,8 @@ const PrivacyPolicyModal: React.FC<TPrivacyPolicyModalProps> = ({ visible, onClo
   return (
     <Modal visible={visible} onClose={onClose} maxWidth="84rem" radius wrapClassName="PrivacyPolicyModal-wrapper">
       <div className="PrivacyPolicyModal-title">Điều khoản chính sách</div>
-      <div className="PrivacyPolicyModal-image">
+      <div className="PrivacyPolicyModal-content">{policyData?.content}</div>
+      {/* <div className="PrivacyPolicyModal-image">
         <img src={ImagePrivacyPolicy} alt="" />
       </div>
       <ul className="PrivacyPolicyModal-list">
@@ -46,7 +48,7 @@ const PrivacyPolicyModal: React.FC<TPrivacyPolicyModalProps> = ({ visible, onClo
           standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
           make a type specimen book. It has survived not only five centuries, but also the leap into electronic{' '}
         </li>
-      </ul>
+      </ul> */}
     </Modal>
   );
 };

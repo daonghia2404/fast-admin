@@ -47,4 +47,6 @@ export enum EIconColor {
   SHARK = '#2E3034',
   ROSE_WHITE = '#FFFAFA',
   GRAY = '#828282',
+  RED = '#ff0000',
+  BUTTERCUP = '#f1c40f',
 }

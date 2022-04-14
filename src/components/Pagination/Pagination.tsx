@@ -6,13 +6,20 @@ import { TPaginationProps } from './Pagination.types';
 
 import './Pagination.scss';
 
-export const Pagination: React.FC<TPaginationProps> = ({ page, pageSize, total, className, onChange }) => {
+export const Pagination: React.FC<TPaginationProps> = ({
+  page,
+  hideOnSinglePage,
+  pageSize,
+  total,
+  className,
+  onChange,
+}) => {
   const itemRender = (current: number, type: string, originalElement: React.ReactNode): React.ReactNode => {
     if (type === 'prev') {
-      return <div className="Pagination-first">Trang đầu</div>;
+      return <div className="Pagination-first">Trang trước</div>;
     }
     if (type === 'next') {
-      return <div className="Pagination-last">Trang cuối</div>;
+      return <div className="Pagination-last">Trang sau</div>;
     }
     return originalElement;
   };
@@ -22,8 +29,10 @@ export const Pagination: React.FC<TPaginationProps> = ({ page, pageSize, total, 
         current={page}
         pageSize={pageSize}
         itemRender={itemRender}
+        showQuickJumper={false}
+        showSizeChanger={false}
         total={total}
-        hideOnSinglePage
+        hideOnSinglePage={hideOnSinglePage}
         onChange={onChange}
       />
     </div>

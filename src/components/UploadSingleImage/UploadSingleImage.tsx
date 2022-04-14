@@ -16,7 +16,7 @@ export const UploadSingleImage: React.FC<TUploadSingleImageProps> = ({ className
           <img src={value} alt="" />
         </div>
       ) : (
-        <Upload type={EUploadType.base64} onChange={onChange}>
+        <Upload type={EUploadType.api} onChange={onChange}>
           <div className="UploadSingleImage-control flex flex-col items-center justify-center">
             <div className="UploadSingleImage-control-icon">
               <img src={ImagePicture} alt="" />

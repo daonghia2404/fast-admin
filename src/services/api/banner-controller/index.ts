@@ -14,12 +14,12 @@ import {
 
 class Controller {
   getBanners = async (body: TGetBannersBody): Promise<TGetBannersResponse> => {
-    const response = await Service.post('/api/Image/getListImage', body);
+    const response = await Service.post('/api/admin/Image/getListImage', body);
     return response.data;
   };
 
   getBanner = async (): Promise<TGetBannerResponse> => {
-    const response = await Service.get('/api/Image/getBanner');
+    const response = await Service.get('/api/admin/Image/getBanner');
     return response.data;
   };
 
@@ -29,17 +29,17 @@ class Controller {
   };
 
   getBannerCategory = async (): Promise<TGetBannerCategoryResponse> => {
-    const response = await Service.get('/api/Image/getImageCategory');
+    const response = await Service.get('/api/admin/Image/getImageCategory');
     return response.data;
   };
 
   createUpdateBanner = async (body: TCreateUpdateBannersBody): Promise<TCreateUpdateBannerResponse> => {
-    const response = await Service.post('/api/Image/createUpdate', body);
+    const response = await Service.post('/api/admin/Image/createUpdate', body);
     return response.data;
   };
 
   deleteBanner = async (params: TDeleteBannerParams): Promise<TDeleteBannerResponse> => {
-    const response = await Service.post('/api/Image/getList', {}, { params });
+    const response = await Service.post('/api/admin/Image/getList', {}, { params });
     return response.data;
   };
 }

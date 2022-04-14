@@ -16,22 +16,22 @@ import {
 
 class Controller {
   getAccounts = async (body: TGetAccountsBody): Promise<TGetAccountsResponse> => {
-    const response = await Service.post('/api/Account/getList', body);
+    const response = await Service.post('/api/admin/Account/getList', body);
     return response.data;
   };
 
   getAccount = async (params: TGetAccountParams): Promise<TGetAccountResponse> => {
-    const response = await Service.get('/api/Account/getDetail', { params });
+    const response = await Service.get('/api/admin/Account/getDetail', { params });
     return response.data;
   };
 
   getAllRoles = async (): Promise<TGetAllRolesResponse> => {
-    const response = await Service.get('/api/Account/getAllRole');
+    const response = await Service.get('/api/admin/Account/getAllRole');
     return response.data;
   };
 
   createUpdateAccount = async (body: TCreateUpdateAccountsBody): Promise<TCreateUpdateAccountResponse> => {
-    const response = await Service.post('/api/Account/createUpdate', body);
+    const response = await Service.post('/api/admin/Account/createUpdate', body);
     return response.data;
   };
 
@@ -41,7 +41,7 @@ class Controller {
   };
 
   deleteAccount = async (params: TDeleteAccountParams): Promise<TDeleteAccountResponse> => {
-    const response = await Service.post('/api/Account/getList', {}, { params });
+    const response = await Service.post('/api/admin/Account/getList', {}, { params });
     return response.data;
   };
 }

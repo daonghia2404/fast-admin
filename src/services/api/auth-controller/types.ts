@@ -1,3 +1,4 @@
+import { ECustomerStatus } from '@/common/enums';
 import { TCommonResponse } from '@/common/types';
 
 export type TLoginBody = {
@@ -44,7 +45,7 @@ export type TGetUserInfoResponse = TCommonResponse & {
     address: number;
     code: number;
     createdDate: number;
-    customerStatus: unknown;
+    customerStatus: ECustomerStatus;
     email: string;
     employeeId: number;
     fullname: string;

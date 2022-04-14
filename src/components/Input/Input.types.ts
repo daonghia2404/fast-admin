@@ -8,6 +8,7 @@ export type TInputProps = {
   placeholder?: string;
   adminStyle?: boolean;
   disabled?: boolean;
+  notZero?: boolean;
   numberOnly?: boolean;
   style?: CSSProperties;
   value?: string;

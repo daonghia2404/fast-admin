@@ -9,18 +9,8 @@ const Members: React.FC = () => {
   const dataTabs = [
     {
       key: '1',
-      title: 'Tab 1',
+      title: 'Nhân viên',
       content: <MembersTable />,
-    },
-    {
-      key: '2',
-      title: 'Tab 2',
-      content: <></>,
-    },
-    {
-      key: '3',
-      title: 'Tab 3',
-      content: <></>,
     },
   ];
 

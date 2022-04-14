@@ -12,5 +12,5 @@ export type TUploadProps = {
   videoUpload?: boolean;
   disabled?: boolean;
   onChange?: (data: string) => void;
-  onChangeFile?: (data: FileList) => void;
+  onChangeFile?: (data: FileList | null) => void;
 };

@@ -19,8 +19,10 @@ const HeaderAdminNavigation: React.FC<THeaderAdminNavigationProps> = () => {
 
   return (
     <div className="HeaderAdminNavigation flex items-center">
-      {dataHeaderAdminNavigation.map((item) => (
+      {dataHeaderAdminNavigation.map((item, index) => (
         <div
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
           className={classNames('HeaderAdminNavigation-item flex items-center', {
             disabled: item.disabled,
             active: pathname.includes(item.link),

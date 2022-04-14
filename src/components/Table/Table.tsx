@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Table as AntdTable } from 'antd';
 
-import { TIMEOUT_DEBOUNCE } from '@/common/enums';
-import { useDebounce } from '@/utils/hooks';
 import { dataOptionsPageSize, DEFAULT_PAGE } from '@/common/constants';
 import { TTableProps } from './Table.types';
 import Pagination from '@/components/Pagination';
 import Select, { TSelectOption } from '@/components/Select';
-
-import './Table.scss';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
-import DatePicker from '@/components/DatePicker';
-import DropdownCustom from '@/components/DropdownCustom';
+
+import './Table.scss';
 
 export const Table: React.FC<TTableProps> = ({
   className,
@@ -25,31 +21,39 @@ export const Table: React.FC<TTableProps> = ({
   dataSources,
   loading,
   rowKey,
+  showOrder,
   checkedValue,
   hideHeader,
   hideFooter,
+  filtersRender,
+  onJumpingPage,
+  onReload,
   title,
   onPaginationChange,
-  onSearch,
+  onAdd,
 }) => {
-  const [keyword, setKeyWord] = useState<string>('');
-  const [isFirstFetching, setIsFirstFetching] = useState<boolean>(true);
+  const [jumpingPage, setJumpingPage] = useState<string>('');
   const pageSizeValue = dataOptionsPageSize.find((option) => Number(option.value) === pageSize);
-  const searchDebounceValue = useDebounce(keyword, TIMEOUT_DEBOUNCE.search);
+
+  const renderColumns = showOrder
+    ? [
+        {
+          key: 'stt',
+          dataIndex: 'stt',
+          title: 'STT',
+          render: (_: string, record: any, index: number): number => index + 1 + ((page || 0) - 1) * (pageSize || 0),
+        },
+        ...columns,
+      ]
+    : columns;
 
   const handlePageSizeChange = (option: TSelectOption | null): void => {
     if (option?.value) onPaginationChange?.(page || DEFAULT_PAGE, Number(option.value));
   };
 
-  useEffect(() => {
-    if (!isFirstFetching) onSearch?.(searchDebounceValue);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchDebounceValue]);
-
-  useEffect(() => {
-    setIsFirstFetching(false);
-  }, []);
+  const handleChangeJumpingPage = (value: string): void => {
+    setJumpingPage(value);
+  };
 
   return (
     <div className={classNames('Table', className)}>
@@ -57,7 +61,12 @@ export const Table: React.FC<TTableProps> = ({
         <div className="Table-main-header flex-wrap flex items-center justify-between">
           <div className="Table-main-header-item flex items-center">
             <div className="Table-main-header-item-control">
-              <Button icon={<Icon name={EIconName.Reload} color={EIconColor.WHITE} />} className="black" adminStyle />
+              <Button
+                icon={<Icon name={EIconName.Reload} color={EIconColor.WHITE} />}
+                className="black"
+                adminStyle
+                onClick={onReload}
+              />
             </div>
             <div className="Table-main-header-item-control">
               <Button
@@ -66,18 +75,22 @@ export const Table: React.FC<TTableProps> = ({
                 title="Thêm mới"
                 reverse
                 adminStyle
+                onClick={onAdd}
               />
             </div>
-            <div className="Table-main-header-item-control">
-              <Button
-                icon={<Icon name={EIconName.Trash} color={EIconColor.WHITE} />}
-                danger
-                title="Xoá được chọn"
-                reverse
-                adminStyle
-              />
-            </div>
-            <div className="Table-main-header-item-control">
+            {checkedValue && checkedValue.length > 0 && (
+              <div className="Table-main-header-item-control">
+                <Button
+                  icon={<Icon name={EIconName.Trash} color={EIconColor.WHITE} />}
+                  danger
+                  title="Xoá được chọn"
+                  reverse
+                  adminStyle
+                />
+              </div>
+            )}
+
+            {/* <div className="Table-main-header-item-control">
               <Button
                 icon={<Icon name={EIconName.SettingCheck} color={EIconColor.WHITE} />}
                 className="black"
@@ -85,19 +98,10 @@ export const Table: React.FC<TTableProps> = ({
                 reverse
                 adminStyle
               />
-            </div>
+            </div> */}
           </div>
           <div className="Table-main-header-item flex items-center">
-            <div className="Table-main-header-item-control">
-              <Input placeholder="Mã KH/ Mã VĐ" adminStyle />
-            </div>
-            <div className="Table-main-header-item-control">
-              <Select placeholder="Chọn kho" options={[]} />
-            </div>
-            <div className="Table-main-header-item-control">
-              <Input placeholder="Tìm kiếm" adminStyle />
-            </div>
-            <div className="Table-main-header-item-control">
+            {/* <div className="Table-main-header-item-control">
               <DatePicker placeholder="Chọn ngày" adminStyle />
             </div>
             <div className="Table-main-header-item-control">
@@ -108,10 +112,9 @@ export const Table: React.FC<TTableProps> = ({
                   icon={<Icon name={EIconName.CaretDown} />}
                 />
               </DropdownCustom>
-            </div>
-            <div className="Table-main-header-item-control">
-              <Button icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} type="primary" />
-            </div>
+            </div> */}
+
+            {filtersRender}
           </div>
         </div>
       )}
@@ -119,21 +122,28 @@ export const Table: React.FC<TTableProps> = ({
       <div className="Table-main-body">
         <AntdTable
           pagination={false}
-          columns={columns}
+          columns={renderColumns}
           dataSource={dataSources}
           loading={loading}
           rowKey={rowKey}
           bordered
-          rowSelection={{
-            type: 'checkbox',
-            onChange: (selectedRowKeys: React.Key[], selectedRows: any[]): void => {
-              console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            },
-            getCheckboxProps: (record: any): any => ({
-              // disabled: record.name === 'Disabled User', // Column configuration not to be checked
-              // name: record.name,
-            }),
+          locale={{
+            emptyText: 'KHÔNG CÓ DỮ LIỆU',
           }}
+          rowSelection={
+            checkedValue
+              ? {
+                  type: 'checkbox',
+                  onChange: (selectedRowKeys: React.Key[], selectedRows: any[]): void => {
+                    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+                  },
+                  getCheckboxProps: (record: any): any => ({
+                    // disabled: record.name === 'Disabled User', // Column configuration not to be checked
+                    // name: record.name,
+                  }),
+                }
+              : undefined
+          }
           scroll={{ x: 'scroll' }}
           title={title}
         />
@@ -146,20 +156,26 @@ export const Table: React.FC<TTableProps> = ({
             <Select
               allowClear={false}
               options={dataOptionsPageSize}
-              defaultValue={dataOptionsPageSize[0]}
               onChange={handlePageSizeChange}
               value={pageSizeValue}
             />
           </div>
-          {page && pageSize && total && (
-            <div className="Table-main-footer-item flex items-center">
-              <Pagination page={page} pageSize={pageSize} total={total} onChange={onPaginationChange} />
-              <div className="Table-main-footer-item-goto flex items-center">
-                <Input adminStyle numberOnly />
-                <Button title="Đi đến" adminStyle />
-              </div>
+
+          <div className="Table-main-footer-item flex items-center">
+            {page && pageSize && Boolean(total) && (
+              <Pagination page={page} pageSize={pageSize} total={total || 0} onChange={onPaginationChange} />
+            )}
+            <div className="Table-main-footer-item-goto flex items-center">
+              <Input value={jumpingPage} adminStyle numberOnly notZero onChange={handleChangeJumpingPage} />
+              <Button
+                title="Đi đến"
+                adminStyle
+                onClick={(): void => {
+                  jumpingPage && onJumpingPage?.(jumpingPage);
+                }}
+              />
             </div>
-          )}
+          </div>
         </div>
       )}
     </div>

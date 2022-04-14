@@ -3,6 +3,10 @@
 .Pagination {
   background: $alabaster;
 
+  .ant-pagination-prev, .ant-pagination-next, .ant-pagination-jump-prev, .ant-pagination-jump-next {
+    margin: 0;
+  }
+
   .ant-pagination-prev,
   .ant-pagination-next {
     height: 5rem;

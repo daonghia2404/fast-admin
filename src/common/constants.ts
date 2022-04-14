@@ -1,3 +1,6 @@
+import { ECustomerStatus } from '@/common/enums';
+import { EIconColor } from '@/components/Icon';
+
 /* eslint-disable no-useless-escape */
 export const regex = {
   email:
@@ -24,3 +27,14 @@ export const dataGenderOptions = [
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 10;
+
+export const customerStatusOptions = [
+  { value: ECustomerStatus.ACTIVE, label: 'Hoạt động', color: EIconColor.SHAMROCK },
+  { value: ECustomerStatus.PENDING, label: 'Chờ kích hoạt', color: EIconColor.BUTTERCUP },
+  { value: ECustomerStatus.INACTIVE, label: 'Không hoạt động', color: EIconColor.RED },
+];
+
+export const statusOptions = [
+  { value: 'active', label: 'Xuất bản', color: EIconColor.SHAMROCK },
+  { value: 'inactive', label: 'Chưa xuất bản', color: EIconColor.RED },
+];

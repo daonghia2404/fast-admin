@@ -14,27 +14,27 @@ import {
 
 class Controller {
   getClients = async (body: TGetClientsBody): Promise<TGetClientsResponse> => {
-    const response = await Service.post('/api/Client/getList', body);
+    const response = await Service.post('/api/admin/Client/getListClient', body);
     return response.data;
   };
 
   getClient = async (params: TGetClientParams): Promise<TGetClientResponse> => {
-    const response = await Service.post('/api/Client/getDetail', { params });
+    const response = await Service.post('/api/admin/Client/getDetail', { params });
     return response.data;
   };
 
   getClientEmployee = async (): Promise<TGetClientEmployeeResponse> => {
-    const response = await Service.get('/api/Client/getEmployee');
+    const response = await Service.get('/api/admin/Client/getEmployee');
     return response.data;
   };
 
   createUpdateClient = async (body: TCreateUpdateClientsBody): Promise<TCreateUpdateClientResponse> => {
-    const response = await Service.post('/api/Client/createUpdate', body);
+    const response = await Service.post('/api/admin/Client/createUpdate', body);
     return response.data;
   };
 
   deleteClient = async (params: TDeleteClientParams): Promise<TDeleteClientResponse> => {
-    const response = await Service.post('/api/Client/getList', {}, { params });
+    const response = await Service.post('/api/admin/Client/delete', {}, { params });
     return response.data;
   };
 }

@@ -1,36 +1,41 @@
+import { ECustomerStatus } from '@/common/enums';
 import { TCommonResponse } from '@/common/types';
+import { TSelectOption } from '@/components/Select';
 
 export type TGetAccountsBody = {
   pageIndex: number;
   pageSize: number;
-  skip: number;
+  skip?: number;
   getCount: boolean;
-  search: string;
-  categoryId: number;
-  status: boolean;
-  identity: string;
+  search?: string;
+  categoryId?: number;
+  status?: TSelectOption;
+  identity?: string;
 };
 
-export type TGetAccountsResponse = unknown;
+export type TGetAccountsResponse = TCommonResponse & {
+  data: {
+    ListUser: TAccountResponse[];
+    Total: number;
+  };
+};
 
 export type TGetAccountParams = { userId: string };
 export type TGetAccountResponse = unknown;
 export type TGetAllRolesResponse = unknown;
 export type TCreateUpdateAccountsBody = {
-  id: number;
-  username: string;
-  fullname: string;
-  phone: string;
-  address: string;
-  createdDate: string;
-  modifiedDate: string;
-  code: string;
-  socialLink: string;
-  email: string;
-  customerStatus: number;
-  employeeId: number;
-  password: string;
-  listRole: number[];
+  id?: number;
+  username?: string;
+  fullname?: string;
+  phone?: string;
+  address?: string;
+  code?: string;
+  socialLink?: string;
+  email?: string;
+  customerStatus?: ECustomerStatus;
+  employeeId?: number;
+  password?: string;
+  listRole?: number[];
 };
 export type TCreateUpdateAccountResponse = unknown;
 export type TDeleteAccountParams = { userId: string };
@@ -44,4 +49,22 @@ export type TChangePasswordAccountResponse = TCommonResponse & {
   data: {
     token: string;
   };
+};
+
+export type TAccountResponse = {
+  address: string;
+  code: string;
+  createdDate: string;
+  customerStatus: ECustomerStatus;
+  email: string;
+  employeeId: number;
+  fullname: string;
+  id: number;
+  isAdmin: boolean;
+  listRole?: number[];
+  modifiedDate: string;
+  password: string;
+  phone: string;
+  socialLink: string;
+  username: string;
 };

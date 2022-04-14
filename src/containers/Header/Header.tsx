@@ -136,7 +136,7 @@ const Header: React.FC<THeaderProps> = () => {
           <div className="Header-account-overlay-info-avatar flex justify-center items-center">
             <Avatar size={120} />
           </div>
-          <div className="Header-account-overlay-info-name">{userInfoState.data.username}</div>
+          <div className="Header-account-overlay-info-name">{userInfoState?.data?.username}</div>
         </div>
         <div className="Header-account-overlay-list">
           <div

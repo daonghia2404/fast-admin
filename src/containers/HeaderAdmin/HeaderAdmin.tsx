@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { Link, navigate } from '@reach/router';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Logo from '@/assets/images/logo.svg';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
@@ -11,11 +12,18 @@ import ChangePasswordModal from '@/containers/ChangePasswordModal';
 import UpdateInfoAccountModal from '@/containers/UpdateInfoAccountModal';
 import { Paths } from '@/pages/routers';
 import AuthHelpers from '@/services/helpers';
+import ModalConfirm from '@/containers/ModalConfirm';
+import { getUserInfoAction } from '@/redux/actions';
+import { TRootState } from '@/redux/reducers';
 
 import './HeaderAdmin.scss';
-import ModalConfirm from '@/containers/ModalConfirm';
 
 const HeaderAdmin: React.FC = () => {
+  const dispatch = useDispatch();
+  const atk = AuthHelpers.getAccessToken();
+
+  const userInfoState = useSelector((state: TRootState) => state.authReducer.user);
+
   const [privacyPolicyModalState, setPrivacyPolicyModalState] = useState<{
     visible: boolean;
   }>({
@@ -84,7 +92,7 @@ const HeaderAdmin: React.FC = () => {
           <div className="HeaderAdmin-account-overlay-info-avatar flex justify-center items-center">
             <Avatar size={120} />
           </div>
-          <div className="HeaderAdmin-account-overlay-info-name">Admin</div>
+          <div className="Header-account-overlay-info-name">{userInfoState?.data?.username}</div>
         </div>
         <div className="HeaderAdmin-account-overlay-list">
           <div
@@ -125,6 +133,14 @@ const HeaderAdmin: React.FC = () => {
     );
   };
 
+  const getUserInfoData = useCallback(() => {
+    dispatch(getUserInfoAction.request());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (atk) getUserInfoData();
+  }, [atk, getUserInfoData]);
+
   return (
     <div className={classNames('HeaderAdmin flex justify-between items-center')}>
       <div className="HeaderAdmin-item">
@@ -154,7 +170,7 @@ const HeaderAdmin: React.FC = () => {
             <div className="HeaderAdmin-account-avatar">
               <Avatar size={24} />
             </div>
-            <div className="HeaderAdmin-account-name">Admin</div>
+            <div className="HeaderAdmin-account-name">{userInfoState?.data?.username}</div>
             <div className="HeaderAdmin-account-arrow">
               <Icon name={EIconName.AngleDown} color={EIconColor.WHITE} />
             </div>
@@ -164,7 +180,11 @@ const HeaderAdmin: React.FC = () => {
 
       <ChangePasswordModal {...changePasswordModalState} onClose={handleCloseChangePasswordModal} />
 
-      <UpdateInfoAccountModal {...updateInfoAccountModalState} onClose={handleCloseUpdateInfoAccountModal} />
+      <UpdateInfoAccountModal
+        {...updateInfoAccountModalState}
+        onClose={handleCloseUpdateInfoAccountModal}
+        onSubmit={getUserInfoData}
+      />
 
       <PrivacyPolicyModal {...privacyPolicyModalState} onClose={handleClosePrivacyPolicyModal} />
 

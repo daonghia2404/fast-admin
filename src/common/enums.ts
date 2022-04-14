@@ -78,3 +78,9 @@ export enum EEmpty {
 export enum EFormatDate {
   COMMON = 'DD/MM/YYYY',
 }
+
+export enum ECustomerStatus {
+  ACTIVE = 1,
+  PENDING = 2,
+  INACTIVE = 3,
+}
