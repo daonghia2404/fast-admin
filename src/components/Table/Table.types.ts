@@ -15,6 +15,8 @@ export type TTableProps = {
   rowKey?: string;
   loading?: boolean;
   filtersRender?: React.ReactNode;
+  onDeletes?: () => void;
+  onCheckboxChange?: (selectedRowKeys: React.Key[], selectedRows: any[]) => void;
   title?: () => React.ReactElement;
   onPaginationChange?: (page: number, pageSize?: number) => void;
   onSearch?: (keyword: string) => void;

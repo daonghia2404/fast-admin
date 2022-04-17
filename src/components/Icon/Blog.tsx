@@ -5,7 +5,7 @@ import { EIconColor } from './Icon.enums';
 
 const Svg: React.FC<TSvgProps> = ({ color = EIconColor.BLACK }) => {
   return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="stroke" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M4.66666 14.666V2.66602H16.6667V14.666C16.6667 16.1387 15.4727 17.3327 14 17.3327"
         stroke={color}

@@ -1,0 +1,64 @@
+@import '../../assets/styles/global';
+
+.CkEditor {
+  position: relative;
+
+  .ck-editor__editable {
+    min-height: 50vh;
+  }
+
+  .ck.ck-toolbar {
+    background: $white;
+    border-color: $mercury;
+    border-bottom: none;
+  }
+
+  .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+    border-color: $mercury;
+  }
+
+  .ck.ck-toolbar.ck-toolbar_grouping {
+    border-color: $mercury;
+  }
+
+  .ck.ck-editor__editable:not(.ck.ck-editor__nested-editable).ck-focused {
+    border-color: $shamrock;
+  }
+
+  .ck.ck-dropdown.ck-heading-dropdown .ck-dropdown__button .ck-button__label {
+    font-size: 12px;
+    color: $black;
+    width: 10rem;
+  }
+
+  .ck.ck-icon :not([fill]) {
+    fill: $black;
+  }
+}
+
+.ck.ck-list__item .ck-button.ck-on,
+.ck.ck-list__item .ck-button.ck-on:hover:not(.ck-disabled) {
+  background: $shamrock;
+}
+
+.ck.ck-list__item .ck-button:hover:not(.ck-disabled) {
+  background: rgba($shamrock, 0.1);
+}
+
+.ck.ck-balloon-panel {
+  z-index: 1003 !important;
+  box-shadow: $common-box-shadow;
+  border: none;
+
+  .ck.ck-dropdown__panel {
+    border: none;
+  }
+}
+
+.ck.ck-button {
+  &.ck-on {
+    .ck-button__label {
+      color: $white;
+    }
+  }
+}

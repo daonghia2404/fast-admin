@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import ImagePicture from '@/assets/images/image-picture.png';
 import Upload from '@/components/Upload/Upload';
 import { EUploadType } from '@/components/Upload/Upload.enums';
+import { getFullPathFile } from '@/utils/functions';
 
 import { TUploadSingleImageProps } from './UploadSingleImage.types';
 import './UploadSingleImage.scss';
@@ -13,7 +14,7 @@ export const UploadSingleImage: React.FC<TUploadSingleImageProps> = ({ className
     <div className={classNames('UploadSingleImage', className)}>
       {value ? (
         <div className="UploadSingleImage-preview">
-          <img src={value} alt="" />
+          <img src={getFullPathFile(value)} alt="" />
         </div>
       ) : (
         <Upload type={EUploadType.api} onChange={onChange}>

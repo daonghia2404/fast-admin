@@ -12,11 +12,6 @@ const Blogs: React.FC = () => {
       title: 'Quản lý bài viết',
       content: <BlogsPost />,
     },
-    {
-      key: '2',
-      title: 'Chuyên mục',
-      content: <></>,
-    },
   ];
 
   return (

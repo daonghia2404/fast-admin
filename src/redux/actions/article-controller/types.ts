@@ -1,6 +1,12 @@
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
 import {
+  TCreateUpdateArticleBody,
+  TCreateUpdateArticleResponse,
+  TDeleteArticlesResponse,
   TGetAboutUsResponse,
+  TGetArticleCategoryResponse,
+  TGetArticlesParams,
+  TGetArticlesResponse,
   TGetContactResponse,
   TGetHomeContentResponse,
   TGetPolicyResponse,
@@ -107,5 +113,76 @@ export type TGetAboutUsSuccess = {
 
 export type TGetAboutUsFailed = {
   type: EArticleControllerAction.GET_ABOUT_US_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetArticleCategoryRequest = {
+  type: EArticleControllerAction.GET_ARTICLE_CATEGORY_REQUEST;
+  payload: {
+    cb?: (response: TGetArticleCategoryResponse) => void;
+  };
+};
+
+export type TGetArticleCategorySuccess = {
+  type: EArticleControllerAction.GET_ARTICLE_CATEGORY_SUCCESS;
+  payload: { response: TGetArticleCategoryResponse };
+};
+
+export type TGetArticleCategoryFailed = {
+  type: EArticleControllerAction.GET_ARTICLE_CATEGORY_FAILED;
+  payload: { error: unknown };
+};
+
+export type TCreateUpdateArticleRequest = {
+  type: EArticleControllerAction.CREATE_UPDATE_ARTICLE_REQUEST;
+  payload: {
+    body: TCreateUpdateArticleBody;
+    cb?: (response: TCreateUpdateArticleResponse) => void;
+  };
+};
+
+export type TCreateUpdateArticleSuccess = {
+  type: EArticleControllerAction.CREATE_UPDATE_ARTICLE_SUCCESS;
+  payload: { response: TCreateUpdateArticleResponse };
+};
+
+export type TCreateUpdateArticleFailed = {
+  type: EArticleControllerAction.CREATE_UPDATE_ARTICLE_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetArticlesRequest = {
+  type: EArticleControllerAction.GET_ARTICLES_REQUEST;
+  payload: {
+    params: TGetArticlesParams;
+    cb?: (response: TGetArticlesResponse) => void;
+  };
+};
+
+export type TGetArticlesSuccess = {
+  type: EArticleControllerAction.GET_ARTICLES_SUCCESS;
+  payload: { response: TGetArticlesResponse };
+};
+
+export type TGetArticlesFailed = {
+  type: EArticleControllerAction.GET_ARTICLES_FAILED;
+  payload: { error: unknown };
+};
+
+export type TDeleteArticlesRequest = {
+  type: EArticleControllerAction.DELETE_ARTICLES_REQUEST;
+  payload: {
+    ids: string;
+    cb?: (response: TDeleteArticlesResponse) => void;
+  };
+};
+
+export type TDeleteArticlesSuccess = {
+  type: EArticleControllerAction.DELETE_ARTICLES_SUCCESS;
+  payload: { response: TDeleteArticlesResponse };
+};
+
+export type TDeleteArticlesFailed = {
+  type: EArticleControllerAction.DELETE_ARTICLES_FAILED;
   payload: { error: unknown };
 };

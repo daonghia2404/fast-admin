@@ -1,9 +1,11 @@
 /* eslint-disable no-useless-escape */
+import moment from 'moment';
 import { notification } from 'antd';
 import { Rule } from 'antd/lib/form';
 
 import { ETypeNotification } from '@/common/enums';
 import { regex } from '@/common/constants';
+import env from '@/env';
 
 export const removeAccents = (str: string): string => {
   let strConverted = str;
@@ -166,4 +168,12 @@ export const convertImageToBase64File = (file?: File, callback?: (dataBase64: st
       callback?.((fileData.result as string) || '');
     };
   }
+};
+
+export const getFullPathFile = (path: string): string => {
+  return `${env.api.baseUrl.service}/url/${path}`;
+};
+
+export const formatISODateToDateTime = (time: string): string => {
+  return moment(time).format('DD/MM/YYYY - HH:mm');
 };

@@ -43,6 +43,8 @@ import Pencil from './Pencil';
 import Trash from './Trash';
 import SettingCheck from './SettingCheck';
 import Plus from './Plus';
+import StatusRunning from './StatusRunning';
+import ClockRevert from './ClockRevert';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -123,6 +125,10 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <SettingCheck color={color} />;
       case EIconName.Plus:
         return <Plus color={color} />;
+      case EIconName.StatusRunning:
+        return <StatusRunning color={color} />;
+      case EIconName.ClockRevert:
+        return <ClockRevert color={color} />;
 
       default:
         return <></>;

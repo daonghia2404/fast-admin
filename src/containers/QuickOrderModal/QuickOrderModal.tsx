@@ -90,7 +90,15 @@ const QuickOrderModal: React.FC<TQuickOrderModalProps> = ({ visible, onClose }) 
       </div>
 
       <div className="QuickOrderModal-table">
-        <Table hideFooter hideHeader columns={columns} dataSources={[1, 2, 3, 4]} />
+        <Table
+          hideFooter
+          hideHeader
+          columns={columns}
+          dataSources={[1, 2, 3, 4]}
+          page={getParamsRequest.page}
+          pageSize={getParamsRequest.pageSize}
+          total={total}
+        />
       </div>
     </Modal>
   );

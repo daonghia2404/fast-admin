@@ -1,35 +1,33 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 import { navigate } from '@reach/router';
 
-import { LayoutPaths } from '@/pages/routers';
+import { Paths } from '@/pages/routers';
 
-import AuthControllerInstance from './api/auth-controller';
+// import AuthControllerInstance from './api/auth-controller';
 import authHelpers from './helpers';
 import { EResponseCode } from '@/common/enums';
 
 type TTokenSubscribers = (error: Error | null, accessToken?: string) => void;
 
 let isRefreshingAccessToken = false;
-let tokenSubscribers: TTokenSubscribers[] = [];
+const tokenSubscribers: TTokenSubscribers[] = [];
 
 const AuthorizedInstance = (baseURL: string): AxiosInstance => {
   const instance = axios.create({
     baseURL,
   });
 
-  const refreshTokens = async (): Promise<string> => {
-    const existingRefreshToken: string = authHelpers.getRefreshToken();
-
-    if (!existingRefreshToken) {
-      navigate(LayoutPaths.Auth);
-    }
-
-    const response = await AuthControllerInstance.refreshToken({});
-
-    authHelpers.storeAccessToken('');
-    authHelpers.storeRefreshToken('');
-
-    return authHelpers.getAccessToken();
+  const refreshTokens = async (): Promise<void> => {
+    authHelpers.clearTokens();
+    navigate(Paths.Home);
+    // const existingRefreshToken: string = authHelpers.getRefreshToken();
+    // if (!existingRefreshToken) {
+    //   navigate(LayoutPaths.Auth);
+    // }
+    // const response = await AuthControllerInstance.refreshToken({});
+    // authHelpers.storeAccessToken('');
+    // authHelpers.storeRefreshToken('');
+    // return authHelpers.getAccessToken();
   };
 
   const onRequest = (request: AxiosRequestConfig): AxiosRequestConfig => {
@@ -57,22 +55,22 @@ const AuthorizedInstance = (baseURL: string): AxiosInstance => {
     if (responseStatus === EResponseCode.UNAUTHORIZED && originalRequest && isNotRefreshTokenRequest) {
       if (!isRefreshingAccessToken) {
         isRefreshingAccessToken = true;
-        refreshTokens()
-          .then((newAccessToken) => {
-            onTokenRefreshed(null, newAccessToken);
-          })
-          .catch((err: AxiosError) => {
-            onTokenRefreshed(new Error('Failed to refresh access token'));
-            const refreshTokenFailed = err?.response?.config?.url === 'refresh-token';
-            if (refreshTokenFailed) {
-              authHelpers.clearTokens();
-              navigate(LayoutPaths.Auth);
-            }
-          })
-          .finally(() => {
-            isRefreshingAccessToken = false;
-            tokenSubscribers = [];
-          });
+        refreshTokens();
+        // .then((newAccessToken) => {
+        //   onTokenRefreshed(null, newAccessToken);
+        // })
+        // .catch((err: AxiosError) => {
+        //   onTokenRefreshed(new Error('Failed to refresh access token'));
+        //   const refreshTokenFailed = err?.response?.config?.url === 'refresh-token';
+        //   if (refreshTokenFailed) {
+        //     authHelpers.clearTokens();
+        //     navigate(LayoutPaths.Auth);
+        //   }
+        // })
+        // .finally(() => {
+        //   isRefreshingAccessToken = false;
+        //   tokenSubscribers = [];
+        // });
       }
 
       const storeOriginalRequest: Promise<void | AxiosResponse<any>> = new Promise((resolve, reject) => {

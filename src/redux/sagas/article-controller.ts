@@ -3,7 +3,11 @@ import { ActionType } from 'deox';
 
 import ControllerInstance from '@/services/api/article-controller';
 import {
+  createUpdateArticleAction,
+  deleteArticlesAction,
   getAboutUsAction,
+  getArticleCategoryAction,
+  getArticlesAction,
   getContactAction,
   getHomeContentAction,
   getPolicyAction,
@@ -11,7 +15,11 @@ import {
   getServiceAction,
 } from '@/redux/actions';
 import {
+  TCreateUpdateArticleResponse,
+  TDeleteArticlesResponse,
   TGetAboutUsResponse,
+  TGetArticleCategoryResponse,
+  TGetArticlesResponse,
   TGetContactResponse,
   TGetHomeContentResponse,
   TGetPolicyResponse,
@@ -88,6 +96,50 @@ export function* getAboutUsSaga(action: ActionType<typeof getAboutUsAction.reque
     yield put(getAboutUsAction.failure(err));
   }
 }
+export function* getArticlesSaga(action: ActionType<typeof getArticlesAction.request>): Generator {
+  const { params, cb } = action.payload;
+  try {
+    const response = (yield call(ControllerInstance.getArticles, params)) as TGetArticlesResponse;
+
+    yield put(getArticlesAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getArticlesAction.failure(err));
+  }
+}
+export function* getArticleCategorySaga(action: ActionType<typeof getArticleCategoryAction.request>): Generator {
+  const { cb } = action.payload;
+  try {
+    const response = (yield call(ControllerInstance.getArticleCategory)) as TGetArticleCategoryResponse;
+
+    yield put(getArticleCategoryAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getArticleCategoryAction.failure(err));
+  }
+}
+export function* createUpdateArticleSaga(action: ActionType<typeof createUpdateArticleAction.request>): Generator {
+  const { body, cb } = action.payload;
+  try {
+    const response = (yield call(ControllerInstance.createUpdateArticle, body)) as TCreateUpdateArticleResponse;
+
+    yield put(createUpdateArticleAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(createUpdateArticleAction.failure(err));
+  }
+}
+export function* deleteArticlesSaga(action: ActionType<typeof deleteArticlesAction.request>): Generator {
+  const { ids, cb } = action.payload;
+  try {
+    const response = (yield call(ControllerInstance.deleteArticles, ids)) as TDeleteArticlesResponse;
+
+    yield put(deleteArticlesAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(deleteArticlesAction.failure(err));
+  }
+}
 
 export default function* root(): Generator {
   yield all([takeLatest(getHomeContentAction.request.type, getHomeContentSaga)]);
@@ -96,4 +148,8 @@ export default function* root(): Generator {
   yield all([takeLatest(getRuleAction.request.type, getRuleSaga)]);
   yield all([takeLatest(getContactAction.request.type, getContactSaga)]);
   yield all([takeLatest(getAboutUsAction.request.type, getAboutUsSaga)]);
+  yield all([takeLatest(getArticlesAction.request.type, getArticlesSaga)]);
+  yield all([takeLatest(createUpdateArticleAction.request.type, createUpdateArticleSaga)]);
+  yield all([takeLatest(deleteArticlesAction.request.type, deleteArticlesSaga)]);
+  yield all([takeLatest(getArticleCategoryAction.request.type, getArticleCategorySaga)]);
 }

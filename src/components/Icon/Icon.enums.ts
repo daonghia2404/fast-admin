@@ -37,6 +37,8 @@ export enum EIconName {
   Trash = 'Trash',
   SettingCheck = 'SettingCheck',
   Plus = 'Plus',
+  StatusRunning = 'StatusRunning',
+  ClockRevert = 'ClockRevert',
 }
 export enum EIconColor {
   BLACK = '#000',

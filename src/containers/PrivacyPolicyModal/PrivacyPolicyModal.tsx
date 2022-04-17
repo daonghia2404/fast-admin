@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from '@/components/Modal';
-import ImagePrivacyPolicy from '@/assets/images/image-privacy-policy.png';
 import { getPolicyAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 

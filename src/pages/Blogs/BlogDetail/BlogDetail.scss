@@ -1,0 +1,57 @@
+@import '../../../assets/styles/global';
+
+.BlogDetail {
+  padding: 2.4rem 0 0;
+
+  &-col {
+    &:nth-child(1) {
+      flex: 1;
+    }
+
+    &:nth-child(2) {
+      flex: 0 0 45.5rem;
+      max-width: 45.5rem;
+      margin-left: 2rem;
+    }
+  }
+
+  &-config {
+    &-icon {
+      flex: 0 0 1.8rem;
+      max-width: 1.8rem;
+      margin-right: 1.2rem;
+
+      .Icon {
+        width: 100%;
+      }
+    }
+
+    &-text {
+      font-size: 1.6rem;
+      font-weight: 300;
+    }
+
+    &-row {
+      margin-bottom: 1.2rem;
+
+      .ant-form-item {
+        margin-left: 1.2rem;
+        flex: 1;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .ant-tabs-tabpane {
+    padding: 3rem 2rem;
+  }
+
+  .ant-form-item-label {
+    font-size: 1.8rem;
+    font-weight: 500;
+
+    label::before {
+      display: none !important;
+    }
+  }
+}

@@ -44,6 +44,8 @@ const App: React.FC = () => {
           <ProtectedRoute path={Paths.Settings} component={Pages.Settings} />
           <ProtectedRoute path={Paths.Banners} component={Pages.Banners} />
           <ProtectedRoute path={Paths.Blogs} component={Pages.Blogs} />
+          <ProtectedRoute path={Paths.BlogDetailCreate} component={Pages.BlogDetailCreate} />
+          <ProtectedRoute path={Paths.BlogDetailUpdate} component={Pages.BlogDetailUpdate} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Admin}${Paths.Members}`} />
         </Admin>
       </Router>

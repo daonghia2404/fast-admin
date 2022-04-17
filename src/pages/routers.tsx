@@ -31,6 +31,8 @@ const Users = lazy(() => retryLoadComponent(() => import('@/pages/Users')));
 const Members = lazy(() => retryLoadComponent(() => import('@/pages/Members')));
 const Banners = lazy(() => retryLoadComponent(() => import('@/pages/Banners')));
 const Blogs = lazy(() => retryLoadComponent(() => import('@/pages/Blogs')));
+const BlogDetailCreate = lazy(() => retryLoadComponent(() => import('@/pages/BlogDetailCreate')));
+const BlogDetailUpdate = lazy(() => retryLoadComponent(() => import('@/pages/BlogDetailUpdate')));
 const Settings = lazy(() => retryLoadComponent(() => import('@/pages/Settings')));
 
 export const LayoutPaths = {
@@ -62,6 +64,8 @@ export const Paths = {
   Settings: ModulePaths.Settings,
   Banners: ModulePaths.Banners,
   Blogs: ModulePaths.Blogs,
+  BlogDetailCreate: `${ModulePaths.Blogs}/tao-moi`,
+  BlogDetailUpdate: `${ModulePaths.Blogs}/cap-nhat`,
 
   Rest: '*',
 };
@@ -80,6 +84,8 @@ export const Pages = {
   Settings,
   Banners,
   Blogs,
+  BlogDetailCreate,
+  BlogDetailUpdate,
 };
 
 interface IRouteProps extends RouteComponentProps {

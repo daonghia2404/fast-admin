@@ -8,7 +8,7 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { showNotification, validationRules } from '@/utils/functions';
 import Select from '@/components/Select';
-import { dataGenderOptions, statusOptions } from '@/common/constants';
+import { statusOptions } from '@/common/constants';
 import UploadSingleImage from '@/components/UploadSingleImage';
 import { createUpdateBannerAction } from '@/redux/actions';
 import { ETypeNotification } from '@/common/enums';

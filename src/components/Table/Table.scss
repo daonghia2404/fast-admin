@@ -130,19 +130,12 @@
   }
 
   &-image {
-    width: 80px;
-    height: 80px;
+    width: 20rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    // background: $aqua-haze;
-    // border: 1px solid $alto;
     cursor: pointer;
     transition: $common-transition;
-
-    &:hover {
-      // border-color: $crimson;
-    }
 
     img {
       width: 100%;
@@ -165,40 +158,6 @@
       white-space: nowrap;
       transition: $common-transition;
 
-      &.inactive {
-        // background: $flame-pea;
-        color: $white;
-      }
-
-      &.warning {
-        // background: $amber;
-        // color: $charade;
-      }
-
-      &.attention {
-        // background: orange;
-        // color: $charade;
-      }
-
-      &.active {
-        // background: $eucalyptus;
-        color: $white;
-      }
-
-      &.inprocess {
-        // background: $tory-blue;
-        color: $white;
-      }
-
-      &.category {
-        // background: $charade;
-        color: $white;
-
-        &:hover {
-          // background: lighten($charade, 5%);
-        }
-      }
-
       &:last-of-type {
         margin-right: 0;
       }
@@ -206,12 +165,10 @@
   }
 
   &-link {
-    // color: $crimson;
     font-weight: 600;
     text-decoration: underline;
 
     &:hover {
-      // color: $charade;
       text-decoration: underline;
     }
   }
@@ -257,6 +214,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      .ant-checkbox-indeterminate .ant-checkbox-inner::after {
+        height: 1.2rem;
+        width: 1.2rem;
+        left: 50%;
+        top: 50%;
+        background-color: $shamrock;
+      }
 
       span {
         font-size: 1.6rem;

@@ -35,6 +35,6 @@ export const customerStatusOptions = [
 ];
 
 export const statusOptions = [
-  { value: 'active', label: 'Xuất bản', color: EIconColor.SHAMROCK },
-  { value: 'inactive', label: 'Chưa xuất bản', color: EIconColor.RED },
+  { value: true, label: 'Xuất bản', color: EIconColor.SHAMROCK },
+  { value: false, label: 'Chưa xuất bản', color: EIconColor.RED },
 ];

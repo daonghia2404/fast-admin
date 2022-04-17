@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { TSvgProps } from './Icon.types';
-import { EIconColor } from './Icon.enums';
 
-const Svg: React.FC<TSvgProps> = ({ color = EIconColor.BLACK }) => {
+const Svg: React.FC<TSvgProps> = () => {
   return (
     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="16" cy="16" r="15.5" fill="white" stroke="white" />

@@ -5,7 +5,6 @@ import { TEmailSettingProps } from './EmailSetting.types';
 import { validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
-import TextArea from '@/components/TextArea';
 import Button from '@/components/Button';
 
 import './EmailSetting.scss';

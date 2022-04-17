@@ -20,9 +20,27 @@ import {
   TGetAboutUsFailed,
   TGetAboutUsRequest,
   TGetAboutUsSuccess,
+  TGetArticleCategoryFailed,
+  TGetArticleCategoryRequest,
+  TGetArticleCategorySuccess,
+  TCreateUpdateArticleFailed,
+  TCreateUpdateArticleRequest,
+  TCreateUpdateArticleSuccess,
+  TGetArticlesFailed,
+  TGetArticlesRequest,
+  TGetArticlesSuccess,
+  TDeleteArticlesFailed,
+  TDeleteArticlesRequest,
+  TDeleteArticlesSuccess,
 } from '@/redux/actions/article-controller/types';
 import {
+  TCreateUpdateArticleBody,
+  TCreateUpdateArticleResponse,
+  TDeleteArticlesResponse,
   TGetAboutUsResponse,
+  TGetArticleCategoryResponse,
+  TGetArticlesParams,
+  TGetArticlesResponse,
   TGetContactResponse,
   TGetHomeContentResponse,
   TGetPolicyResponse,
@@ -152,6 +170,93 @@ export const getAboutUsAction = {
     EArticleControllerAction.GET_ABOUT_US_FAILED,
     (resolve) =>
       (error: unknown): TGetAboutUsFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getArticleCategoryAction = {
+  request: createActionCreator(
+    EArticleControllerAction.GET_ARTICLE_CATEGORY_REQUEST,
+    (resolve) =>
+      (cb?: (response: TGetArticleCategoryResponse) => void): TGetArticleCategoryRequest =>
+        resolve({ cb }),
+  ),
+  success: createActionCreator(
+    EArticleControllerAction.GET_ARTICLE_CATEGORY_SUCCESS,
+    (resolve) =>
+      (response: TGetArticleCategoryResponse): TGetArticleCategorySuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EArticleControllerAction.GET_ARTICLE_CATEGORY_FAILED,
+    (resolve) =>
+      (error: unknown): TGetArticleCategoryFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const createUpdateArticleAction = {
+  request: createActionCreator(
+    EArticleControllerAction.CREATE_UPDATE_ARTICLE_REQUEST,
+    (resolve) =>
+      (
+        body: TCreateUpdateArticleBody,
+        cb?: (response: TCreateUpdateArticleResponse) => void,
+      ): TCreateUpdateArticleRequest =>
+        resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EArticleControllerAction.CREATE_UPDATE_ARTICLE_SUCCESS,
+    (resolve) =>
+      (response: TCreateUpdateArticleResponse): TCreateUpdateArticleSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EArticleControllerAction.CREATE_UPDATE_ARTICLE_FAILED,
+    (resolve) =>
+      (error: unknown): TCreateUpdateArticleFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getArticlesAction = {
+  request: createActionCreator(
+    EArticleControllerAction.GET_ARTICLES_REQUEST,
+    (resolve) =>
+      (params: TGetArticlesParams, cb?: (response: TGetArticlesResponse) => void): TGetArticlesRequest =>
+        resolve({ params, cb }),
+  ),
+  success: createActionCreator(
+    EArticleControllerAction.GET_ARTICLES_SUCCESS,
+    (resolve) =>
+      (response: TGetArticlesResponse): TGetArticlesSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EArticleControllerAction.GET_ARTICLES_FAILED,
+    (resolve) =>
+      (error: unknown): TGetArticlesFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const deleteArticlesAction = {
+  request: createActionCreator(
+    EArticleControllerAction.DELETE_ARTICLES_REQUEST,
+    (resolve) =>
+      (ids: string, cb?: (response: TDeleteArticlesResponse) => void): TDeleteArticlesRequest =>
+        resolve({ ids, cb }),
+  ),
+  success: createActionCreator(
+    EArticleControllerAction.DELETE_ARTICLES_SUCCESS,
+    (resolve) =>
+      (response: TDeleteArticlesResponse): TDeleteArticlesSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EArticleControllerAction.DELETE_ARTICLES_FAILED,
+    (resolve) =>
+      (error: unknown): TDeleteArticlesFailed =>
         resolve({ error }),
   ),
 };

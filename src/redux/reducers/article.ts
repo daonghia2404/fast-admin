@@ -2,6 +2,8 @@ import { createReducer } from 'deox';
 
 import {
   TGetAboutUsResponse,
+  TGetArticleCategoryResponse,
+  TGetArticlesResponse,
   TGetContactResponse,
   TGetHomeContentResponse,
   TGetPolicyResponse,
@@ -10,6 +12,8 @@ import {
 } from '@/services/api/article-controller/types';
 import {
   getAboutUsAction,
+  getArticleCategoryAction,
+  getArticlesAction,
   getContactAction,
   getHomeContentAction,
   getPolicyAction,
@@ -24,6 +28,9 @@ export interface IState {
   rule?: TGetRuleResponse;
   contact?: TGetContactResponse;
   aboutUs?: TGetAboutUsResponse;
+  articles?: TGetArticlesResponse;
+  article?: undefined;
+  articleCategory?: TGetArticleCategoryResponse;
 }
 const initialState: IState = {
   homeContent: undefined,
@@ -32,6 +39,10 @@ const initialState: IState = {
   rule: undefined,
   contact: undefined,
   aboutUs: undefined,
+
+  articles: undefined,
+  article: undefined,
+  articleCategory: undefined,
 };
 
 const reducer = createReducer(initialState, (handleAction) => [
@@ -81,6 +92,22 @@ const reducer = createReducer(initialState, (handleAction) => [
     return {
       ...state,
       aboutUs: response,
+    };
+  }),
+  handleAction(getArticlesAction.success, (state, { payload }) => {
+    const { response } = payload;
+
+    return {
+      ...state,
+      articles: response,
+    };
+  }),
+  handleAction(getArticleCategoryAction.success, (state, { payload }) => {
+    const { response } = payload;
+
+    return {
+      ...state,
+      articleCategory: response,
     };
   }),
 ]);

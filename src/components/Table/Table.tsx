@@ -26,6 +26,8 @@ export const Table: React.FC<TTableProps> = ({
   hideHeader,
   hideFooter,
   filtersRender,
+  onDeletes,
+  onCheckboxChange,
   onJumpingPage,
   onReload,
   title,
@@ -86,6 +88,7 @@ export const Table: React.FC<TTableProps> = ({
                   title="Xoá được chọn"
                   reverse
                   adminStyle
+                  onClick={onDeletes}
                 />
               </div>
             )}
@@ -135,11 +138,10 @@ export const Table: React.FC<TTableProps> = ({
               ? {
                   type: 'checkbox',
                   onChange: (selectedRowKeys: React.Key[], selectedRows: any[]): void => {
-                    console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+                    onCheckboxChange?.(selectedRowKeys, selectedRows);
                   },
                   getCheckboxProps: (record: any): any => ({
-                    // disabled: record.name === 'Disabled User', // Column configuration not to be checked
-                    // name: record.name,
+                    checked: checkedValue?.map((item) => item?.[`${rowKey}`]).includes(record?.[`${rowKey}`]),
                   }),
                 }
               : undefined
