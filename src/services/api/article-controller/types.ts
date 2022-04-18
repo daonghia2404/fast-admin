@@ -2,18 +2,31 @@ import { TCommonResponse } from '@/common/types';
 import { TSelectOption } from '@/components/Select';
 
 export type TGetHomeContentResponse = unknown;
-export type TGetServiceResponse = unknown;
+export type TGetServiceResponse = TCommonResponse & {
+  data: {
+    ListArticle: TArticleResponse[];
+  };
+};
 export type TGetPolicyResponse = TCommonResponse & {
   data: {
     ListArticle: TArticleResponse[];
   };
 };
 export type TGetRuleResponse = unknown;
-export type TGetContactResponse = unknown;
-export type TGetAboutUsResponse = unknown;
+export type TGetContactResponse = TCommonResponse & {
+  data: {
+    ListArticle: TArticleResponse[];
+  };
+};
+export type TGetAboutUsResponse = TCommonResponse & {
+  data: {
+    ListArticle: TArticleResponse[];
+  };
+};
 
 export type TArticleResponse = {
   articleId: number;
+  imageId: number;
   categoryId: number;
   categoryName: string;
   content: string;
@@ -34,16 +47,16 @@ export type TGetArticleCategoryResponse = TCommonResponse & {
   }[];
 };
 export type TCreateUpdateArticleBody = {
-  articleId: number;
-  title: string;
-  description: string;
-  content: string;
-  thumbnail: string;
-  categoryId: number;
-  createdDate: string;
-  modifiedDate: string;
-  status: boolean;
-  categoryName: string;
+  articleId?: number;
+  title?: string;
+  description?: string;
+  content?: string;
+  thumbnail?: string;
+  categoryId?: number;
+  createdDate?: string;
+  modifiedDate?: string;
+  status?: boolean;
+  categoryName?: string;
 };
 export type TCreateUpdateArticleResponse = unknown;
 export type TGetArticlesParams = {
@@ -63,3 +76,7 @@ export type TGetArticlesResponse = TCommonResponse & {
   };
 };
 export type TDeleteArticlesResponse = unknown;
+
+export type TGetArticleResponse = TCommonResponse & {
+  data: TArticleResponse;
+};

@@ -39,7 +39,7 @@ class Controller {
   };
 
   deleteBanner = async (params: TDeleteBannerParams): Promise<TDeleteBannerResponse> => {
-    const response = await Service.post('/api/admin/Image/getList', {}, { params });
+    const response = await Service.post('/api/admin/Image/deletes', {}, { params });
     return response.data;
   };
 }

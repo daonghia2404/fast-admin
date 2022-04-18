@@ -1,4 +1,6 @@
 @import '~antd/dist/antd.css';
+@import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css';
 @import './fonts';
 @import './colors';
 @import './constants';
@@ -141,6 +143,23 @@ html {
 
     .ant-form-item {
       margin-bottom: 0;
+    }
+  }
+}
+
+.style-content-editable {
+  figure.image img,
+  figure.table {
+    max-width: 100%;
+  }
+
+  img.image_resized {
+    max-width: 100%;
+  }
+
+  a {
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

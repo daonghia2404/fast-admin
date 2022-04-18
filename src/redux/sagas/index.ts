@@ -6,9 +6,11 @@ import clientControllerSaga from './client-controller';
 import uploadControllerSaga from './upload-controller';
 import bannerControllerSaga from './banner-controller';
 import articleControllerSaga from './article-controller';
+import depotControllerSaga from './depot-controller';
 
 const rootSaga = function* root(): Generator {
   yield all([
+    fork(depotControllerSaga),
     fork(articleControllerSaga),
     fork(bannerControllerSaga),
     fork(uploadControllerSaga),

@@ -130,16 +130,18 @@
   }
 
   &-image {
-    width: 20rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    display: flex;
     transition: $common-transition;
 
     img {
       width: 100%;
+      max-width: 32rem;
       height: 100%;
+      margin: auto;
       object-fit: cover;
       object-position: center;
     }

@@ -5,6 +5,7 @@ import {
   TDeleteArticlesResponse,
   TGetAboutUsResponse,
   TGetArticleCategoryResponse,
+  TGetArticleResponse,
   TGetArticlesParams,
   TGetArticlesResponse,
   TGetContactResponse,
@@ -166,6 +167,24 @@ export type TGetArticlesSuccess = {
 
 export type TGetArticlesFailed = {
   type: EArticleControllerAction.GET_ARTICLES_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetArticleRequest = {
+  type: EArticleControllerAction.GET_ARTICLE_REQUEST;
+  payload: {
+    id: string;
+    cb?: (response: TGetArticleResponse) => void;
+  };
+};
+
+export type TGetArticleSuccess = {
+  type: EArticleControllerAction.GET_ARTICLE_SUCCESS;
+  payload: { response: TGetArticleResponse };
+};
+
+export type TGetArticleFailed = {
+  type: EArticleControllerAction.GET_ARTICLE_FAILED;
   payload: { error: unknown };
 };
 

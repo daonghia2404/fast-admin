@@ -6,6 +6,7 @@ import {
   createUpdateArticleAction,
   deleteArticlesAction,
   getAboutUsAction,
+  getArticleAction,
   getArticleCategoryAction,
   getArticlesAction,
   getContactAction,
@@ -19,6 +20,7 @@ import {
   TDeleteArticlesResponse,
   TGetAboutUsResponse,
   TGetArticleCategoryResponse,
+  TGetArticleResponse,
   TGetArticlesResponse,
   TGetContactResponse,
   TGetHomeContentResponse,
@@ -107,6 +109,17 @@ export function* getArticlesSaga(action: ActionType<typeof getArticlesAction.req
     yield put(getArticlesAction.failure(err));
   }
 }
+export function* getArticleSaga(action: ActionType<typeof getArticleAction.request>): Generator {
+  const { id, cb } = action.payload;
+  try {
+    const response = (yield call(ControllerInstance.getArticle, id)) as TGetArticleResponse;
+
+    yield put(getArticleAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getArticleAction.failure(err));
+  }
+}
 export function* getArticleCategorySaga(action: ActionType<typeof getArticleCategoryAction.request>): Generator {
   const { cb } = action.payload;
   try {
@@ -149,6 +162,7 @@ export default function* root(): Generator {
   yield all([takeLatest(getContactAction.request.type, getContactSaga)]);
   yield all([takeLatest(getAboutUsAction.request.type, getAboutUsSaga)]);
   yield all([takeLatest(getArticlesAction.request.type, getArticlesSaga)]);
+  yield all([takeLatest(getArticleAction.request.type, getArticleSaga)]);
   yield all([takeLatest(createUpdateArticleAction.request.type, createUpdateArticleSaga)]);
   yield all([takeLatest(deleteArticlesAction.request.type, deleteArticlesSaga)]);
   yield all([takeLatest(getArticleCategoryAction.request.type, getArticleCategorySaga)]);

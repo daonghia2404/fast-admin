@@ -6,17 +6,18 @@ import { TRootState } from '@/redux/reducers';
 import Modal from '@/components/Modal';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
-import { showNotification, validationRules } from '@/utils/functions';
+import { getFullPathFile, showNotification, validationRules } from '@/utils/functions';
 import Select from '@/components/Select';
 import { statusOptions } from '@/common/constants';
 import UploadSingleImage from '@/components/UploadSingleImage';
 import { createUpdateBannerAction } from '@/redux/actions';
 import { ETypeNotification } from '@/common/enums';
+import TextArea from '@/components/TextArea';
 
 import { ETypeBannerConfigModal } from '@/containers/BannerConfigModal/BannerConfigModal.enums';
 import { TBannerConfigModalProps } from './BannerConfigModal.types';
 import './BannerConfigModal.scss';
-import TextArea from '@/components/TextArea';
+import { EBannerControllerAction } from '@/redux/actions/banner-controller/constants';
 
 const BannerConfigModal: React.FC<TBannerConfigModalProps> = ({ visible, type, data, onClose, onSubmit }) => {
   const [form] = Form.useForm();
@@ -27,16 +28,21 @@ const BannerConfigModal: React.FC<TBannerConfigModalProps> = ({ visible, type, d
   const bannersCategoryState = useSelector((state: TRootState) => state.bannerReducer?.bannerCategory?.data) || [];
   const bannersCategoryOptions = bannersCategoryState.map((item) => ({
     label: item.categoryName,
-    value: item.identityType,
+    value: item.categoryId,
   }));
+
+  const createUpdateBannerLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EBannerControllerAction.CREATE_UPDATE_BANNER],
+  );
 
   const handleSubmit = (values: any): void => {
     const body = {
-      filePath: values.images,
+      ...data,
+      filePath: values.filePath,
       description: values.description,
       categoryId: values.categoryId?.value,
       status: values.status?.value,
-      categoryName: values.name,
+      // categoryName: values.categoryName,
     };
 
     dispatch(createUpdateBannerAction.request(body, handleCreateUpdateBannerSuccess));
@@ -51,11 +57,13 @@ const BannerConfigModal: React.FC<TBannerConfigModalProps> = ({ visible, type, d
     if (visible && data) {
       form.setFieldsValue({
         ...data,
+        categoryId: bannersCategoryOptions.find((item) => item.value === data?.categoryId),
+        status: statusOptions.find((item) => item.value === data.status),
       });
     } else {
       form.resetFields();
     }
-  }, [form, data, visible]);
+  }, [form, data, visible, bannersCategoryOptions]);
 
   return (
     <Modal visible={visible} onClose={onClose} maxWidth="104rem" wrapClassName="BannerConfigModal-wrapper">
@@ -63,14 +71,14 @@ const BannerConfigModal: React.FC<TBannerConfigModalProps> = ({ visible, type, d
       <Form form={form} onFinish={handleSubmit}>
         <div className="BannerConfigModal-form style-table-form">
           <table>
-            <tr>
+            {/* <tr>
               <td className="text">Tiêu đề banner</td>
               <td>
-                <Form.Item name="name" rules={[validationRules.required()]}>
+                <Form.Item name="categoryName" rules={[validationRules.required()]}>
                   <Input adminStyle size="large" placeholder="Nhập tiêu đề banner" />
                 </Form.Item>
               </td>
-            </tr>
+            </tr> */}
             <tr>
               <td className="text">Mô tả banner</td>
               <td>
@@ -98,7 +106,7 @@ const BannerConfigModal: React.FC<TBannerConfigModalProps> = ({ visible, type, d
             <tr>
               <td className="text">Ảnh banner</td>
               <td>
-                <Form.Item name="images" rules={[validationRules.required()]}>
+                <Form.Item name="filePath" rules={[validationRules.required()]}>
                   <UploadSingleImage />
                 </Form.Item>
               </td>
@@ -106,7 +114,13 @@ const BannerConfigModal: React.FC<TBannerConfigModalProps> = ({ visible, type, d
             <tr>
               <td>
                 <div className="Modal-submit flex">
-                  <Button title="Thêm mới" type="primary" adminStyle htmlType="submit" />
+                  <Button
+                    title={`${isCreateModal ? 'Thêm mới' : 'Cập nhật'}`}
+                    type="primary"
+                    adminStyle
+                    htmlType="submit"
+                    loading={createUpdateBannerLoading}
+                  />
                   <Button title="Làm lại" adminStyle htmlType="reset" />
                 </div>
               </td>

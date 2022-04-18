@@ -32,6 +32,9 @@ import {
   TDeleteArticlesFailed,
   TDeleteArticlesRequest,
   TDeleteArticlesSuccess,
+  TGetArticleFailed,
+  TGetArticleRequest,
+  TGetArticleSuccess,
 } from '@/redux/actions/article-controller/types';
 import {
   TCreateUpdateArticleBody,
@@ -39,6 +42,7 @@ import {
   TDeleteArticlesResponse,
   TGetAboutUsResponse,
   TGetArticleCategoryResponse,
+  TGetArticleResponse,
   TGetArticlesParams,
   TGetArticlesResponse,
   TGetContactResponse,
@@ -236,6 +240,26 @@ export const getArticlesAction = {
     EArticleControllerAction.GET_ARTICLES_FAILED,
     (resolve) =>
       (error: unknown): TGetArticlesFailed =>
+        resolve({ error }),
+  ),
+};
+export const getArticleAction = {
+  request: createActionCreator(
+    EArticleControllerAction.GET_ARTICLE_REQUEST,
+    (resolve) =>
+      (id: string, cb?: (response: TGetArticleResponse) => void): TGetArticleRequest =>
+        resolve({ id, cb }),
+  ),
+  success: createActionCreator(
+    EArticleControllerAction.GET_ARTICLE_SUCCESS,
+    (resolve) =>
+      (response: TGetArticleResponse): TGetArticleSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EArticleControllerAction.GET_ARTICLE_FAILED,
+    (resolve) =>
+      (error: unknown): TGetArticleFailed =>
         resolve({ error }),
   ),
 };

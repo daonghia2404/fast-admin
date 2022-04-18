@@ -10,6 +10,7 @@
 
 import env from '@/env';
 import authHelper from '@/services/helpers';
+import { getFullPathFile } from '@/utils/functions';
 
 class MyUploadAdapter {
   constructor(loader) {
@@ -17,7 +18,7 @@ class MyUploadAdapter {
     this.loader = loader;
 
     // URL where to send files.
-    this.url = `${env.api.baseUrl.service}/upload?folder=blogs&type=image`;
+    this.url = `${env.api.baseUrl.service}/api/File/UploadFile`;
   }
 
   // Starts the upload process.
@@ -44,7 +45,7 @@ class MyUploadAdapter {
     const xhr = (this.xhr = new XMLHttpRequest());
 
     xhr.open('POST', this.url, true);
-    xhr.setRequestHeader('x-token', `Bearer ${authHelper.getAccessToken()}`);
+    xhr.setRequestHeader('Authorization', `${authHelper.getAccessToken()}`);
     xhr.responseType = 'json';
   }
 
@@ -66,7 +67,7 @@ class MyUploadAdapter {
       // If the upload is successful, resolve the upload promise with an object containing
       // at least the "default" URL, pointing to the image on the server.
       resolve({
-        default: response.url,
+        default: getFullPathFile(response.data.path),
       });
     });
 

@@ -4,4 +4,5 @@ export * from '@/redux/actions/client-controller';
 export * from '@/redux/actions/upload-controller';
 export * from '@/redux/actions/banner-controller';
 export * from '@/redux/actions/article-controller';
+export * from '@/redux/actions/depot-controller';
 export * from '@/redux/actions/ui';

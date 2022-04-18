@@ -12,20 +12,20 @@ import './UploadSingleImage.scss';
 export const UploadSingleImage: React.FC<TUploadSingleImageProps> = ({ className, value, onChange }) => {
   return (
     <div className={classNames('UploadSingleImage', className)}>
-      {value ? (
-        <div className="UploadSingleImage-preview">
-          <img src={getFullPathFile(value)} alt="" />
-        </div>
-      ) : (
-        <Upload type={EUploadType.api} onChange={onChange}>
+      <Upload type={EUploadType.api} onChange={onChange}>
+        {value ? (
+          <div className="UploadSingleImage-preview">
+            <img src={getFullPathFile(value)} alt="" />
+          </div>
+        ) : (
           <div className="UploadSingleImage-control flex flex-col items-center justify-center">
             <div className="UploadSingleImage-control-icon">
               <img src={ImagePicture} alt="" />
             </div>
             Tải ảnh lên
           </div>
-        </Upload>
-      )}
+        )}
+      </Upload>
     </div>
   );
 };

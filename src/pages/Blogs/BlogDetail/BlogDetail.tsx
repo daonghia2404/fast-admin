@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { Form } from 'antd';
-import { navigate, useLocation } from '@reach/router';
+import { navigate, useParams } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Tabs from '@/components/Tabs';
@@ -14,23 +14,27 @@ import { statusOptions } from '@/common/constants';
 import Button from '@/components/Button';
 import { ETypeBlogDetail } from '@/pages/Blogs/BlogDetail/BlogDetail.enums';
 import { LayoutPaths, Paths } from '@/pages/routers';
-import { createUpdateArticleAction, getArticleCategoryAction } from '@/redux/actions';
+import { createUpdateArticleAction, getArticleAction, getArticleCategoryAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { ETypeNotification } from '@/common/enums';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
+import Loading from '@/containers/Loading';
 
 import { TBlogDetailProps } from './BlogDetail.types';
 import './BlogDetail.scss';
 
 const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const [form] = Form.useForm();
   const isUpdateBlog = type === ETypeBlogDetail.UPDATE;
-  const location: any = useLocation();
-  const data = location?.state?.blog;
 
   const articleCategoryState = useSelector((state: TRootState) => state.articleReducer.articleCategory);
+  const getArticleLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EArticleControllerAction.GET_ARTICLE],
+  );
+  const articleState = useSelector((state: TRootState) => state.articleReducer.article?.data);
 
   const createUpdateArticleLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EArticleControllerAction.CREATE_UPDATE_ARTICLE],
@@ -43,7 +47,7 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
 
   const handleSubmit = (values: any): void => {
     const body = {
-      ...data,
+      ...articleState,
       title: values.title,
       content: values.content,
       status: values.status?.value,
@@ -58,6 +62,16 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
     showNotification(ETypeNotification.SUCCESS, `${isUpdateBlog ? 'Cập nhật' : 'Tạo mới'} bài viết thành công`);
     navigate(`${LayoutPaths.Admin}${Paths.Blogs}`);
   };
+
+  const getArticleData = useCallback(() => {
+    if (id) {
+      dispatch(getArticleAction.request(id));
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    getArticleData();
+  }, [getArticleData]);
 
   const dataTabsEditor = [
     {
@@ -94,7 +108,8 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
                 <Icon name={EIconName.ClockRevert} />
               </div>
               <div className="BlogDetail-config-text">
-                Cập nhật lần cuối: {formatISODateToDateTime(data?.modifiedDate)}
+                Cập nhật lần cuối:{' '}
+                {articleState?.modifiedDate ? formatISODateToDateTime(articleState?.modifiedDate) : ''}
               </div>
             </div>
           )}
@@ -133,15 +148,11 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
 
   useEffect(() => {
     if (isUpdateBlog) {
-      if (data) {
-        form.setFieldsValue({
-          ...data,
-          categoryId: articleCategoryOptions?.find((item) => item.value === data.categoryId),
-          status: statusOptions?.find((item) => item.value === data.status),
-        });
-      } else {
-        navigate(`${LayoutPaths.Admin}${Paths.Blogs}`);
-      }
+      form.setFieldsValue({
+        ...articleState,
+        categoryId: articleCategoryOptions?.find((item) => item.value === articleState?.categoryId),
+        status: statusOptions?.find((item) => item.value === articleState?.status),
+      });
     } else {
       form.setFieldsValue({
         status: statusOptions[0],
@@ -152,18 +163,22 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
       form.resetFields();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form, type, articleCategoryOptions, data]);
+  }, [form, type, articleState, articleCategoryOptions]);
 
   return (
     <div className="BlogDetail">
-      <Form form={form} layout="vertical" className="BlogDetail-form flex" onFinish={handleSubmit}>
-        <div className="BlogDetail-col">
-          <Tabs dataTabs={dataTabsEditor} />
-        </div>
-        <div className="BlogDetail-col">
-          <Tabs dataTabs={dataTabsConfig} />
-        </div>
-      </Form>
+      {getArticleLoading ? (
+        <Loading />
+      ) : (
+        <Form form={form} layout="vertical" className="BlogDetail-form flex" onFinish={handleSubmit}>
+          <div className="BlogDetail-col">
+            <Tabs dataTabs={dataTabsEditor} />
+          </div>
+          <div className="BlogDetail-col">
+            <Tabs dataTabs={dataTabsConfig} />
+          </div>
+        </Form>
+      )}
     </div>
   );
 };

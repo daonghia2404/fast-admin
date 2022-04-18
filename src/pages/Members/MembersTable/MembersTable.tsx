@@ -156,7 +156,7 @@ const MembersTable: React.FC<TMembersTableProps> = () => {
   const columns = [
     {
       key: 'username',
-      title: 'Membername',
+      title: 'Tên nhân viên',
       dataIndex: 'username',
     },
     {

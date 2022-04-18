@@ -171,7 +171,7 @@ export const convertImageToBase64File = (file?: File, callback?: (dataBase64: st
 };
 
 export const getFullPathFile = (path: string): string => {
-  return `${env.api.baseUrl.service}/url/${path}`;
+  return `${env.api.baseUrl.service}${path}`;
 };
 
 export const formatISODateToDateTime = (time: string): string => {

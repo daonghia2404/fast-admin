@@ -34,7 +34,7 @@ export type TCreateUpdateBannersBody = {
   categoryName?: string;
 };
 export type TCreateUpdateBannerResponse = unknown;
-export type TDeleteBannerParams = { id: string };
+export type TDeleteBannerParams = { ids: string };
 export type TDeleteBannerResponse = unknown;
 
 export type TBannerResponse = any;

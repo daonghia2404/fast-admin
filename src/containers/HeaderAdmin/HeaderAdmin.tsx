@@ -10,7 +10,7 @@ import Avatar from '@/components/Avatar';
 import DropdownCustom from '@/components/DropdownCustom';
 import ChangePasswordModal from '@/containers/ChangePasswordModal';
 import UpdateInfoAccountModal from '@/containers/UpdateInfoAccountModal';
-import { Paths } from '@/pages/routers';
+import { LayoutPaths, Paths } from '@/pages/routers';
 import AuthHelpers from '@/services/helpers';
 import ModalConfirm from '@/containers/ModalConfirm';
 import { getUserInfoAction } from '@/redux/actions';
@@ -145,14 +145,19 @@ const HeaderAdmin: React.FC = () => {
     <div className={classNames('HeaderAdmin flex justify-between items-center')}>
       <div className="HeaderAdmin-item">
         <div className="HeaderAdmin-logo">
-          <Link to={Paths.Home}>
+          <Link to={LayoutPaths.Admin}>
             <img src={Logo} alt="" />
           </Link>
         </div>
       </div>
       <div className="HeaderAdmin-item flex items-center">
         <div className="HeaderAdmin-actions flex items-center">
-          <div className="HeaderAdmin-actions-item">
+          <div
+            className="HeaderAdmin-actions-item"
+            onClick={(): void => {
+              navigate(Paths.Home);
+            }}
+          >
             <Icon name={EIconName.House} color={EIconColor.WHITE} />
           </div>
           <div className="HeaderAdmin-actions-item">

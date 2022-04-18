@@ -12,6 +12,7 @@ import {
   TGetArticlesParams,
   TGetArticlesResponse,
   TCreateUpdateArticleResponse,
+  TGetArticleResponse,
 } from '@/services/api/article-controller/types';
 
 class Controller {
@@ -57,6 +58,11 @@ class Controller {
 
   getArticles = async (params: TGetArticlesParams): Promise<TGetArticlesResponse> => {
     const response = await Service.post('/api/admin/Article/getListArticle', params);
+    return response.data;
+  };
+
+  getArticle = async (id: string): Promise<TGetArticleResponse> => {
+    const response = await Service.get(`/api/admin/Article/getDetail`, { params: { id } });
     return response.data;
   };
 

@@ -11,7 +11,7 @@ import { TArticleResponse, TGetArticlesParams } from '@/services/api/article-con
 import { deleteArticlesAction, getArticleCategoryAction, getArticlesAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
-import { formatISODateToDateTime, showNotification } from '@/utils/functions';
+import { formatISODateToDateTime, getFullPathFile, showNotification } from '@/utils/functions';
 import Select, { TSelectOption } from '@/components/Select';
 import Input from '@/components/Input';
 import { LayoutPaths, Paths } from '@/pages/routers';
@@ -111,7 +111,7 @@ const BlogsPost: React.FC<TBlogsPostProps> = () => {
   };
 
   const handleNavigateBlogDetail = (data: TArticleResponse): void => {
-    navigate(`${LayoutPaths.Admin}${Paths.BlogDetailUpdate}`, { state: { blog: data } });
+    navigate(`${LayoutPaths.Admin}${Paths.BlogDetailUpdate(String(data.articleId))}`);
   };
 
   const handleSubmitDeleteModal = (): void => {
@@ -146,7 +146,14 @@ const BlogsPost: React.FC<TBlogsPostProps> = () => {
       key: 'thumbnail',
       title: 'Hình ảnh',
       dataIndex: 'thumbnail',
-      render: (): string => EEmpty.STRIKE_THROUGH,
+      render: (value: string): React.ReactElement =>
+        value ? (
+          <div className="Table-image">
+            <img src={getFullPathFile(value)} alt="" />
+          </div>
+        ) : (
+          <>{EEmpty.STRIKE_THROUGH}</>
+        ),
     },
     {
       key: 'status',

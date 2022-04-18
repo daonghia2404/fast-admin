@@ -7,6 +7,7 @@ import accountReducer from './account';
 import clientReducer from './client';
 import bannerReducer from './banner';
 import articleReducer from './article';
+import depotReducer from './depot';
 
 const rootReducer = combineReducers({
   loadingReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   clientReducer,
   bannerReducer,
   articleReducer,
+  depotReducer,
 });
 
 export default rootReducer;

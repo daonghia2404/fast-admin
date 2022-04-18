@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Table from '@/components/Table';
 import { EEmpty, ETypeNotification } from '@/common/enums';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/constants';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, statusOptions } from '@/common/constants';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import BannerConfigModal from '@/containers/BannerConfigModal';
@@ -18,7 +18,8 @@ import { EBannerControllerAction } from '@/redux/actions/banner-controller/const
 import { ETypeBannerConfigModal } from '@/containers/BannerConfigModal/BannerConfigModal.enums';
 import Select, { TSelectOption } from '@/components/Select';
 import ModalConfirm from '@/containers/ModalConfirm';
-import { showNotification } from '@/utils/functions';
+import { getFullPathFile, showNotification } from '@/utils/functions';
+import { TArticleResponse } from '@/services/api/article-controller/types';
 
 const BannersTable: React.FC<TBannersTableProps> = () => {
   const dispatch = useDispatch();
@@ -60,12 +61,12 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
 
   const [deleteModalState, setDeleteModalState] = useState<{
     visible: boolean;
-    data?: TBannerResponse;
+    data?: TArticleResponse[];
   }>({
     visible: false,
   });
 
-  const [bannersTableCheckedValue, setBannersTableCheckedValue] = useState<TBannerResponse>([]);
+  const [bannersTableCheckedValue, setBannersTableCheckedValue] = useState<TArticleResponse[]>([]);
 
   const handleChangeFiltersRenderValue = (key: string, value: any): void => {
     setFiltersRenderValue({
@@ -114,6 +115,32 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
     getBannersData();
   };
 
+  const handleOpenDeleteModal = (data?: TArticleResponse[]): void => {
+    setDeleteModalState({
+      visible: true,
+      data,
+    });
+  };
+
+  const handleCloseDeleteModal = (): void => {
+    setDeleteModalState({
+      visible: false,
+    });
+  };
+
+  const handleSubmitDeleteModal = (): void => {
+    if (deleteModalState.data) {
+      const ids = deleteModalState.data.map((item) => item.imageId).join(',');
+      dispatch(deleteBannerAction.request({ ids }, handleDeleteBannerSuccess));
+    }
+  };
+
+  const handleDeleteBannerSuccess = (): void => {
+    showNotification(ETypeNotification.SUCCESS, 'Xoá Banner thành công');
+    handleCloseDeleteModal();
+    getBannersData();
+  };
+
   const filtersRender = (): React.ReactNode => {
     return (
       <>
@@ -145,55 +172,42 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
     );
   };
 
-  const handleOpenDeleteModal = (data?: TBannerResponse): void => {
-    setDeleteModalState({
-      visible: true,
-      data,
-    });
-  };
-
-  const handleCloseDeleteModal = (): void => {
-    setDeleteModalState({
-      visible: false,
-    });
-  };
-
-  const handleSubmitDeleteModal = (): void => {
-    if (deleteModalState.data) {
-      dispatch(deleteBannerAction.request({ id: String(deleteModalState.data.id) }, handleDeleteBannerSuccess));
-    }
-  };
-
-  const handleDeleteBannerSuccess = (): void => {
-    showNotification(ETypeNotification.SUCCESS, 'Xoá banner thành công');
-    handleCloseDeleteModal();
-    getBannersData();
+  const handleCheckboxChange = (selectedRowKeys: React.Key[], selectedRows: any[]): void => {
+    setBannersTableCheckedValue(selectedRows);
   };
 
   const columns = [
     {
-      key: 'id',
-      title: 'ID',
-      dataIndex: 'id',
-      render: (): string => EEmpty.STRIKE_THROUGH,
+      key: 'categoryName',
+      title: 'Vị trí',
+      dataIndex: 'categoryName',
     },
     {
-      key: 'title',
-      title: 'Tiêu đề',
-      dataIndex: 'title',
-      render: (): string => EEmpty.STRIKE_THROUGH,
+      key: 'description',
+      title: 'Mô tả',
+      dataIndex: 'description',
     },
     {
-      key: 'image',
+      key: 'filePath',
       title: 'Hình ảnh',
-      dataIndex: 'image',
-      render: (): string => EEmpty.STRIKE_THROUGH,
+      dataIndex: 'filePath',
+      render: (value: string): React.ReactElement =>
+        value ? (
+          <div className="Table-image">
+            <img src={getFullPathFile(value)} alt="" />
+          </div>
+        ) : (
+          <>{EEmpty.STRIKE_THROUGH}</>
+        ),
     },
     {
-      key: 'createdAt',
-      title: 'Ngày tạo',
-      dataIndex: 'createdAt',
-      render: (): string => EEmpty.STRIKE_THROUGH,
+      key: 'status',
+      title: 'Trạng thái',
+      dataIndex: 'status',
+      render: (value: string): React.ReactElement => {
+        const status = statusOptions.find((item) => String(item.value) === String(value));
+        return <span style={{ color: status?.color }}>{status?.label}</span>;
+      },
     },
     {
       key: 'actions',
@@ -223,6 +237,7 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
   ];
 
   const getBannersData = useCallback(() => {
+    setBannersTableCheckedValue([]);
     dispatch(
       getBannersAction.request({
         ...getParamsRequest,
@@ -246,6 +261,8 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
   return (
     <div className="BannersTable">
       <Table
+        rowKey="imageId"
+        showOrder
         columns={columns}
         dataSources={bannersState?.ListImage || []}
         checkedValue={bannersTableCheckedValue}
@@ -258,6 +275,8 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
         onJumpingPage={handleJumpingPage}
         loading={getBannersLoading}
         onAdd={(): void => handleOpenBannerConfigModal(ETypeBannerConfigModal.CREATE)}
+        onCheckboxChange={handleCheckboxChange}
+        onDeletes={(): void => handleOpenDeleteModal(bannersTableCheckedValue)}
       />
 
       <BannerConfigModal

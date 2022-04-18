@@ -26,6 +26,9 @@ const App: React.FC = () => {
       <Router primary={false}>
         <Guest path={LayoutPaths.Guest}>
           <PublicRoute path={Paths.Home} component={Pages.Home} />
+          <PublicRoute path={Paths.AboutUs} component={Pages.AboutUs} />
+          <PublicRoute path={Paths.Service} component={Pages.Service} />
+          <PublicRoute path={Paths.Contact} component={Pages.Contact} />
           <PublicRoute path={Paths.Services} component={Pages.Services} />
           <PublicRoute path={Paths.Orders} component={Pages.Orders} />
           <PublicRoute path={Paths.ServiceDetail()} component={Pages.ServiceDetail} />
@@ -45,7 +48,7 @@ const App: React.FC = () => {
           <ProtectedRoute path={Paths.Banners} component={Pages.Banners} />
           <ProtectedRoute path={Paths.Blogs} component={Pages.Blogs} />
           <ProtectedRoute path={Paths.BlogDetailCreate} component={Pages.BlogDetailCreate} />
-          <ProtectedRoute path={Paths.BlogDetailUpdate} component={Pages.BlogDetailUpdate} />
+          <ProtectedRoute path={Paths.BlogDetailUpdate()} component={Pages.BlogDetailUpdate} />
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Admin}${Paths.Members}`} />
         </Admin>
       </Router>

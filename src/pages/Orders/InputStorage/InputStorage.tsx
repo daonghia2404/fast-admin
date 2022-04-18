@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Table from '@/components/Table';
 import { EEmpty } from '@/common/enums';
@@ -6,14 +7,16 @@ import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/constants';
 
 import { TInputStorageProps } from './InputStorage.types';
 import './InputStorage.scss';
+import { TGetDepotStoresParams } from '@/services/api/depot-controller/types';
+import { getDepotStoragesAction } from '@/redux/actions';
 
 const InputStorage: React.FC<TInputStorageProps> = () => {
-  const [getParamsRequest, setGetParamsRequest] = useState<{
-    page: number;
-    pageSize: number;
-  }>({
-    page: DEFAULT_PAGE,
+  const dispatch = useDispatch();
+
+  const [getParamsRequest, setGetParamsRequest] = useState<TGetDepotStoresParams>({
+    pageIndex: DEFAULT_PAGE,
     pageSize: DEFAULT_PAGE_SIZE,
+    getCount: true,
   });
 
   const total = 24;
@@ -81,12 +84,20 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
     },
   ];
 
+  const getDepotStoragesData = useCallback(() => {
+    dispatch(getDepotStoragesAction.request(getParamsRequest));
+  }, [dispatch, getParamsRequest]);
+
+  useEffect(() => {
+    getDepotStoragesData();
+  }, [getDepotStoragesData]);
+
   return (
     <div className="InputStorage">
       <Table
         columns={columns}
         dataSources={[1, 2, 3, 4]}
-        page={getParamsRequest.page}
+        page={getParamsRequest.pageIndex}
         pageSize={getParamsRequest.pageSize}
         total={total}
       />
