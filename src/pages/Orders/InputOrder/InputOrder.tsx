@@ -6,7 +6,6 @@ import Table from '@/components/Table';
 import { EEmpty } from '@/common/enums';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, depotStatusOptions } from '@/common/constants';
 import { TGetDepotStoresParams } from '@/services/api/depot-controller/types';
-import { getDepotStoragesAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EDepotControllerAction } from '@/redux/actions/depot-controller/constants';
 import Select, { TSelectOption } from '@/components/Select';
@@ -14,12 +13,13 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import DatePicker from '@/components/DatePicker';
+import { getDepotOrdersReturnAction } from '@/redux/actions';
+
+import { TInputOrderProps } from './InputOrder.types';
+import './InputOrder.scss';
 import { formatISODateToDateTime } from '@/utils/functions';
 
-import { TInputStorageProps } from './InputStorage.types';
-import './InputStorage.scss';
-
-const InputStorage: React.FC<TInputStorageProps> = () => {
+const InputOrder: React.FC<TInputOrderProps> = () => {
   const dispatch = useDispatch();
 
   const [getParamsRequest, setGetParamsRequest] = useState<TGetDepotStoresParams & { date?: Moment }>({
@@ -36,10 +36,10 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
     status: undefined,
     date: undefined,
   });
-  const depotStorages = useSelector((state: TRootState) => state.depotReducer.depotStorages);
-  const getDepotStoragesLoading = useSelector(
-    (state: TRootState) => state.loadingReducer[EDepotControllerAction.GET_DEPOT_STORAGES],
+  const getDepotOrdersLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EDepotControllerAction.GET_DEPOT_ORDERS_RETURN],
   );
+  const depotOrderState = useSelector((state: TRootState) => state.depotReducer.depotOrdersReturn);
 
   const handlePageChange = (page: number, pageSize?: number): void => {
     setGetParamsRequest({
@@ -120,26 +120,16 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
 
   const columns = [
     {
-      key: 'date',
-      title: 'Ngày',
-      dataIndex: 'date',
-      render: (value: string): string => (value ? formatISODateToDateTime(value, 'DD/MM/YYYY') : EEmpty.STRIKE_THROUGH),
-    },
-    {
-      key: 'depotName',
-      title: 'Kho',
-      dataIndex: 'depotName',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
-    },
-    {
       key: 'clientCode',
       title: 'Mã KH',
       dataIndex: 'clientCode',
+      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'ladingCode',
       title: 'Mã Vận Đơn',
       dataIndex: 'ladingCode',
+      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'kg',
@@ -178,34 +168,34 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
+      key: 'price',
+      title: 'Thành tiền',
+      dataIndex: 'price',
+      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
+    },
+    {
       key: 'note',
       title: 'Ghi chú',
       dataIndex: 'note',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
-      key: 'status',
+      key: 'payStatus',
       title: 'Trạng thái',
-      dataIndex: 'status',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
+      dataIndex: 'payStatus',
+      render: (): string => EEmpty.STRIKE_THROUGH,
     },
     {
-      key: 'modifiedUser',
-      title: 'Người thao tác',
-      dataIndex: 'modifiedUser',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
-    },
-    {
-      key: 'modifiedDate',
-      title: 'Ngày thao tác',
-      dataIndex: 'modifiedDate',
+      key: 'payDate',
+      title: 'Ngày thanh toán',
+      dataIndex: 'payDate',
       render: (value: string): string => (value ? formatISODateToDateTime(value, 'DD/MM/YYYY') : EEmpty.STRIKE_THROUGH),
     },
   ];
 
-  const getDepotStoragesData = useCallback(() => {
+  const getDepotOrdersData = useCallback(() => {
     dispatch(
-      getDepotStoragesAction.request({
+      getDepotOrdersReturnAction.request({
         ...getParamsRequest,
         status: getParamsRequest?.status?.value,
         day: getParamsRequest?.date ? getParamsRequest?.date.date() : undefined,
@@ -216,21 +206,20 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
   }, [dispatch, getParamsRequest]);
 
   useEffect(() => {
-    getDepotStoragesData();
-  }, [getDepotStoragesData]);
+    getDepotOrdersData();
+  }, [getDepotOrdersData]);
 
   return (
-    <div className="InputStorage">
+    <div className="InputOrder">
       <Table
         rowKey="ladingCode"
         columns={columns}
-        dataSources={depotStorages?.data?.Data || []}
+        dataSources={depotOrderState?.data?.Data || []}
         page={getParamsRequest.pageIndex}
         pageSize={getParamsRequest.pageSize}
-        total={depotStorages?.data.Total}
+        total={depotOrderState?.data?.Total}
         showOrder
-        hideCreate
-        loading={getDepotStoragesLoading}
+        loading={getDepotOrdersLoading}
         onPaginationChange={handlePageChange}
         onReload={handleReloadData}
         filtersRender={filtersRender()}
@@ -240,4 +229,4 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
   );
 };
 
-export default InputStorage;
+export default InputOrder;

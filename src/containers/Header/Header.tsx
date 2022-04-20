@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Link, navigate } from '@reach/router';
+import { Link, navigate, useLocation } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
@@ -32,6 +32,7 @@ const Header: React.FC<THeaderProps> = () => {
   const isSmallMobile = deviceType.width <= 991;
   const menuRef = useRef<HTMLDivElement | null>(null);
   const atk = AuthHelpers.getAccessToken();
+  const { pathname } = useLocation();
 
   const [visibleLogoutModal, setVisibleLogoutModal] = useState<boolean>(false);
 
@@ -127,6 +128,7 @@ const Header: React.FC<THeaderProps> = () => {
     handleCloseLogoutModal();
     AuthHelpers.clearTokens();
     navigate(Paths.Home);
+    dispatch(getUserInfoAction.success({ data: undefined, message: '', status: false }));
   };
 
   const renderHeaderAccountDropdown = (): React.ReactElement => {
@@ -196,11 +198,27 @@ const Header: React.FC<THeaderProps> = () => {
         )}
 
         <div className="Header-nav flex items-center" ref={menuRef}>
-          {dataHeaderMenu.map((item) => (
-            <div className={classNames('Header-nav-item', { disabled: false })}>
-              <Link to={item.link}>{item.title}</Link>
-            </div>
-          ))}
+          {dataHeaderMenu.map((item) => {
+            if (item.checkAuth) {
+              if (atk) {
+                return (
+                  <div
+                    className={classNames('Header-nav-item', { disabled: false }, { active: pathname === item.link })}
+                  >
+                    <Link to={item.link}>{item.title}</Link>
+                  </div>
+                );
+              }
+
+              return <></>;
+            }
+
+            return (
+              <div className={classNames('Header-nav-item', { disabled: false }, { active: pathname === item.link })}>
+                <Link to={item.link}>{item.title}</Link>
+              </div>
+            );
+          })}
 
           {isSmallMobile && (
             <>
@@ -222,13 +240,13 @@ const Header: React.FC<THeaderProps> = () => {
             </>
           )}
         </div>
-        {userInfoState ? (
+        {userInfoState?.data ? (
           <DropdownCustom overlayClassName="Header-account-overlay" overlay={renderHeaderAccountDropdown()}>
             <div className="Header-account flex items-center">
               <div className="Header-account-avatar">
                 <Avatar size={24} />
               </div>
-              <div className="Header-account-name">{userInfoState.data.username}</div>
+              <div className="Header-account-name">{userInfoState?.data?.username}</div>
               <div className="Header-account-arrow">
                 <Icon name={EIconName.AngleDown} color={EIconColor.WHITE} />
               </div>

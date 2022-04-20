@@ -19,7 +19,7 @@ class Controller {
   };
 
   getBanner = async (): Promise<TGetBannerResponse> => {
-    const response = await Service.get('/api/admin/Image/getBanner');
+    const response = await Service.get('/api/Image/getBanner');
     return response.data;
   };
 

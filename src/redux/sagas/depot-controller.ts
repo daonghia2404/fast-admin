@@ -22,9 +22,9 @@ export function* getDepotStoragesSaga(action: ActionType<typeof getDepotStorages
 }
 
 export function* getDepotOrdersSaga(action: ActionType<typeof getDepotOrdersAction.request>): Generator {
-  const { params, cb } = action.payload;
+  const { ladingCode, cb } = action.payload;
   try {
-    const response = (yield call(ControllerInstance.getDepotOrders, params)) as TGetDepotOrdersResponse;
+    const response = (yield call(ControllerInstance.getDepotOrders, ladingCode)) as TGetDepotOrdersResponse;
 
     yield put(getDepotOrdersAction.success(response));
     cb?.(response);
@@ -34,9 +34,9 @@ export function* getDepotOrdersSaga(action: ActionType<typeof getDepotOrdersActi
 }
 
 export function* getDepotOrdersReturnSaga(action: ActionType<typeof getDepotOrdersReturnAction.request>): Generator {
-  const { ladingCode, cb } = action.payload;
+  const { params, cb } = action.payload;
   try {
-    const response = (yield call(ControllerInstance.getDepotOrdersReturn, ladingCode)) as TGetDepotOrdersReturnResponse;
+    const response = (yield call(ControllerInstance.getDepotOrdersReturn, params)) as TGetDepotOrdersReturnResponse;
 
     yield put(getDepotOrdersReturnAction.success(response));
     cb?.(response);

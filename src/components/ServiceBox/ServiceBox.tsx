@@ -5,18 +5,16 @@ import { TServiceBoxProps } from './ServiceBox.types';
 
 import './ServiceBox.scss';
 
-const ServiceBox: React.FC<TServiceBoxProps> = ({ className, title, description, icon, background }) => {
+const ServiceBox: React.FC<TServiceBoxProps> = ({ className, title, image, description, onClick }) => {
   return (
     <div className={classNames('ServiceBox', className)}>
-      <div className="ServiceBox-title">
+      <div className="ServiceBox-title" onClick={onClick}>
         {title}
         <span className="ServiceBox-badge">New</span>
       </div>
       <div className="ServiceBox-description">{description}</div>
-      <div className="ServiceBox-image flex items-center justify-center" style={{ background }}>
-        <div className="ServiceBox-icon">
-          <img src={icon} alt="" />
-        </div>
+      <div className="ServiceBox-image" onClick={onClick}>
+        <img src={image} alt="" />
       </div>
     </div>
   );

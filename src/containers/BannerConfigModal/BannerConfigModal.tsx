@@ -4,20 +4,19 @@ import { Form } from 'antd';
 import { TRootState } from '@/redux/reducers';
 
 import Modal from '@/components/Modal';
-import Input from '@/components/Input';
 import Button from '@/components/Button';
-import { getFullPathFile, showNotification, validationRules } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
 import Select from '@/components/Select';
 import { statusOptions } from '@/common/constants';
 import UploadSingleImage from '@/components/UploadSingleImage';
 import { createUpdateBannerAction } from '@/redux/actions';
 import { ETypeNotification } from '@/common/enums';
 import TextArea from '@/components/TextArea';
-
 import { ETypeBannerConfigModal } from '@/containers/BannerConfigModal/BannerConfigModal.enums';
+import { EBannerControllerAction } from '@/redux/actions/banner-controller/constants';
+
 import { TBannerConfigModalProps } from './BannerConfigModal.types';
 import './BannerConfigModal.scss';
-import { EBannerControllerAction } from '@/redux/actions/banner-controller/constants';
 
 const BannerConfigModal: React.FC<TBannerConfigModalProps> = ({ visible, type, data, onClose, onSubmit }) => {
   const [form] = Form.useForm();

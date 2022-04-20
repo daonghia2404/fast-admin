@@ -1,13 +1,41 @@
-import React from 'react';
+/* eslint-disable react/no-danger */
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import ImageRules from '@/assets/images/image-rules.png';
+import { TRootState } from '@/redux/reducers';
+import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
+import Loading from '@/containers/Loading';
+import { getRuleAction } from '@/redux/actions';
 
 import './Rules.scss';
 
 const Rules: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const ruleData = useSelector((state: TRootState) => state.articleReducer.rule);
+  const getRuleLoading = useSelector((state: TRootState) => state.loadingReducer[EArticleControllerAction.GET_RULE]);
+  const ruleContent = ruleData?.data?.ListArticle?.[0];
+
+  const getRulesData = useCallback(() => {
+    dispatch(getRuleAction.request());
+  }, [dispatch]);
+
+  useEffect(() => {
+    getRulesData();
+  }, [getRulesData]);
+
   return (
     <div className="Rules">
-      <div className="Rules-image">
+      {getRuleLoading ? (
+        <Loading />
+      ) : (
+        <div
+          className="Rules-wrapper ck-content style-content-editable"
+          dangerouslySetInnerHTML={{ __html: ruleContent?.content || '' }}
+        />
+      )}
+
+      {/* <div className="Rules-image">
         <img src={ImageRules} alt="" />
       </div>
       <div className="Rules-header">
@@ -105,7 +133,7 @@ const Rules: React.FC = () => {
         <div className="Rules-notes-description success">
           G.O.C XIN CHÂN THÀNH CẢM ƠN QUÝ KHÁCH HÀNG ĐÃ TIN TƯỞNG VÀ ĐỒNG HÀNH CÙNG CHÚNG TÔI SUỐT NHỮNG NĂM THÁNG QUA.
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

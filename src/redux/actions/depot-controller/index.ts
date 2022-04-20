@@ -45,8 +45,8 @@ export const getDepotOrdersAction = {
   request: createActionCreator(
     EDepotControllerAction.GET_DEPOT_ORDERS_REQUEST,
     (resolve) =>
-      (params: TGetDepotOrdersParams, cb?: (response: TGetDepotOrdersResponse) => void): TGetDepotOrdersRequest =>
-        resolve({ params, cb }),
+      (ladingCode: string, cb?: (response: TGetDepotOrdersResponse) => void): TGetDepotOrdersRequest =>
+        resolve({ ladingCode, cb }),
   ),
   success: createActionCreator(
     EDepotControllerAction.GET_DEPOT_ORDERS_SUCCESS,
@@ -66,8 +66,11 @@ export const getDepotOrdersReturnAction = {
   request: createActionCreator(
     EDepotControllerAction.GET_DEPOT_ORDERS_RETURN_REQUEST,
     (resolve) =>
-      (ladingCode: string, cb?: (response: TGetDepotOrdersReturnResponse) => void): TGetDepotOrdersReturnRequest =>
-        resolve({ ladingCode, cb }),
+      (
+        params: TGetDepotOrdersParams,
+        cb?: (response: TGetDepotOrdersReturnResponse) => void,
+      ): TGetDepotOrdersReturnRequest =>
+        resolve({ params, cb }),
   ),
   success: createActionCreator(
     EDepotControllerAction.GET_DEPOT_ORDERS_RETURN_SUCCESS,

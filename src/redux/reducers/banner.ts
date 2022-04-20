@@ -12,7 +12,7 @@ export interface IState {
   bannerCategory?: TGetBannerCategoryResponse;
   homeBanner?: TGetHomeBannerResponse;
   banners?: TGetBannersResponse;
-  banner: TGetBannerResponse;
+  banner?: TGetBannerResponse;
 }
 const initialState: IState = {
   bannerCategory: undefined,

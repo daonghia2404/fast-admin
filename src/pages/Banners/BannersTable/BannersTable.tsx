@@ -8,7 +8,7 @@ import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import BannerConfigModal from '@/containers/BannerConfigModal';
 import { deleteBannerAction, getBannerCategoryAction, getBannersAction } from '@/redux/actions';
-import { TBannerResponse, TGetBannerResponse, TGetBannersBody } from '@/services/api/banner-controller/types';
+import { TBannerResponse, TGetBannersBody } from '@/services/api/banner-controller/types';
 
 import { TBannersTableProps } from './BannersTable.types';
 import './BannersTable.scss';
@@ -19,7 +19,6 @@ import { ETypeBannerConfigModal } from '@/containers/BannerConfigModal/BannerCon
 import Select, { TSelectOption } from '@/components/Select';
 import ModalConfirm from '@/containers/ModalConfirm';
 import { getFullPathFile, showNotification } from '@/utils/functions';
-import { TArticleResponse } from '@/services/api/article-controller/types';
 
 const BannersTable: React.FC<TBannersTableProps> = () => {
   const dispatch = useDispatch();
@@ -45,7 +44,7 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
 
   const [bannerConfigModalState, setBannerConfigModalState] = useState<{
     visible: boolean;
-    data?: TGetBannerResponse;
+    data?: TBannerResponse;
     type?: ETypeBannerConfigModal;
   }>({
     visible: false,
@@ -61,12 +60,12 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
 
   const [deleteModalState, setDeleteModalState] = useState<{
     visible: boolean;
-    data?: TArticleResponse[];
+    data?: TBannerResponse[];
   }>({
     visible: false,
   });
 
-  const [bannersTableCheckedValue, setBannersTableCheckedValue] = useState<TArticleResponse[]>([]);
+  const [bannersTableCheckedValue, setBannersTableCheckedValue] = useState<TBannerResponse[]>([]);
 
   const handleChangeFiltersRenderValue = (key: string, value: any): void => {
     setFiltersRenderValue({
@@ -115,7 +114,7 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
     getBannersData();
   };
 
-  const handleOpenDeleteModal = (data?: TArticleResponse[]): void => {
+  const handleOpenDeleteModal = (data?: TBannerResponse[]): void => {
     setDeleteModalState({
       visible: true,
       data,
@@ -228,7 +227,7 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
               adminStyle
               danger
               icon={<Icon name={EIconName.Trash} color={EIconColor.WHITE} />}
-              onClick={(): void => handleOpenDeleteModal(record)}
+              onClick={(): void => handleOpenDeleteModal([record])}
             />
           </div>
         </div>

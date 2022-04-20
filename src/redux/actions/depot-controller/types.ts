@@ -28,7 +28,7 @@ export type TGetDepotStoragesFailed = {
 export type TGetDepotOrdersRequest = {
   type: EDepotControllerAction.GET_DEPOT_ORDERS_REQUEST;
   payload: {
-    params: TGetDepotOrdersParams;
+    ladingCode: string;
     cb?: (response: TGetDepotOrdersResponse) => void;
   };
 };
@@ -46,7 +46,7 @@ export type TGetDepotOrdersFailed = {
 export type TGetDepotOrdersReturnRequest = {
   type: EDepotControllerAction.GET_DEPOT_ORDERS_RETURN_REQUEST;
   payload: {
-    ladingCode: string;
+    params: TGetDepotOrdersParams;
     cb?: (response: TGetDepotOrdersReturnResponse) => void;
   };
 };

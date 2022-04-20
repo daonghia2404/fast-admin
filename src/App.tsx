@@ -27,7 +27,7 @@ const App: React.FC = () => {
         <Guest path={LayoutPaths.Guest}>
           <PublicRoute path={Paths.Home} component={Pages.Home} />
           <PublicRoute path={Paths.AboutUs} component={Pages.AboutUs} />
-          <PublicRoute path={Paths.Service} component={Pages.Service} />
+          <PublicRoute path={Paths.Services} component={Pages.Services} />
           <PublicRoute path={Paths.Contact} component={Pages.Contact} />
           <PublicRoute path={Paths.Services} component={Pages.Services} />
           <PublicRoute path={Paths.Orders} component={Pages.Orders} />

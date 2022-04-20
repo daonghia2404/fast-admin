@@ -1,49 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Tabs from '@/components/Tabs';
 import InputStorage from '@/pages/Orders/InputStorage';
-import QuickOrderModal from '@/containers/QuickOrderModal';
+import InputOrder from '@/pages/Orders/InputOrder';
+import SearchOrder from '@/pages/Orders/SearchOrder';
 import Rules from '@/pages/Orders/Rules';
 
 import { EKeyOrderTab } from './Orders.enums';
 import './Orders.scss';
 
 const Orders: React.FC = () => {
-  const [quickOrderModalState, setQuickOrderModalState] = useState<{
-    visible: boolean;
-    data?: any;
-  }>({
-    visible: false,
-  });
-
-  const handleOpenOrderModalState = (): void => {
-    setQuickOrderModalState({ visible: true });
-  };
-
-  const handleCloseOrderModalState = (): void => {
-    setQuickOrderModalState({ visible: false });
-  };
-
   const dataTabs = [
     {
       key: EKeyOrderTab.INPUT_STORAGE,
-      title: 'Nhập kho',
+      title: 'Tra nhập kho',
       content: <InputStorage />,
     },
     {
       key: EKeyOrderTab.RETURN_GOODS,
-      title: 'Hàng đã trả',
-      content: <></>,
+      title: 'Tra hàng đã trả',
+      content: <InputOrder />,
+    },
+    {
+      key: EKeyOrderTab.SEARCH,
+      title: 'Tra vận đơn',
+      content: <SearchOrder />,
     },
     {
       key: EKeyOrderTab.RULES,
       title: 'Quy định',
       content: <Rules />,
-    },
-    {
-      key: EKeyOrderTab.SEARCH,
-      title: 'Tìm kiếm vận đơn',
-      content: <></>,
     },
   ];
 
@@ -52,8 +38,6 @@ const Orders: React.FC = () => {
       <div className="Orders-tab">
         <Tabs dataTabs={dataTabs} />
       </div>
-
-      <QuickOrderModal {...quickOrderModalState} onClose={handleCloseOrderModalState} />
     </div>
   );
 };

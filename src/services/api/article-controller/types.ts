@@ -1,7 +1,11 @@
 import { TCommonResponse } from '@/common/types';
 import { TSelectOption } from '@/components/Select';
 
-export type TGetHomeContentResponse = unknown;
+export type TGetHomeContentResponse = TCommonResponse & {
+  data: {
+    ListArticle: TArticleResponse[];
+  };
+};
 export type TGetServiceResponse = TCommonResponse & {
   data: {
     ListArticle: TArticleResponse[];
@@ -12,7 +16,11 @@ export type TGetPolicyResponse = TCommonResponse & {
     ListArticle: TArticleResponse[];
   };
 };
-export type TGetRuleResponse = unknown;
+export type TGetRuleResponse = TCommonResponse & {
+  data: {
+    ListArticle: TArticleResponse[];
+  };
+};
 export type TGetContactResponse = TCommonResponse & {
   data: {
     ListArticle: TArticleResponse[];

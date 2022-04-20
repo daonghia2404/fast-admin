@@ -14,13 +14,17 @@ export type TGetBannersBody = {
 
 export type TGetBannersResponse = TCommonResponse & {
   data: {
-    ListImage: TBannerResponse;
+    ListImage: TBannerResponse[];
     Total: number;
   };
 };
 
 export type TGetBannerParams = { id: string };
-export type TGetBannerResponse = unknown;
+export type TGetBannerResponse = TCommonResponse & {
+  data: {
+    ListImage: TBannerResponse[];
+  };
+};
 export type TGetHomeBannerResponse = unknown;
 export type TGetBannerCategoryResponse = TCommonResponse & {
   data: TBannerCategoryResponse[];
@@ -37,7 +41,14 @@ export type TCreateUpdateBannerResponse = unknown;
 export type TDeleteBannerParams = { ids: string };
 export type TDeleteBannerResponse = unknown;
 
-export type TBannerResponse = any;
+export type TBannerResponse = {
+  categoryId: number;
+  categoryName: string;
+  description: string;
+  filePath: string;
+  imageId: number;
+  status: boolean;
+};
 
 export type TBannerCategoryResponse = {
   categoryId: number;

@@ -83,6 +83,7 @@ const HeaderAdmin: React.FC = () => {
     handleCloseLogoutModal();
     AuthHelpers.clearTokens();
     navigate(Paths.Home);
+    dispatch(getUserInfoAction.success({ data: undefined, message: '', status: false }));
   };
 
   const renderHeaderAdminAccountDropdown = (): React.ReactElement => {

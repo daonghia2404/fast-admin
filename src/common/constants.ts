@@ -38,3 +38,8 @@ export const statusOptions = [
   { value: true, label: 'Xuất bản', color: EIconColor.SHAMROCK },
   { value: false, label: 'Chưa xuất bản', color: EIconColor.RED },
 ];
+
+export const depotStatusOptions = [
+  { value: true, label: 'Đã thanh toán', color: EIconColor.SHAMROCK },
+  { value: false, label: 'Chưa thanh toán', color: EIconColor.RED },
+];

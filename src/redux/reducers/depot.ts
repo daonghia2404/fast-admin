@@ -10,7 +10,7 @@ import { getDepotOrdersAction, getDepotOrdersReturnAction, getDepotStoragesActio
 export interface IState {
   depotOrders?: TGetDepotOrdersResponse;
   depotStorages?: TGetDepotStoresResponse;
-  depotOrdersReturn: TGetDepotOrdersReturnResponse;
+  depotOrdersReturn?: TGetDepotOrdersReturnResponse;
 }
 const initialState: IState = {
   depotOrders: undefined,

@@ -25,6 +25,7 @@ export const Table: React.FC<TTableProps> = ({
   checkedValue,
   hideHeader,
   hideFooter,
+  hideCreate,
   filtersRender,
   onDeletes,
   onCheckboxChange,
@@ -70,16 +71,19 @@ export const Table: React.FC<TTableProps> = ({
                 onClick={onReload}
               />
             </div>
-            <div className="Table-main-header-item-control">
-              <Button
-                icon={<Icon name={EIconName.Pencil} color={EIconColor.WHITE} />}
-                type="primary"
-                title="Thêm mới"
-                reverse
-                adminStyle
-                onClick={onAdd}
-              />
-            </div>
+            {!hideCreate && (
+              <div className="Table-main-header-item-control">
+                <Button
+                  icon={<Icon name={EIconName.Pencil} color={EIconColor.WHITE} />}
+                  type="primary"
+                  title="Thêm mới"
+                  reverse
+                  adminStyle
+                  onClick={onAdd}
+                />
+              </div>
+            )}
+
             {checkedValue && checkedValue.length > 0 && (
               <div className="Table-main-header-item-control">
                 <Button

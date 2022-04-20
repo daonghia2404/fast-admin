@@ -1,75 +1,65 @@
-import React from 'react';
+/* eslint-disable react/no-danger */
+import React, { useCallback, useEffect } from 'react';
+import { useParams } from '@reach/router';
+import { useDispatch, useSelector } from 'react-redux';
 
-import ImageServiceDetail from '@/assets/images/image-service-detail.png';
-import ImageServiceDetail1 from '@/assets/images/image-service-detail-1.png';
-import ImageServiceDetail2 from '@/assets/images/image-service-detail-2.png';
 import ServicesList from '@/containers/ServicesList';
+import { getArticleAction } from '@/redux/actions';
+import { TRootState } from '@/redux/reducers';
+import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
+import Loading from '@/containers/Loading';
+import { getFullPathFile } from '@/utils/functions';
 
 import './ServiceDetail.scss';
 
 const ServiceDetail: React.FC = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const article = useSelector((state: TRootState) => state.articleReducer.article);
+  const getArticleLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EArticleControllerAction.GET_ARTICLE],
+  );
+
+  const getServiceDetailData = useCallback(() => {
+    if (id) dispatch(getArticleAction.request(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    getServiceDetailData();
+  }, [getServiceDetailData]);
+
   return (
     <div className="ServiceDetail">
-      <div className="ServiceDetail-banner">
-        <img src={ImageServiceDetail} alt="" />
-      </div>
+      {getArticleLoading ? (
+        <Loading />
+      ) : (
+        <>
+          {article?.data?.thumbnail && (
+            <div className="ServiceDetail-banner">
+              <img src={getFullPathFile(article.data.thumbnail)} alt="" />
+            </div>
+          )}
 
-      <div className="container">
-        <div className="ServiceDetail-wrapper">
-          <div className="ServiceDetail-main flex justify-between flex-wrap">
-            <div className="ServiceDetail-main-item">
-              <div className="ServiceDetail-card">
-                <div className="ServiceDetail-title">Dịch Vụ Vận Chuyển</div>
-                <div className="ServiceDetail-description">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industrys standard dummy text ever since the 1500s
+          <div className="container">
+            <div className="ServiceDetail-wrapper">
+              <div className="ServiceDetail-main flex justify-between flex-wrap">
+                <div className="ServiceDetail-main-item">
+                  <div className="ServiceDetail-card">
+                    <div
+                      className="ServiceDetail-content ck-content style-content-editable"
+                      dangerouslySetInnerHTML={{ __html: article?.data?.content || '' }}
+                    />
+                  </div>
                 </div>
-                <div className="ServiceDetail-image">
-                  <img src={ImageServiceDetail1} alt="" />
-                </div>
-                <div className="ServiceDetail-description">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                  scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                  into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                  release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                  software like Aldus PageMaker including versions of Lorem Ipsum.
-                </div>
-                <div className="ServiceDetail-description">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                  scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                  into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                  release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                  software like Aldus PageMaker including versions of Lorem Ipsum.
-                </div>
-                <div className="ServiceDetail-description">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                  scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                  into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                  release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                  software like Aldus PageMaker including versions of Lorem Ipsum.
-                </div>
-                <div className="ServiceDetail-image">
-                  <img src={ImageServiceDetail2} alt="" />
-                </div>
-                <div className="ServiceDetail-description">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                  scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                  into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-                  release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                  software like Aldus PageMaker including versions of Lorem Ipsum.
+                <div className="ServiceDetail-main-item">
+                  <ServicesList />
                 </div>
               </div>
             </div>
-            <div className="ServiceDetail-main-item">
-              <ServicesList />
-            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };

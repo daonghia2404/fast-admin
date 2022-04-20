@@ -21,7 +21,6 @@ const retryLoadComponent = (fn: () => Promise<unknown>, retriesLeft = 5, interva
 
 const Home = lazy(() => retryLoadComponent(() => import('@/pages/Home')));
 const AboutUs = lazy(() => retryLoadComponent(() => import('@/pages/AboutUs')));
-const Service = lazy(() => retryLoadComponent(() => import('@/pages/Service')));
 const Contact = lazy(() => retryLoadComponent(() => import('@/pages/Contact')));
 const Services = lazy(() => retryLoadComponent(() => import('@/pages/Services')));
 const ServiceDetail = lazy(() => retryLoadComponent(() => import('@/pages/ServiceDetail')));
@@ -56,7 +55,6 @@ export const ModulePaths = {
 export const Paths = {
   Home: '/',
   AboutUs: '/ve-chung-toi',
-  Service: '/dich-vu',
   Contact: '/lien-he',
   Services: ModulePaths.Services,
   ServiceDetail: (id?: string): string => `${ModulePaths.Services}/chi-tiet/${id || ':id'}`,
@@ -79,7 +77,6 @@ export const Paths = {
 export const Pages = {
   Home,
   AboutUs,
-  Service,
   Contact,
   Services,
   ServiceDetail,

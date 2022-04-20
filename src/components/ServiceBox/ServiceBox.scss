@@ -10,7 +10,12 @@
 
   &-image {
     min-height: 33rem;
+    overflow: hidden;
     border-radius: 1rem;
+
+    img {
+      width: 100%;
+    }
   }
 
   &-icon {

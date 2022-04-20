@@ -174,6 +174,16 @@ export const getFullPathFile = (path: string): string => {
   return `${env.api.baseUrl.service}${path}`;
 };
 
-export const formatISODateToDateTime = (time: string): string => {
-  return moment(time).format('DD/MM/YYYY - HH:mm');
+export const formatISODateToDateTime = (time: string, format?: string): string => {
+  return moment(time).format(format || 'DD/MM/YYYY - HH:mm');
+};
+
+export const formatMoneyVND = (config: {
+  amount: number | string;
+  uppercaseUnit?: boolean;
+  showSuffix?: boolean;
+}): string => {
+  const separateMoney = Intl.NumberFormat('vi-VN').format(Number(config.amount));
+  const unit = config.uppercaseUnit ? 'Đ' : 'đ';
+  return `${separateMoney} ${config.showSuffix ? unit : ''}`;
 };

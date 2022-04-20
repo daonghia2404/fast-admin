@@ -27,6 +27,12 @@
       padding: .5rem 1rem;
       border: 1px solid $mercury;
 
+      .ant-picker-clear {
+        width: 18px;
+        display: flex;
+        justify-content: center;
+      }
+
       &:hover {
         border-color: $shamrock;
       }

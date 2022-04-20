@@ -26,7 +26,6 @@ import {
   TCreateUpdateBannersBody,
   TDeleteBannerParams,
   TDeleteBannerResponse,
-  TGetBannerParams,
   TGetBannerResponse,
   TGetBannersBody,
   TGetBannersResponse,
@@ -59,8 +58,8 @@ export const getBannerAction = {
   request: createActionCreator(
     EBannerControllerAction.GET_BANNER_REQUEST,
     (resolve) =>
-      (params: TGetBannerParams, cb?: (response: TGetBannerResponse) => void): TGetBannerRequest =>
-        resolve({ params, cb }),
+      (cb?: (response: TGetBannerResponse) => void): TGetBannerRequest =>
+        resolve({ cb }),
   ),
   success: createActionCreator(
     EBannerControllerAction.GET_BANNER_SUCCESS,

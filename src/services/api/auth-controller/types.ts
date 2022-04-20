@@ -41,7 +41,7 @@ export type TChangePasswordByOtpBody = {
 export type TChangePasswordByOtpResponse = unknown;
 
 export type TGetUserInfoResponse = TCommonResponse & {
-  data: {
+  data?: {
     address: number;
     code: number;
     createdDate: number;

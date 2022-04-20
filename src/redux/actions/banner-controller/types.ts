@@ -4,7 +4,6 @@ import {
   TCreateUpdateBannersBody,
   TDeleteBannerParams,
   TDeleteBannerResponse,
-  TGetBannerParams,
   TGetBannerResponse,
   TGetBannersBody,
   TGetBannersResponse,
@@ -30,7 +29,6 @@ export type TGetBannersFailed = { type: EBannerControllerAction.GET_BANNERS_FAIL
 export type TGetBannerRequest = {
   type: EBannerControllerAction.GET_BANNER_REQUEST;
   payload: {
-    params: TGetBannerParams;
     cb?: (response: TGetBannerResponse) => void;
   };
 };

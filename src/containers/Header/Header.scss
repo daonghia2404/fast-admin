@@ -102,6 +102,7 @@
         }
       }
 
+      &.active,
       &:hover {
         &::before {
           transform: translateX(-50%) scaleX(1);

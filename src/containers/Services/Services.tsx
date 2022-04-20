@@ -1,35 +1,71 @@
-import React from 'react';
+/* eslint-disable react/no-danger */
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
 
-import ImageServices from '@/assets/images/image-service.png';
-import Icon from '@/components/Icon';
+import Icon, { EIconName } from '@/components/Icon';
+import { getHomeContentAction } from '@/redux/actions';
+import { TRootState } from '@/redux/reducers';
+import Loading from '@/containers/Loading';
+import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
+import { getFullPathFile } from '@/utils/functions';
 
 import './Services.scss';
-import { dataServiceCards } from '@/containers/Services/Services.data';
 
 const Services: React.FC = () => {
+  const dispatch = useDispatch();
+  const [activeSection, setActiveSection] = useState<number>(0);
+
+  const getHomeContentLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EArticleControllerAction.GET_HOME_CONTENT],
+  );
+  const homeContent = useSelector((state: TRootState) => state.articleReducer.homeContent);
+  const activeArticle = homeContent?.data?.ListArticle?.[activeSection];
+
+  const getHomeContent = useCallback(() => {
+    dispatch(getHomeContentAction.request());
+  }, [dispatch]);
+
+  useEffect(() => {
+    getHomeContent();
+  }, [getHomeContent]);
+
   return (
     <div className="Services">
       <div className="container">
-        <div className="Services-wrapper flex items-center flex-wrap">
-          <div className="Services-wrapper-item">
-            <div className="Services-item-image">
-              <img src={ImageServices} alt="" />
+        {getHomeContentLoading ? (
+          <Loading />
+        ) : (
+          <div className="Services-wrapper flex items-center flex-wrap">
+            <div className="Services-wrapper-item">
+              {activeArticle?.thumbnail && (
+                <div className="Services-item-image">
+                  <img src={getFullPathFile(activeArticle.thumbnail)} alt="" />
+                </div>
+              )}
+            </div>
+            <div className="Services-wrapper-item flex flex-wrap justify-between">
+              {homeContent?.data?.ListArticle?.map((item, index) => (
+                <div
+                  key={item.articleId}
+                  className={classNames('Services-card flex items-start', { active: activeSection === index })}
+                  onClick={(): void => setActiveSection(index)}
+                >
+                  <div className="Services-card-icon">
+                    <Icon name={EIconName.CloudDownload} />
+                  </div>
+                  <div className="Services-card-info">
+                    <div className="Services-card-info-title">{item.title}</div>
+                    <div
+                      className="Services-card-info-description ck-content style-content-editable"
+                      dangerouslySetInnerHTML={{ __html: item.content || '' }}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="Services-wrapper-item flex flex-wrap justify-between">
-            {dataServiceCards.map((item) => (
-              <div key={item.key} className="Services-card flex items-start">
-                <div className="Services-card-icon">
-                  <Icon name={item.icon} />
-                </div>
-                <div className="Services-card-info">
-                  <div className="Services-card-info-title">{item.title}</div>
-                  <div className="Services-card-info-description">{item.description}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

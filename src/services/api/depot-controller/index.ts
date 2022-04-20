@@ -13,13 +13,13 @@ class Controller {
     return response.data;
   };
 
-  getDepotOrders = async (params: TGetDepotOrdersParams): Promise<TGetDepotOrdersResponse> => {
-    const response = await Service.post('/api/SearchDepot/travandon', params);
+  getDepotOrdersReturn = async (params: TGetDepotOrdersParams): Promise<TGetDepotOrdersReturnResponse> => {
+    const response = await Service.post(`/api/SearchDepot/trahangdatra`, params);
     return response.data;
   };
 
-  getDepotOrdersReturn = async (ladingCode: string): Promise<TGetDepotOrdersReturnResponse> => {
-    const response = await Service.post(`/api/SearchDepot/travandon/${ladingCode}`);
+  getDepotOrders = async (ladingCode: string): Promise<TGetDepotOrdersResponse> => {
+    const response = await Service.get('/api/SearchDepot/travandon', { params: { ladingCode } });
     return response.data;
   };
 }

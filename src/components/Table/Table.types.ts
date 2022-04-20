@@ -12,6 +12,7 @@ export type TTableProps = {
   showOrder?: boolean;
   dataSources: Array<any>;
   checkedValue?: Array<any>;
+  hideCreate?: boolean;
   rowKey?: string;
   loading?: boolean;
   filtersRender?: React.ReactNode;
