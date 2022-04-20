@@ -22,6 +22,21 @@ const Services: React.FC = () => {
   const homeContent = useSelector((state: TRootState) => state.articleReducer.homeContent);
   const activeArticle = homeContent?.data?.ListArticle?.[activeSection];
 
+  const renderIcon = (index: number): EIconName => {
+    switch (index % 4) {
+      case 0:
+        return EIconName.CloudDownload;
+      case 1:
+        return EIconName.Video;
+      case 2:
+        return EIconName.Calendar;
+      case 3:
+        return EIconName.UserLine;
+      default:
+        return EIconName.Dashboard;
+    }
+  };
+
   const getHomeContent = useCallback(() => {
     dispatch(getHomeContentAction.request());
   }, [dispatch]);
@@ -52,7 +67,7 @@ const Services: React.FC = () => {
                   onClick={(): void => setActiveSection(index)}
                 >
                   <div className="Services-card-icon">
-                    <Icon name={EIconName.CloudDownload} />
+                    <Icon name={renderIcon(index)} />
                   </div>
                   <div className="Services-card-info">
                     <div className="Services-card-info-title">{item.title}</div>
