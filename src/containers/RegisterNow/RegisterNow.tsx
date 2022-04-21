@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LogoDark from '@/assets/images/logo-dark.svg';
+import Logo from '@/assets/images/logo.png';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 
@@ -13,7 +13,7 @@ const RegisterNow: React.FC = () => {
         <div className="RegisterNow-wrapper flex flex-wrap items-center">
           <div className="RegisterNow-wrapper-item">
             <div className="RegisterNow-logo">
-              <img src={LogoDark} alt="" />
+              <img src={Logo} alt="" />
             </div>
             <div className="RegisterNow-logo-description">Lorem Ipsum is simply dummy text of the printing</div>
           </div>

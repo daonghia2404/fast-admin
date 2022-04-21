@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Link, navigate } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Logo from '@/assets/images/logo.svg';
+import Logo from '@/assets/images/logo.png';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import PrivacyPolicyModal from '@/containers/PrivacyPolicyModal';
 import Avatar from '@/components/Avatar';

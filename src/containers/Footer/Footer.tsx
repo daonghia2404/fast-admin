@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@reach/router';
 
-import Logo from '@/assets/images/logo-light.svg';
+import Logo from '@/assets/images/logo.png';
 import { dataMenuFooter } from '@/containers/Footer/Footer.data';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 
