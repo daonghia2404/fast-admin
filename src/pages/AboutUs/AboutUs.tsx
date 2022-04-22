@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAboutUsAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
-import Loading from '@/containers/Loading';
+import PageLoading from '@/containers/PageLoading';
 
 import './AboutUs.scss';
 
@@ -31,13 +31,16 @@ const AboutUs: React.FC = () => {
     <div className="AboutUs">
       <div className="container">
         {getContentLoading ? (
-          <Loading />
+          <PageLoading />
         ) : (
           <div className="AboutUs-wrapper">
-            <div
-              className="AboutUs-content ck-content style-content-editable"
-              dangerouslySetInnerHTML={{ __html: content || '' }}
-            />
+            <div className="AboutUs-card">
+              <div className="AboutUs-title">Về chúng tôi</div>
+              <div
+                className="AboutUs-content ck-content style-content-editable"
+                dangerouslySetInnerHTML={{ __html: content || '' }}
+              />
+            </div>
           </div>
         )}
       </div>

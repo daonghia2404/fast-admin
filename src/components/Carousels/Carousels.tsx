@@ -31,9 +31,10 @@ export const Carousels: React.FC<TCarouselsProps> = ({
     infinite,
     autoplay,
     slidesPerRow,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 4000,
     slidesToShow,
     slidesToScroll,
+    pauseOnHover: false,
     nextArrow: renderNextArrow(),
     prevArrow: renderPrevArrow(),
   };

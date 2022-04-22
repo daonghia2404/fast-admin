@@ -10,6 +10,7 @@ import {
   TGetHomeBannerResponse,
   TGetBannersResponse,
   TGetBannerCategoryResponse,
+  TGetLogoResponse,
 } from '@/services/api/banner-controller/types';
 
 class Controller {
@@ -20,6 +21,11 @@ class Controller {
 
   getBanner = async (): Promise<TGetBannerResponse> => {
     const response = await Service.get('/api/Image/getBanner');
+    return response.data;
+  };
+
+  getLogo = async (): Promise<TGetLogoResponse> => {
+    const response = await Service.get('/api/Image/getLogo');
     return response.data;
   };
 

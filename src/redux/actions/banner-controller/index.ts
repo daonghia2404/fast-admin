@@ -20,6 +20,9 @@ import {
   TGetHomeBannerFailed,
   TGetHomeBannerRequest,
   TGetHomeBannerSuccess,
+  TGetLogoFailed,
+  TGetLogoRequest,
+  TGetLogoSuccess,
 } from '@/redux/actions/banner-controller/types';
 import {
   TCreateUpdateBannerResponse,
@@ -31,6 +34,7 @@ import {
   TGetBannersResponse,
   TGetBannerCategoryResponse,
   TGetHomeBannerResponse,
+  TGetLogoResponse,
 } from '@/services/api/banner-controller/types';
 
 export const getBannersAction = {
@@ -71,6 +75,27 @@ export const getBannerAction = {
     EBannerControllerAction.GET_BANNER_FAILED,
     (resolve) =>
       (error: unknown): TGetBannerFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getLogoAction = {
+  request: createActionCreator(
+    EBannerControllerAction.GET_LOGO_REQUEST,
+    (resolve) =>
+      (cb?: (response: TGetLogoResponse) => void): TGetLogoRequest =>
+        resolve({ cb }),
+  ),
+  success: createActionCreator(
+    EBannerControllerAction.GET_LOGO_SUCCESS,
+    (resolve) =>
+      (response: TGetLogoResponse): TGetLogoSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EBannerControllerAction.GET_LOGO_FAILED,
+    (resolve) =>
+      (error: unknown): TGetLogoFailed =>
         resolve({ error }),
   ),
 };

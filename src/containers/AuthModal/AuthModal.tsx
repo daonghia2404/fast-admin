@@ -93,10 +93,9 @@ const AuthModal: React.FC<TAuthModalProps> = ({ visible, tabKey, onClose, onSign
     <Modal
       visible={visible}
       maxWidth="116rem"
-      closeable={false}
       className="AuthModal"
       wrapClassName="AuthModal-wrapper"
-      onClose={onClose}
+      onClickClose={onClose}
     >
       <div className="AuthModal-main flex">
         <div className="AuthModal-main-item">

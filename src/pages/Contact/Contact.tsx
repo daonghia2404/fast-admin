@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getContactAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
-import Loading from '@/containers/Loading';
+import PageLoading from '@/containers/PageLoading';
 
 import './Contact.scss';
 
@@ -31,13 +31,17 @@ const Contact: React.FC = () => {
     <div className="Contact">
       <div className="container">
         {getContentLoading ? (
-          <Loading />
+          <PageLoading />
         ) : (
           <div className="Contact-wrapper">
-            <div
-              className="Contact-content ck-content style-content-editable"
-              dangerouslySetInnerHTML={{ __html: content || '' }}
-            />
+            <div className="Contact-card">
+              <div className="Contact-title">Liên hệ</div>
+
+              <div
+                className="Contact-content ck-content style-content-editable"
+                dangerouslySetInnerHTML={{ __html: content || '' }}
+              />
+            </div>
           </div>
         )}
       </div>

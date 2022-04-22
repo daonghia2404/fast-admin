@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import { Link, navigate } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Logo from '@/assets/images/logo.png';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import PrivacyPolicyModal from '@/containers/PrivacyPolicyModal';
 import Avatar from '@/components/Avatar';
@@ -13,7 +12,7 @@ import UpdateInfoAccountModal from '@/containers/UpdateInfoAccountModal';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import AuthHelpers from '@/services/helpers';
 import ModalConfirm from '@/containers/ModalConfirm';
-import { getUserInfoAction } from '@/redux/actions';
+import { getLogoAction, getUserInfoAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 
 import './HeaderAdmin.scss';
@@ -23,6 +22,7 @@ const HeaderAdmin: React.FC = () => {
   const atk = AuthHelpers.getAccessToken();
 
   const userInfoState = useSelector((state: TRootState) => state.authReducer.user);
+  const logoState = useSelector((state: TRootState) => state.bannerReducer.logo?.data?.ListImage?.[0]?.filePath);
 
   const [privacyPolicyModalState, setPrivacyPolicyModalState] = useState<{
     visible: boolean;
@@ -86,6 +86,10 @@ const HeaderAdmin: React.FC = () => {
     dispatch(getUserInfoAction.success({ data: undefined, message: '', status: false }));
   };
 
+  const getLogoData = useCallback(() => {
+    dispatch(getLogoAction.request());
+  }, [dispatch]);
+
   const renderHeaderAdminAccountDropdown = (): React.ReactElement => {
     return (
       <div>
@@ -139,6 +143,10 @@ const HeaderAdmin: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    getLogoData();
+  }, [getLogoData]);
+
+  useEffect(() => {
     if (atk) getUserInfoData();
   }, [atk, getUserInfoData]);
 
@@ -146,9 +154,7 @@ const HeaderAdmin: React.FC = () => {
     <div className={classNames('HeaderAdmin flex justify-between items-center')}>
       <div className="HeaderAdmin-item">
         <div className="HeaderAdmin-logo">
-          <Link to={LayoutPaths.Admin}>
-            <img src={Logo} alt="" />
-          </Link>
+          <Link to={LayoutPaths.Admin}>{logoState && <img src={logoState} alt="" />}</Link>
         </div>
       </div>
       <div className="HeaderAdmin-item flex items-center">

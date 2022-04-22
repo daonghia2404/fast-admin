@@ -31,6 +31,20 @@ export type TGetAboutUsResponse = TCommonResponse & {
     ListArticle: TArticleResponse[];
   };
 };
+export type TGetMiddleBandResponse = TCommonResponse & {
+  data: {
+    ListArticle: TArticleResponse[];
+  };
+};
+export type TGetFooterResponse = TCommonResponse & {
+  data: {
+    ListArticle: TArticleResponse[];
+  };
+};
+
+export type TGetServiceDetailResponse = TCommonResponse & {
+  data: TArticleResponse;
+};
 
 export type TArticleResponse = {
   articleId: number;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Slider } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
 
 import Button from '@/components/Button';
 import Input from '@/components/Input';
@@ -19,7 +20,7 @@ const SignUp: React.FC<TSignUpProps> = ({ onSubmit }) => {
 
   const [form] = Form.useForm();
   const [sliderValue, setSliderValue] = useState(0);
-  const isDisabledSubmit = sliderValue !== 100;
+  const isDisabledSubmit = sliderValue === 100;
 
   const handleSubmit = (values: any): void => {
     const body = {
@@ -44,6 +45,10 @@ const SignUp: React.FC<TSignUpProps> = ({ onSubmit }) => {
   const resetFields = (): void => {
     form.resetFields();
     setSliderValue(0);
+  };
+
+  const handleAfterChangeSliderSubmit = (value: number): void => {
+    if (value !== 100) setSliderValue(0);
   };
 
   useEffect(() => {
@@ -83,14 +88,17 @@ const SignUp: React.FC<TSignUpProps> = ({ onSubmit }) => {
 
       <div className="AuthModal-slider-submit">
         <div className="AuthModal-slider-submit-text">Trượt để gửi</div>
-        <Slider
-          disabled={!isDisabledSubmit}
-          max={100}
-          min={0}
-          value={sliderValue}
-          tooltipVisible={false}
-          onChange={handleChangeSliderValue}
-        />
+        <div className={classNames('AuthModal-slider-submit-btn', { hide: isDisabledSubmit })}>
+          <Slider
+            disabled={isDisabledSubmit}
+            max={100}
+            min={0}
+            value={sliderValue}
+            tooltipVisible={false}
+            onChange={handleChangeSliderValue}
+            onAfterChange={handleAfterChangeSliderSubmit}
+          />
+        </div>
       </div>
 
       <Form.Item className="AuthModal-submit">
@@ -98,7 +106,7 @@ const SignUp: React.FC<TSignUpProps> = ({ onSubmit }) => {
           type="primary"
           htmlType="submit"
           title="Đăng Ký"
-          disabled={isDisabledSubmit}
+          disabled={!isDisabledSubmit}
           loading={registerLoading}
         />
       </Form.Item>

@@ -6,7 +6,6 @@ import { TRootState } from '@/redux/reducers';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
 import { getAboutUsAction } from '@/redux/actions';
 import { getFullPathFile } from '@/utils/functions';
-import Loading from '@/containers/Loading';
 
 import './About.scss';
 
@@ -30,9 +29,7 @@ const About: React.FC = () => {
   return (
     <div className="About">
       <div className="container">
-        {getContentLoading ? (
-          <Loading />
-        ) : (
+        {!getContentLoading && (
           <div className="About-wrapper flex flex-wrap justify-between">
             <div className="About-wrapper-item">
               <div

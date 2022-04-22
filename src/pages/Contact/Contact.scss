@@ -2,4 +2,29 @@
 
 .Contact {
   padding: 7rem 0;
+
+  &-title {
+    font-size: 2.4rem;
+    margin-bottom: 3.5rem;
+    position: relative;
+    text-transform: uppercase;
+
+    &::before {
+      position: absolute;
+      content: '';
+      left: 0;
+      bottom: -1.5rem;
+      border-radius: .1rem;
+      background: linear-gradient(90.03deg, #007046 0%, #35D298 51.04%, #5DC267 100%);
+      height: .4rem;
+      width: 5.5rem;
+    }
+  }
+
+  &-card {
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: $rose-white;
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+  }
 }

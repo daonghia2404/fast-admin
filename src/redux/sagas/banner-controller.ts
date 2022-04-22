@@ -9,6 +9,7 @@ import {
   TGetBannersResponse,
   TGetBannerCategoryResponse,
   TGetHomeBannerResponse,
+  TGetLogoResponse,
 } from '@/services/api/banner-controller/types';
 import {
   createUpdateBannerAction,
@@ -17,6 +18,7 @@ import {
   getBannersAction,
   getBannerCategoryAction,
   getHomeBannerAction,
+  getLogoAction,
 } from '@/redux/actions';
 
 export function* getBannersSaga(action: ActionType<typeof getBannersAction.request>): Generator {
@@ -67,6 +69,18 @@ export function* getBannerCategorySaga(action: ActionType<typeof getBannerCatego
   }
 }
 
+export function* getLogoSaga(action: ActionType<typeof getLogoAction.request>): Generator {
+  const { cb } = action.payload;
+  try {
+    const response = (yield call(ControllerInstance.getLogo)) as TGetLogoResponse;
+
+    yield put(getLogoAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getLogoAction.failure(err));
+  }
+}
+
 export function* createUpdateBannerSaga(action: ActionType<typeof createUpdateBannerAction.request>): Generator {
   const { body, cb } = action.payload;
   try {
@@ -94,6 +108,7 @@ export function* deleteBannerSaga(action: ActionType<typeof deleteBannerAction.r
 export default function* root(): Generator {
   yield all([takeLatest(getBannersAction.request.type, getBannersSaga)]);
   yield all([takeLatest(getBannerAction.request.type, getBannerSaga)]);
+  yield all([takeLatest(getLogoAction.request.type, getLogoSaga)]);
   yield all([takeLatest(getHomeBannerAction.request.type, getHomeBannerSaga)]);
   yield all([takeLatest(getBannerCategoryAction.request.type, getBannerCategorySaga)]);
   yield all([takeLatest(createUpdateBannerAction.request.type, createUpdateBannerSaga)]);

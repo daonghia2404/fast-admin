@@ -6,12 +6,13 @@ import { navigate } from '@reach/router';
 import { getServiceAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
-import Loading from '@/containers/Loading';
 import HomeBanner from '@/containers/HomeBanner';
 import ServiceBox from '@/components/ServiceBox';
 import { getFullPathFile } from '@/utils/functions';
 import { Paths } from '@/pages/routers';
 import { TArticleResponse } from '@/services/api/article-controller/types';
+import { EBannerControllerAction } from '@/redux/actions/banner-controller/constants';
+import PageLoading from '@/containers/PageLoading';
 
 import './Services.scss';
 
@@ -22,6 +23,9 @@ const Service: React.FC = () => {
   const getServicesLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EArticleControllerAction.GET_SERVICE],
   );
+  const getBannerLoading = useSelector((state: TRootState) => state.loadingReducer[EBannerControllerAction.GET_BANNER]);
+
+  const loading = getServicesLoading || getBannerLoading;
 
   const servicesData = servicesState?.data?.ListArticle || [];
 
@@ -37,29 +41,22 @@ const Service: React.FC = () => {
     getContentData();
   }, [getContentData]);
 
-  // <div className="Service-wrapper">
-  //   <div
-  //     className="Service-content ck-content style-content-editable"
-  //     dangerouslySetInnerHTML={{ __html: content || '' }}
-  //   />
-  // </div>;
-
   return (
     <div className="Service">
       <HomeBanner />
 
-      <div className="container">
-        <div className="Services-wrapper">
-          <div className="Services-title">Dịch Vụ</div>
-          <div className="Services-description">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industrys standard dummy text ever since the 1500s,
-          </div>
+      <>
+        {loading ? (
+          <PageLoading />
+        ) : (
+          <div className="container">
+            <div className="Services-wrapper">
+              <div className="Services-title">Dịch Vụ</div>
+              <div className="Services-description">
+                huyên cung cấp dịch vụ vận tải hàng hoá bằng đường bộ từ Trung Quốc về Việt Nam. Chúng tôi luôn mang đến
+                dịch vụ vận chuyển tốt nhất, an toàn và đảm bảo.
+              </div>
 
-          {getServicesLoading ? (
-            <Loading />
-          ) : (
-            <>
               <div className="Services-list flex flex-wrap">
                 {servicesData.map((item) => (
                   <div className="Services-list-item">
@@ -72,10 +69,10 @@ const Service: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </>
-          )}
-        </div>
-      </div>
+            </div>
+          </div>
+        )}
+      </>
     </div>
   );
 };

@@ -10,10 +10,13 @@ import {
   getArticleCategoryAction,
   getArticlesAction,
   getContactAction,
+  getFooterAction,
   getHomeContentAction,
+  getMiddleBandAction,
   getPolicyAction,
   getRuleAction,
   getServiceAction,
+  getServiceDetailAction,
 } from '@/redux/actions';
 import {
   TCreateUpdateArticleResponse,
@@ -23,9 +26,12 @@ import {
   TGetArticleResponse,
   TGetArticlesResponse,
   TGetContactResponse,
+  TGetFooterResponse,
   TGetHomeContentResponse,
+  TGetMiddleBandResponse,
   TGetPolicyResponse,
   TGetRuleResponse,
+  TGetServiceDetailResponse,
   TGetServiceResponse,
 } from '@/services/api/article-controller/types';
 
@@ -50,6 +56,39 @@ export function* getServiceSaga(action: ActionType<typeof getServiceAction.reque
     cb?.(response);
   } catch (err) {
     yield put(getServiceAction.failure(err));
+  }
+}
+export function* getServiceDetailSaga(action: ActionType<typeof getServiceDetailAction.request>): Generator {
+  const { id, cb } = action.payload;
+  try {
+    const response = (yield call(ControllerInstance.getServiceDetail, id)) as TGetServiceDetailResponse;
+
+    yield put(getServiceDetailAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getServiceDetailAction.failure(err));
+  }
+}
+export function* getMiddleBandSaga(action: ActionType<typeof getMiddleBandAction.request>): Generator {
+  const { cb } = action.payload;
+  try {
+    const response = (yield call(ControllerInstance.getMiddleBand)) as TGetMiddleBandResponse;
+
+    yield put(getMiddleBandAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getMiddleBandAction.failure(err));
+  }
+}
+export function* getFooterSaga(action: ActionType<typeof getFooterAction.request>): Generator {
+  const { cb } = action.payload;
+  try {
+    const response = (yield call(ControllerInstance.getFooter)) as TGetFooterResponse;
+
+    yield put(getFooterAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getFooterAction.failure(err));
   }
 }
 
@@ -157,12 +196,15 @@ export function* deleteArticlesSaga(action: ActionType<typeof deleteArticlesActi
 export default function* root(): Generator {
   yield all([takeLatest(getHomeContentAction.request.type, getHomeContentSaga)]);
   yield all([takeLatest(getServiceAction.request.type, getServiceSaga)]);
+  yield all([takeLatest(getServiceDetailAction.request.type, getServiceDetailSaga)]);
   yield all([takeLatest(getPolicyAction.request.type, getPolicySaga)]);
   yield all([takeLatest(getRuleAction.request.type, getRuleSaga)]);
   yield all([takeLatest(getContactAction.request.type, getContactSaga)]);
   yield all([takeLatest(getAboutUsAction.request.type, getAboutUsSaga)]);
   yield all([takeLatest(getArticlesAction.request.type, getArticlesSaga)]);
   yield all([takeLatest(getArticleAction.request.type, getArticleSaga)]);
+  yield all([takeLatest(getMiddleBandAction.request.type, getMiddleBandSaga)]);
+  yield all([takeLatest(getFooterAction.request.type, getFooterSaga)]);
   yield all([takeLatest(createUpdateArticleAction.request.type, createUpdateArticleSaga)]);
   yield all([takeLatest(deleteArticlesAction.request.type, deleteArticlesSaga)]);
   yield all([takeLatest(getArticleCategoryAction.request.type, getArticleCategorySaga)]);

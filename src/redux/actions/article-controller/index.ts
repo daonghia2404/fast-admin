@@ -35,6 +35,15 @@ import {
   TGetArticleFailed,
   TGetArticleRequest,
   TGetArticleSuccess,
+  TGetMiddleBandFailed,
+  TGetMiddleBandRequest,
+  TGetMiddleBandSuccess,
+  TGetFooterFailed,
+  TGetFooterRequest,
+  TGetFooterSuccess,
+  TGetServiceDetailFailed,
+  TGetServiceDetailRequest,
+  TGetServiceDetailSuccess,
 } from '@/redux/actions/article-controller/types';
 import {
   TCreateUpdateArticleBody,
@@ -46,9 +55,12 @@ import {
   TGetArticlesParams,
   TGetArticlesResponse,
   TGetContactResponse,
+  TGetFooterResponse,
   TGetHomeContentResponse,
+  TGetMiddleBandResponse,
   TGetPolicyResponse,
   TGetRuleResponse,
+  TGetServiceDetailResponse,
   TGetServiceResponse,
 } from '@/services/api/article-controller/types';
 
@@ -90,6 +102,69 @@ export const getServiceAction = {
     EArticleControllerAction.GET_SERVICE_FAILED,
     (resolve) =>
       (error: unknown): TGetServiceFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getServiceDetailAction = {
+  request: createActionCreator(
+    EArticleControllerAction.GET_SERVICE_DETAIL_REQUEST,
+    (resolve) =>
+      (id: string, cb?: (response: TGetServiceDetailResponse) => void): TGetServiceDetailRequest =>
+        resolve({ id, cb }),
+  ),
+  success: createActionCreator(
+    EArticleControllerAction.GET_SERVICE_DETAIL_SUCCESS,
+    (resolve) =>
+      (response: TGetServiceDetailResponse): TGetServiceDetailSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EArticleControllerAction.GET_SERVICE_DETAIL_FAILED,
+    (resolve) =>
+      (error: unknown): TGetServiceDetailFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getMiddleBandAction = {
+  request: createActionCreator(
+    EArticleControllerAction.GET_MIDDLE_BAND_REQUEST,
+    (resolve) =>
+      (cb?: (response: TGetMiddleBandResponse) => void): TGetMiddleBandRequest =>
+        resolve({ cb }),
+  ),
+  success: createActionCreator(
+    EArticleControllerAction.GET_MIDDLE_BAND_SUCCESS,
+    (resolve) =>
+      (response: TGetMiddleBandResponse): TGetMiddleBandSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EArticleControllerAction.GET_MIDDLE_BAND_FAILED,
+    (resolve) =>
+      (error: unknown): TGetMiddleBandFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getFooterAction = {
+  request: createActionCreator(
+    EArticleControllerAction.GET_FOOTER_REQUEST,
+    (resolve) =>
+      (cb?: (response: TGetFooterResponse) => void): TGetFooterRequest =>
+        resolve({ cb }),
+  ),
+  success: createActionCreator(
+    EArticleControllerAction.GET_FOOTER_SUCCESS,
+    (resolve) =>
+      (response: TGetFooterResponse): TGetFooterSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EArticleControllerAction.GET_FOOTER_FAILED,
+    (resolve) =>
+      (error: unknown): TGetFooterFailed =>
         resolve({ error }),
   ),
 };

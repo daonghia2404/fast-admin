@@ -9,6 +9,7 @@ import {
   TGetBannersResponse,
   TGetBannerCategoryResponse,
   TGetHomeBannerResponse,
+  TGetLogoResponse,
 } from '@/services/api/banner-controller/types';
 
 export type TGetBannersRequest = {
@@ -39,6 +40,20 @@ export type TGetBannerSuccess = {
 };
 
 export type TGetBannerFailed = { type: EBannerControllerAction.GET_BANNER_FAILED; payload: { error: unknown } };
+
+export type TGetLogoRequest = {
+  type: EBannerControllerAction.GET_LOGO_REQUEST;
+  payload: {
+    cb?: (response: TGetLogoResponse) => void;
+  };
+};
+
+export type TGetLogoSuccess = {
+  type: EBannerControllerAction.GET_LOGO_SUCCESS;
+  payload: { response: TGetLogoResponse };
+};
+
+export type TGetLogoFailed = { type: EBannerControllerAction.GET_LOGO_FAILED; payload: { error: unknown } };
 
 export type TGetHomeBannerRequest = {
   type: EBannerControllerAction.GET_HOME_BANNER_REQUEST;

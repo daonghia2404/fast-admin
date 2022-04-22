@@ -6,9 +6,12 @@ import {
   TGetArticleResponse,
   TGetArticlesResponse,
   TGetContactResponse,
+  TGetFooterResponse,
   TGetHomeContentResponse,
+  TGetMiddleBandResponse,
   TGetPolicyResponse,
   TGetRuleResponse,
+  TGetServiceDetailResponse,
   TGetServiceResponse,
 } from '@/services/api/article-controller/types';
 import {
@@ -17,19 +20,25 @@ import {
   getArticleCategoryAction,
   getArticlesAction,
   getContactAction,
+  getFooterAction,
   getHomeContentAction,
+  getMiddleBandAction,
   getPolicyAction,
   getRuleAction,
   getServiceAction,
+  getServiceDetailAction,
 } from '@/redux/actions';
 
 export interface IState {
   homeContent?: TGetHomeContentResponse;
   service?: TGetServiceResponse;
+  serviceDetail?: TGetServiceDetailResponse;
   policy?: TGetPolicyResponse;
   rule?: TGetRuleResponse;
   contact?: TGetContactResponse;
   aboutUs?: TGetAboutUsResponse;
+  middleBand?: TGetMiddleBandResponse;
+  footer?: TGetFooterResponse;
   articles?: TGetArticlesResponse;
   article?: TGetArticleResponse;
   articleCategory?: TGetArticleCategoryResponse;
@@ -37,10 +46,13 @@ export interface IState {
 const initialState: IState = {
   homeContent: undefined,
   service: undefined,
+  serviceDetail: undefined,
   policy: undefined,
   rule: undefined,
   contact: undefined,
   aboutUs: undefined,
+  middleBand: undefined,
+  footer: undefined,
 
   articles: undefined,
   article: undefined,
@@ -64,12 +76,44 @@ const reducer = createReducer(initialState, (handleAction) => [
       service: response,
     };
   }),
+  handleAction(getServiceDetailAction.success, (state, { payload }) => {
+    const { response } = payload;
+
+    return {
+      ...state,
+      serviceDetail: response,
+    };
+  }),
   handleAction(getPolicyAction.success, (state, { payload }) => {
     const { response } = payload;
 
     return {
       ...state,
       policy: response,
+    };
+  }),
+  handleAction(getRuleAction.success, (state, { payload }) => {
+    const { response } = payload;
+
+    return {
+      ...state,
+      rule: response,
+    };
+  }),
+  handleAction(getMiddleBandAction.success, (state, { payload }) => {
+    const { response } = payload;
+
+    return {
+      ...state,
+      middleBand: response,
+    };
+  }),
+  handleAction(getFooterAction.success, (state, { payload }) => {
+    const { response } = payload;
+
+    return {
+      ...state,
+      footer: response,
     };
   }),
   handleAction(getRuleAction.success, (state, { payload }) => {

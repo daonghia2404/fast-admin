@@ -13,6 +13,9 @@ import {
   TGetArticlesResponse,
   TCreateUpdateArticleResponse,
   TGetArticleResponse,
+  TGetFooterResponse,
+  TGetMiddleBandResponse,
+  TGetServiceDetailResponse,
 } from '@/services/api/article-controller/types';
 
 class Controller {
@@ -23,6 +26,11 @@ class Controller {
 
   getService = async (): Promise<TGetServiceResponse> => {
     const response = await Service.get('/api/Article/getService');
+    return response.data;
+  };
+
+  getServiceDetail = async (id: string): Promise<TGetServiceDetailResponse> => {
+    const response = await Service.get('/api/Article/getServiceDetails', { params: { id } });
     return response.data;
   };
 
@@ -43,6 +51,16 @@ class Controller {
 
   getAboutUs = async (): Promise<TGetAboutUsResponse> => {
     const response = await Service.get('/api/Article/getAboutUs');
+    return response.data;
+  };
+
+  getMiddleBand = async (): Promise<TGetMiddleBandResponse> => {
+    const response = await Service.get('/api/Article/getMiddleband');
+    return response.data;
+  };
+
+  getFooter = async (): Promise<TGetFooterResponse> => {
+    const response = await Service.get('/api/Article/getFooter');
     return response.data;
   };
 

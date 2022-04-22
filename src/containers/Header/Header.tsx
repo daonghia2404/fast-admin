@@ -3,7 +3,6 @@ import { Link, navigate, useLocation } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
-import Logo from '@/assets/images/logo.png';
 import { dataHeaderMenu } from '@/containers/Header/Header.data';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
@@ -18,10 +17,11 @@ import ChangePasswordModal from '@/containers/ChangePasswordModal';
 import UpdateInfoAccountModal from '@/containers/UpdateInfoAccountModal';
 import { THeaderProps } from '@/containers/Header/Header.types';
 import { useOnClickOutside } from '@/utils/hooks';
-import { Paths } from '@/pages/routers';
+import { LayoutPaths, Paths } from '@/pages/routers';
 import AuthHelpers from '@/services/helpers';
-import { getUserInfoAction } from '@/redux/actions';
+import { getLogoAction, getUserInfoAction } from '@/redux/actions';
 import ModalConfirm from '@/containers/ModalConfirm';
+import { getFullPathFile } from '@/utils/functions';
 
 import './Header.scss';
 
@@ -37,6 +37,7 @@ const Header: React.FC<THeaderProps> = () => {
   const [visibleLogoutModal, setVisibleLogoutModal] = useState<boolean>(false);
 
   const userInfoState = useSelector((state: TRootState) => state.authReducer.user);
+  const logoState = useSelector((state: TRootState) => state.bannerReducer.logo?.data?.ListImage?.[0]?.filePath);
 
   const [visibleMenu, setVisibleMenu] = useState<boolean>(false);
   const [authModalState, setAuthModalState] = useState<{
@@ -131,6 +132,10 @@ const Header: React.FC<THeaderProps> = () => {
     dispatch(getUserInfoAction.success({ data: undefined, message: '', status: false }));
   };
 
+  const getLogoData = useCallback(() => {
+    dispatch(getLogoAction.request());
+  }, [dispatch]);
+
   const renderHeaderAccountDropdown = (): React.ReactElement => {
     return (
       <div>
@@ -141,6 +146,19 @@ const Header: React.FC<THeaderProps> = () => {
           <div className="Header-account-overlay-info-name">{userInfoState?.data?.username}</div>
         </div>
         <div className="Header-account-overlay-list">
+          {userInfoState?.data?.isAdmin && (
+            <div
+              className="Header-account-overlay-list-item flex items-center"
+              onClick={(): void => {
+                navigate(LayoutPaths.Admin);
+              }}
+            >
+              <div className="Header-account-overlay-list-item-icon">
+                <Icon name={EIconName.Dashboard} />
+              </div>
+              <div className="Header-account-overlay-list-item-title">Quản trị hệ thống</div>
+            </div>
+          )}
           <div
             className="Header-account-overlay-list-item flex items-center"
             onClick={handleOpenUpdateInfoAccountModal}
@@ -174,6 +192,10 @@ const Header: React.FC<THeaderProps> = () => {
   };
 
   useEffect(() => {
+    getLogoData();
+  }, [getLogoData]);
+
+  useEffect(() => {
     if (!isMobile) setVisibleMenu(false);
   }, [isMobile]);
 
@@ -185,9 +207,7 @@ const Header: React.FC<THeaderProps> = () => {
     <div className={classNames('Header flex justify-between items-center', { visible: visibleMenu })}>
       <div className="Header-item">
         <div className="Header-logo">
-          <Link to={Paths.Home}>
-            <img src={Logo} alt="" />
-          </Link>
+          <Link to={Paths.Home}>{logoState && <img src={getFullPathFile(logoState)} alt="" />}</Link>
         </div>
       </div>
       <div className="Header-item flex items-center">

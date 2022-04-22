@@ -194,6 +194,15 @@
     border-radius: .4rem;
     overflow: hidden;
 
+    &-btn {
+      transition: 0.5s ease;
+
+      &.hide {
+        overflow: hidden;
+        height: 0;
+      }
+    }
+
     &-text {
       position: absolute;
       top: 50%;
@@ -241,12 +250,21 @@
       }
     }
 
+    .ant-slider-disabled .ant-slider-track,
+    .ant-slider:hover .ant-slider-track {
+      background: $mercury !important;
+    }
+    
     .ant-slider-handle,
     .ant-slider-track,
     .ant-slider-rail,
     .ant-slider-step {
       height: 6.3rem;
       background: $mercury;
+    }
+
+    .ant-slider-track {
+      z-index: 1;
     }
 
     .ant-slider-rail {

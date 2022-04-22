@@ -6,7 +6,6 @@ import classNames from 'classnames';
 import Icon, { EIconName } from '@/components/Icon';
 import { getHomeContentAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
-import Loading from '@/containers/Loading';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
 import { getFullPathFile } from '@/utils/functions';
 
@@ -48,9 +47,7 @@ const Services: React.FC = () => {
   return (
     <div className="Services">
       <div className="container">
-        {getHomeContentLoading ? (
-          <Loading />
-        ) : (
+        {!getHomeContentLoading && (
           <div className="Services-wrapper flex items-center flex-wrap">
             <div className="Services-wrapper-item">
               {activeArticle?.thumbnail && (

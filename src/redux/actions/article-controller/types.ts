@@ -9,9 +9,12 @@ import {
   TGetArticlesParams,
   TGetArticlesResponse,
   TGetContactResponse,
+  TGetFooterResponse,
   TGetHomeContentResponse,
+  TGetMiddleBandResponse,
   TGetPolicyResponse,
   TGetRuleResponse,
+  TGetServiceDetailResponse,
   TGetServiceResponse,
 } from '@/services/api/article-controller/types';
 
@@ -49,6 +52,24 @@ export type TGetServiceFailed = {
   payload: { error: unknown };
 };
 
+export type TGetServiceDetailRequest = {
+  type: EArticleControllerAction.GET_SERVICE_DETAIL_REQUEST;
+  payload: {
+    id: string;
+    cb?: (response: TGetServiceDetailResponse) => void;
+  };
+};
+
+export type TGetServiceDetailSuccess = {
+  type: EArticleControllerAction.GET_SERVICE_DETAIL_SUCCESS;
+  payload: { response: TGetServiceDetailResponse };
+};
+
+export type TGetServiceDetailFailed = {
+  type: EArticleControllerAction.GET_SERVICE_DETAIL_FAILED;
+  payload: { error: unknown };
+};
+
 export type TGetPolicyRequest = {
   type: EArticleControllerAction.GET_POLICY_REQUEST;
   payload: {
@@ -80,6 +101,40 @@ export type TGetRuleSuccess = {
 
 export type TGetRuleFailed = {
   type: EArticleControllerAction.GET_RULE_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetMiddleBandRequest = {
+  type: EArticleControllerAction.GET_MIDDLE_BAND_REQUEST;
+  payload: {
+    cb?: (response: TGetMiddleBandResponse) => void;
+  };
+};
+
+export type TGetMiddleBandSuccess = {
+  type: EArticleControllerAction.GET_MIDDLE_BAND_SUCCESS;
+  payload: { response: TGetMiddleBandResponse };
+};
+
+export type TGetMiddleBandFailed = {
+  type: EArticleControllerAction.GET_MIDDLE_BAND_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetFooterRequest = {
+  type: EArticleControllerAction.GET_FOOTER_REQUEST;
+  payload: {
+    cb?: (response: TGetFooterResponse) => void;
+  };
+};
+
+export type TGetFooterSuccess = {
+  type: EArticleControllerAction.GET_FOOTER_SUCCESS;
+  payload: { response: TGetFooterResponse };
+};
+
+export type TGetFooterFailed = {
+  type: EArticleControllerAction.GET_FOOTER_FAILED;
   payload: { error: unknown };
 };
 

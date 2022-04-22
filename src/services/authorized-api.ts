@@ -5,7 +5,8 @@ import { Paths } from '@/pages/routers';
 
 // import AuthControllerInstance from './api/auth-controller';
 import authHelpers from './helpers';
-import { EResponseCode } from '@/common/enums';
+import { EResponseCode, ETypeNotification } from '@/common/enums';
+import { showNotification } from '@/utils/functions';
 
 type TTokenSubscribers = (error: Error | null, accessToken?: string) => void;
 
@@ -19,7 +20,8 @@ const AuthorizedInstance = (baseURL: string): AxiosInstance => {
 
   const refreshTokens = async (): Promise<void> => {
     authHelpers.clearTokens();
-    navigate(Paths.Home);
+    showNotification(ETypeNotification.WARNING, 'Bạn không có quyền truy cập');
+    window.location.href = Paths.Home;
     // const existingRefreshToken: string = authHelpers.getRefreshToken();
     // if (!existingRefreshToken) {
     //   navigate(LayoutPaths.Auth);

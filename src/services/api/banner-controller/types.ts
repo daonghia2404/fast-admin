@@ -19,6 +19,12 @@ export type TGetBannersResponse = TCommonResponse & {
   };
 };
 
+export type TGetLogoResponse = TCommonResponse & {
+  data: {
+    ListImage: TBannerResponse[];
+  };
+};
+
 export type TGetBannerParams = { id: string };
 export type TGetBannerResponse = TCommonResponse & {
   data: {
