@@ -2,15 +2,14 @@
 
 .RegisterNow {
   background-color: $shamrock-alpha-80;
-  padding: 3rem 0;
+  padding: 1rem 0;
 
   &-wrapper {
     &-item {
       &:nth-child(1) {
-        flex: 0 0 40%;
-        max-width: 40%;
+        flex: 0 0 50%;
+        max-width: 50%;
         margin-right: 5rem;
-        padding-right: 5rem;
         border-right: 1px solid $shamrock;
 
         @media (max-width: 991px) {
