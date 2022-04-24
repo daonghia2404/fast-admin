@@ -1,23 +1,27 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Form } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from '@/components/Modal';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { showNotification, validationRules } from '@/utils/functions';
 import { ETypeMemberConfigModal } from '@/containers/MemberConfigModal/MemberConfigModal.enums';
-import { createUpdateAccountAction, getAllRolesAction } from '@/redux/actions';
+import { createUpdateAccountAction, getAccountAction, getAllRolesAction } from '@/redux/actions';
 import { ETypeNotification } from '@/common/enums';
+import Select from '@/components/Select';
+import { TRootState } from '@/redux/reducers';
 
 import { TMemberConfigModalProps } from './MemberConfigModal.types';
 import './MemberConfigModal.scss';
-import Select from '@/components/Select';
 
 const MemberConfigModal: React.FC<TMemberConfigModalProps> = ({ visible, data, type, onSubmit, onClose }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const isCreateModal = type === ETypeMemberConfigModal.CREATE;
+
+  const rolesState = useSelector((state: TRootState) => state.accountReducer.roles);
+  const rolesOptions = rolesState?.data?.ListRole?.map((item) => ({ label: item.roleName, value: item.roleId }));
 
   const [password, setPassword] = useState<string>('');
 
@@ -31,6 +35,7 @@ const MemberConfigModal: React.FC<TMemberConfigModalProps> = ({ visible, data, t
       username: values.username,
       email: values.email,
       phone: values.phone,
+      listRole: values?.listRole ? [values?.listRole?.value] : undefined,
       password: values.password || undefined,
       confirmPassword: values.confirmPassword || undefined,
     };
@@ -43,25 +48,37 @@ const MemberConfigModal: React.FC<TMemberConfigModalProps> = ({ visible, data, t
     onSubmit?.();
   };
 
+  const getAccountData = useCallback(() => {
+    if (visible && data?.id) dispatch(getAccountAction.request({ userId: String(data.id) }));
+  }, [visible, data, dispatch]);
+
   const getRolesData = useCallback(() => {
-    dispatch(getAllRolesAction.request());
-  }, [dispatch]);
+    if (visible) dispatch(getAllRolesAction.request());
+  }, [visible, dispatch]);
 
   useEffect(() => {
     getRolesData();
   }, [getRolesData]);
 
+  // useEffect(() => {
+  //   getAccountData();
+  // }, [getAccountData]);
+
   useEffect(() => {
     if (data) {
       form.setFieldsValue({
         ...data,
+        listRole:
+          data?.listRole && data?.listRole.length !== 0
+            ? rolesOptions?.find((item) => item.value === data.listRole?.[0])
+            : undefined,
       });
     } else {
       form.resetFields();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form, visible, data]);
+  }, [form, rolesOptions, visible, data]);
 
   return (
     <Modal visible={visible} onClose={onClose} maxWidth="104rem" wrapClassName="MemberConfigModal-wrapper">
@@ -97,7 +114,7 @@ const MemberConfigModal: React.FC<TMemberConfigModalProps> = ({ visible, data, t
               <td className="text">Phân quyền</td>
               <td>
                 <Form.Item name="listRole" rules={[validationRules.required()]}>
-                  <Select adminStyle size="large" placeholder="Chọn quyền truy cập" options={[]} />
+                  <Select adminStyle size="large" placeholder="Chọn quyền truy cập" options={rolesOptions || []} />
                 </Form.Item>
               </td>
             </tr>

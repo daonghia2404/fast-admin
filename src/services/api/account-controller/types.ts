@@ -22,7 +22,14 @@ export type TGetAccountsResponse = TCommonResponse & {
 
 export type TGetAccountParams = { userId: string };
 export type TGetAccountResponse = unknown;
-export type TGetAllRolesResponse = unknown;
+export type TGetAllRolesResponse = {
+  data: {
+    ListRole: {
+      roleId: number;
+      roleName: string;
+    }[];
+  };
+};
 export type TCreateUpdateAccountsBody = {
   id?: number;
   username?: string;

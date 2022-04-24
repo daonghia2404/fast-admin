@@ -3,17 +3,17 @@ import { LayoutPaths, Paths } from '@/pages/routers';
 
 export const dataHeaderAdminNavigation = [
   { icon: EIconName.Dashboard, disabled: true, title: 'Dashboard', link: `${LayoutPaths.Admin}${Paths.Dashboard}` },
-  { icon: EIconName.Grid, disabled: true, title: 'Quản lý chung', link: `${LayoutPaths.Admin}${Paths.Dashboard}` },
+  { icon: EIconName.Grid, disabled: true, title: 'QL chung', link: `${LayoutPaths.Admin}${Paths.Dashboard}` },
   {
     icon: EIconName.Members,
     disabled: false,
-    title: 'Quản lý nhân viên',
+    title: 'QL nhân viên',
     link: `${LayoutPaths.Admin}${Paths.Members}`,
   },
   {
     icon: EIconName.Users,
     disabled: false,
-    title: 'Quản lý khách hàng',
+    title: 'QL khách hàng',
     link: `${LayoutPaths.Admin}${Paths.Users}`,
   },
   {
@@ -26,7 +26,7 @@ export const dataHeaderAdminNavigation = [
   {
     icon: EIconName.DocumentSigned,
     disabled: false,
-    title: 'Quản lý banner',
+    title: 'QL banner',
     link: `${LayoutPaths.Admin}${Paths.Banners}`,
   },
   { icon: EIconName.Blog, disabled: false, title: 'Bài viết', link: `${LayoutPaths.Admin}${Paths.Blogs}` },
