@@ -42,15 +42,13 @@ const SearchOrder: React.FC = () => {
   };
   return (
     <div className="SearchOrder">
-      <Form form={form} className="SearchOrder-search flex" onFinish={handleSubmit}>
+      <Form form={form} className="SearchOrder-search flex justify-end" onFinish={handleSubmit}>
         <Form.Item name="ladingCode" rules={[validationRules.required()]}>
-          <Input adminStyle size="large" placeholder="Nhập mã vận đơn" />
+          <Input adminStyle placeholder="Nhập mã vận đơn" />
         </Form.Item>
         <Form.Item>
           <Button
             disabled={getDepotOrderLoading}
-            adminStyle
-            size="large"
             type="primary"
             htmlType="submit"
             icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />}

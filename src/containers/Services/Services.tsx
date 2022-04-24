@@ -61,7 +61,7 @@ const Services: React.FC = () => {
                 <div
                   key={item.articleId}
                   className={classNames('Services-card flex items-start', { active: activeSection === index })}
-                  onClick={(): void => setActiveSection(index)}
+                  onMouseMove={(): void => setActiveSection(index)}
                 >
                   <div className="Services-card-icon">
                     <Icon name={renderIcon(index)} />

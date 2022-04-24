@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Form } from 'antd';
 import { useDispatch } from 'react-redux';
 
@@ -7,11 +7,12 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { showNotification, validationRules } from '@/utils/functions';
 import { ETypeMemberConfigModal } from '@/containers/MemberConfigModal/MemberConfigModal.enums';
-import { createUpdateAccountAction } from '@/redux/actions';
+import { createUpdateAccountAction, getAllRolesAction } from '@/redux/actions';
 import { ETypeNotification } from '@/common/enums';
 
 import { TMemberConfigModalProps } from './MemberConfigModal.types';
 import './MemberConfigModal.scss';
+import Select from '@/components/Select';
 
 const MemberConfigModal: React.FC<TMemberConfigModalProps> = ({ visible, data, type, onSubmit, onClose }) => {
   const dispatch = useDispatch();
@@ -41,6 +42,14 @@ const MemberConfigModal: React.FC<TMemberConfigModalProps> = ({ visible, data, t
     showNotification(ETypeNotification.SUCCESS, `${isCreateModal ? 'Tạo mới' : 'Cập nhật'} nhân viên thành công`);
     onSubmit?.();
   };
+
+  const getRolesData = useCallback(() => {
+    dispatch(getAllRolesAction.request());
+  }, [dispatch]);
+
+  useEffect(() => {
+    getRolesData();
+  }, [getRolesData]);
 
   useEffect(() => {
     if (data) {
@@ -73,6 +82,22 @@ const MemberConfigModal: React.FC<TMemberConfigModalProps> = ({ visible, data, t
               <td>
                 <Form.Item name="email" rules={[validationRules.required(), validationRules.email()]}>
                   <Input adminStyle size="large" placeholder="Nhập email" />
+                </Form.Item>
+              </td>
+            </tr>
+            <tr>
+              <td className="text">Số điện thoại</td>
+              <td>
+                <Form.Item name="phone" rules={[validationRules.required(), validationRules.onlyNumeric()]}>
+                  <Input adminStyle size="large" placeholder="Nhập số điện thoại" />
+                </Form.Item>
+              </td>
+            </tr>
+            <tr>
+              <td className="text">Phân quyền</td>
+              <td>
+                <Form.Item name="listRole" rules={[validationRules.required()]}>
+                  <Select adminStyle size="large" placeholder="Chọn quyền truy cập" options={[]} />
                 </Form.Item>
               </td>
             </tr>

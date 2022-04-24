@@ -14,6 +14,7 @@ import AuthHelpers from '@/services/helpers';
 import ModalConfirm from '@/containers/ModalConfirm';
 import { getLogoAction, getUserInfoAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
+import { getFullPathFile } from '@/utils/functions';
 
 import './HeaderAdmin.scss';
 
@@ -154,7 +155,7 @@ const HeaderAdmin: React.FC = () => {
     <div className={classNames('HeaderAdmin flex justify-between items-center')}>
       <div className="HeaderAdmin-item">
         <div className="HeaderAdmin-logo">
-          <Link to={LayoutPaths.Admin}>{logoState && <img src={logoState} alt="" />}</Link>
+          <Link to={LayoutPaths.Admin}>{logoState && <img src={getFullPathFile(logoState)} alt="" />}</Link>
         </div>
       </div>
       <div className="HeaderAdmin-item flex items-center">

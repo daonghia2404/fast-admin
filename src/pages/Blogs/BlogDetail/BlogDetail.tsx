@@ -53,6 +53,7 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
       status: values.status?.value,
       categoryId: values.categoryId?.value,
       thumbnail: values.thumbnail,
+      articleId: isUpdateBlog ? articleState?.articleId : undefined,
     };
 
     dispatch(createUpdateArticleAction.request(body, handleCreateUpdateArticleSuccess));

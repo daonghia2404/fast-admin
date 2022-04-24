@@ -158,13 +158,13 @@ export const Table: React.FC<TTableProps> = ({
       {!hideFooter && (
         <div className="Table-main-footer flex items-center justify-between">
           <div className="Table-main-footer-item flex items-center">
-            Hiển thị số dòng trên 1 trang
+            {/* Hiển thị số dòng trên 1 trang
             <Select
               allowClear={false}
               options={dataOptionsPageSize}
               onChange={handlePageSizeChange}
               value={pageSizeValue}
-            />
+            /> */}
           </div>
 
           <div className="Table-main-footer-item flex items-center">
@@ -172,14 +172,14 @@ export const Table: React.FC<TTableProps> = ({
               <Pagination page={page} pageSize={pageSize} total={total || 0} onChange={onPaginationChange} />
             )}
             <div className="Table-main-footer-item-goto flex items-center">
-              <Input value={jumpingPage} adminStyle numberOnly notZero onChange={handleChangeJumpingPage} />
+              {/* <Input value={jumpingPage} adminStyle numberOnly notZero onChange={handleChangeJumpingPage} />
               <Button
                 title="Đi đến"
                 adminStyle
                 onClick={(): void => {
                   jumpingPage && onJumpingPage?.(jumpingPage);
                 }}
-              />
+              /> */}
             </div>
           </div>
         </div>

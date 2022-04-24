@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Moment } from 'moment';
 
 import Table from '@/components/Table';
-import { EEmpty } from '@/common/enums';
+import { EEmpty, EFormatDate } from '@/common/enums';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, depotStatusOptions } from '@/common/constants';
 import { TGetDepotStoresParams } from '@/services/api/depot-controller/types';
 import { getDepotStoragesAction } from '@/redux/actions';
@@ -123,7 +123,8 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
       key: 'date',
       title: 'Ngày',
       dataIndex: 'date',
-      render: (value: string): string => (value ? formatISODateToDateTime(value, 'DD/MM/YYYY') : EEmpty.STRIKE_THROUGH),
+      render: (value: string): string =>
+        value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'depotName',
@@ -199,7 +200,8 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
       key: 'modifiedDate',
       title: 'Ngày thao tác',
       dataIndex: 'modifiedDate',
-      render: (value: string): string => (value ? formatISODateToDateTime(value, 'DD/MM/YYYY') : EEmpty.STRIKE_THROUGH),
+      render: (value: string): string =>
+        value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
     },
   ];
 

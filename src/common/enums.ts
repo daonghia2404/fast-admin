@@ -76,7 +76,7 @@ export enum EEmpty {
   TRIPLE_STRIKE_THROUGH = '---',
 }
 export enum EFormatDate {
-  COMMON = 'DD/MM/YYYY',
+  COMMON = 'YYYY/MM/DD',
 }
 
 export enum ECustomerStatus {

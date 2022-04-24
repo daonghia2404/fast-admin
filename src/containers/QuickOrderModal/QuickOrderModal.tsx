@@ -2,7 +2,7 @@ import React from 'react';
 
 import Modal from '@/components/Modal';
 import Table from '@/components/Table';
-import { EEmpty } from '@/common/enums';
+import { EEmpty, EFormatDate } from '@/common/enums';
 
 import { TQuickOrderModalProps } from './QuickOrderModal.types';
 import './QuickOrderModal.scss';
@@ -20,7 +20,8 @@ const QuickOrderModal: React.FC<TQuickOrderModalProps> = ({ visible, data, onClo
       key: 'date',
       title: 'Ngày',
       dataIndex: 'date',
-      render: (value: string): string => (value ? formatISODateToDateTime(value, 'DD/MM/YYYY') : EEmpty.STRIKE_THROUGH),
+      render: (value: string): string =>
+        value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'clientCode',

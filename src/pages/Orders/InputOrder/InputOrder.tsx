@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Moment } from 'moment';
 
 import Table from '@/components/Table';
-import { EEmpty } from '@/common/enums';
+import { EEmpty, EFormatDate } from '@/common/enums';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, depotStatusOptions } from '@/common/constants';
 import { TGetDepotStoresParams } from '@/services/api/depot-controller/types';
 import { TRootState } from '@/redux/reducers';
@@ -189,7 +189,8 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
       key: 'payDate',
       title: 'Ngày thanh toán',
       dataIndex: 'payDate',
-      render: (value: string): string => (value ? formatISODateToDateTime(value, 'DD/MM/YYYY') : EEmpty.STRIKE_THROUGH),
+      render: (value: string): string =>
+        value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
     },
   ];
 

@@ -5,7 +5,7 @@
     border: none;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 1rem;
-    min-height: 4.4rem;
+    min-height: 4.5rem;
     width: 100%;
     padding: 1rem 1.5rem;
 
@@ -26,6 +26,7 @@
       border-radius: .3rem;
       padding: .5rem 1rem;
       border: 1px solid $mercury;
+      min-height: 4.5rem;
 
       .ant-picker-clear {
         width: 18px;
