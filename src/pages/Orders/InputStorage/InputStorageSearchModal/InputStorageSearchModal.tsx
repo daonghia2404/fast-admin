@@ -25,6 +25,12 @@ const InputStorageSearchModal: React.FC<TInputStorageSearchModalProps> = ({
 
   const columns = [
     {
+      key: 'depotName',
+      title: 'Nhập Kho',
+      dataIndex: 'depotName',
+      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
+    },
+    {
       key: 'date',
       title: 'Ngày',
       dataIndex: 'date',
@@ -32,61 +38,21 @@ const InputStorageSearchModal: React.FC<TInputStorageSearchModalProps> = ({
         value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
     },
     {
-      key: 'depotName',
-      title: 'Kho',
-      dataIndex: 'depotName',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
-    },
-    {
       key: 'clientCode',
       title: 'Mã KH',
       dataIndex: 'clientCode',
+      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'ladingCode',
       title: 'Mã Vận Đơn',
       dataIndex: 'ladingCode',
+      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'kg',
       title: 'Kg',
       dataIndex: 'kg',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
-    },
-    {
-      key: 'advanceMoney',
-      title: 'Ứng',
-      dataIndex: 'advanceMoney',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
-    },
-    {
-      key: 'm3',
-      title: 'M3',
-      dataIndex: 'm3',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
-    },
-    {
-      key: 'd1',
-      title: 'D1',
-      dataIndex: 'd1',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
-    },
-    {
-      key: 'd2',
-      title: 'D2',
-      dataIndex: 'd2',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
-    },
-    {
-      key: 'd3',
-      title: 'D3',
-      dataIndex: 'd3',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
-    },
-    {
-      key: 'note',
-      title: 'Ghi chú',
-      dataIndex: 'note',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
@@ -96,17 +62,10 @@ const InputStorageSearchModal: React.FC<TInputStorageSearchModalProps> = ({
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
-      key: 'modifiedUser',
-      title: 'Người thao tác',
-      dataIndex: 'modifiedUser',
+      key: 'note',
+      title: 'Ghi Chú',
+      dataIndex: 'note',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
-    },
-    {
-      key: 'modifiedDate',
-      title: 'Ngày thao tác',
-      dataIndex: 'modifiedDate',
-      render: (value: string): string =>
-        value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
     },
   ];
 

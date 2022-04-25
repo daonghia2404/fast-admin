@@ -7,12 +7,12 @@ import { validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
-
-import './SearchOrder.scss';
 import { TRootState } from '@/redux/reducers';
 import { EDepotControllerAction } from '@/redux/actions/depot-controller/constants';
 import { getDepotOrdersAction } from '@/redux/actions';
 import { TDepotOrderResponse, TGetDepotOrdersResponse } from '@/services/api/depot-controller/types';
+
+import './SearchOrder.scss';
 
 const SearchOrder: React.FC = () => {
   const [form] = Form.useForm();
