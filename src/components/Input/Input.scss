@@ -23,6 +23,10 @@
       padding: .5rem 1rem;
       border: 1px solid $mercury;
 
+      &::placeholder {
+        text-transform: uppercase;
+      }
+
       &.ant-input-lg {
         min-height: 4.5rem;
       }

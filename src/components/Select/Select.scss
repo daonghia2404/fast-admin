@@ -14,7 +14,11 @@
     height: 4.5rem;
   }
 
-  .ant-select-single .ant-select-selector .ant-select-selection-item,
+  .ant-select-single .ant-select-selector .ant-select-selection-item {
+    font-weight: 300;
+    line-height: 2.8 !important;
+  }
+
   .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
     line-height: 2.8 !important;
     font-weight: 300;
@@ -39,6 +43,7 @@
       display: flex;
       align-items: center;
       font-weight: 300;
+      text-transform: uppercase;
     }
 
 

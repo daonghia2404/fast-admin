@@ -3,10 +3,10 @@ import React from 'react';
 import Modal from '@/components/Modal';
 import Table from '@/components/Table';
 import { EEmpty, EFormatDate } from '@/common/enums';
+import { formatISODateToDateTime } from '@/utils/functions';
 
 import { TQuickOrderModalProps } from './QuickOrderModal.types';
 import './QuickOrderModal.scss';
-import { formatISODateToDateTime } from '@/utils/functions';
 
 const QuickOrderModal: React.FC<TQuickOrderModalProps> = ({ visible, data, onClose }) => {
   const columns = [
@@ -39,6 +39,12 @@ const QuickOrderModal: React.FC<TQuickOrderModalProps> = ({ visible, data, onClo
       key: 'kg',
       title: 'Kg',
       dataIndex: 'kg',
+      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
+    },
+    {
+      key: 'status',
+      title: 'Trạng thái',
+      dataIndex: 'status',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {

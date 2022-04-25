@@ -5,7 +5,7 @@ import { Moment } from 'moment';
 import Table from '@/components/Table';
 import { EEmpty, EFormatDate } from '@/common/enums';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, depotStatusOptions } from '@/common/constants';
-import { TGetDepotStoresParams } from '@/services/api/depot-controller/types';
+import { TDepotOrderReturnResponse, TGetDepotStoresParams } from '@/services/api/depot-controller/types';
 import { TRootState } from '@/redux/reducers';
 import { EDepotControllerAction } from '@/redux/actions/depot-controller/constants';
 import Select, { TSelectOption } from '@/components/Select';
@@ -13,16 +13,19 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import DatePicker from '@/components/DatePicker';
-import { getDepotOrdersReturnAction } from '@/redux/actions';
+import { getDepotOrdersReturnAction, getDepotOrdersReturnSearchAction } from '@/redux/actions';
+import { formatISODateToDateTime } from '@/utils/functions';
 
+import InputOrderSearchModal from '@/pages/Orders/InputOrder/InputOrderSearchModal';
 import { TInputOrderProps } from './InputOrder.types';
 import './InputOrder.scss';
-import { formatISODateToDateTime } from '@/utils/functions';
 
 const InputOrder: React.FC<TInputOrderProps> = () => {
   const dispatch = useDispatch();
 
-  const [getParamsRequest, setGetParamsRequest] = useState<TGetDepotStoresParams & { date?: Moment }>({
+  const [getParamsRequest, setGetParamsRequest] = useState<
+    TGetDepotStoresParams & { isOpenModal?: boolean; date?: Moment }
+  >({
     pageIndex: DEFAULT_PAGE,
     pageSize: DEFAULT_PAGE_SIZE,
     getCount: true,
@@ -35,6 +38,17 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
     search: undefined,
     status: undefined,
     date: undefined,
+  });
+  const [orderSearchModalState, setOrderSearchModalState] = useState<{
+    visible: boolean;
+    data?: TDepotOrderReturnResponse[];
+    search?: string;
+    status?: TSelectOption;
+    date?: Moment;
+    pageIndex?: number;
+    pageSize?: number;
+  }>({
+    visible: false,
   });
   const getDepotOrdersLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EDepotControllerAction.GET_DEPOT_ORDERS_RETURN],
@@ -73,11 +87,17 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
   };
 
   const handleSearchSubmit = (): void => {
-    setGetParamsRequest({
-      ...getParamsRequest,
-      ...filtersRenderValue,
+    setOrderSearchModalState({
+      ...orderSearchModalState,
+      visible: true,
       pageIndex: DEFAULT_PAGE,
+      pageSize: DEFAULT_PAGE_SIZE,
+      ...filtersRenderValue,
     });
+  };
+
+  const handleCloseOrderSearchModalState = (): void => {
+    setOrderSearchModalState({ visible: false });
   };
 
   const filtersRender = (): React.ReactNode => {
@@ -204,7 +224,31 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
         year: getParamsRequest?.date ? getParamsRequest?.date.year() : undefined,
       }),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, getParamsRequest]);
+
+  const getDepotOrderReturnSearchData = useCallback(() => {
+    if (orderSearchModalState.visible) {
+      dispatch(
+        getDepotOrdersReturnSearchAction.request({
+          getCount: true,
+          pageIndex: orderSearchModalState.pageIndex || DEFAULT_PAGE,
+          pageSize: orderSearchModalState.pageSize || DEFAULT_PAGE_SIZE,
+          search: orderSearchModalState?.search,
+          status: orderSearchModalState?.status?.value,
+          day: orderSearchModalState?.date ? orderSearchModalState?.date.date() : undefined,
+          month: orderSearchModalState?.date ? orderSearchModalState?.date.month() + 1 : undefined,
+          year: orderSearchModalState?.date ? orderSearchModalState?.date.year() : undefined,
+        }),
+      );
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, orderSearchModalState]);
+
+  useEffect(() => {
+    getDepotOrderReturnSearchData();
+  }, [getDepotOrderReturnSearchData]);
 
   useEffect(() => {
     getDepotOrdersData();
@@ -226,6 +270,8 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
         filtersRender={filtersRender()}
         onJumpingPage={handleJumpingPage}
       />
+
+      <InputOrderSearchModal {...orderSearchModalState} onClose={handleCloseOrderSearchModalState} />
     </div>
   );
 };

@@ -34,6 +34,10 @@
         justify-content: center;
       }
 
+      .ant-picker-input input::placeholder {
+        text-transform: uppercase;
+      }
+
       &:hover {
         border-color: $shamrock;
       }

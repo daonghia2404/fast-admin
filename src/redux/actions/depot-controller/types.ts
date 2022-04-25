@@ -25,6 +25,24 @@ export type TGetDepotStoragesFailed = {
   payload: { error: unknown };
 };
 
+export type TGetDepotStoragesSearchRequest = {
+  type: EDepotControllerAction.GET_DEPOT_STORAGES_SEARCH_REQUEST;
+  payload: {
+    params: TGetDepotStoresParams;
+    cb?: (response: TGetDepotStoresResponse) => void;
+  };
+};
+
+export type TGetDepotStoragesSearchSuccess = {
+  type: EDepotControllerAction.GET_DEPOT_STORAGES_SEARCH_SUCCESS;
+  payload: { response: TGetDepotStoresResponse };
+};
+
+export type TGetDepotStoragesSearchFailed = {
+  type: EDepotControllerAction.GET_DEPOT_STORAGES_SEARCH_FAILED;
+  payload: { error: unknown };
+};
+
 export type TGetDepotOrdersRequest = {
   type: EDepotControllerAction.GET_DEPOT_ORDERS_REQUEST;
   payload: {
@@ -58,5 +76,23 @@ export type TGetDepotOrdersReturnSuccess = {
 
 export type TGetDepotOrdersReturnFailed = {
   type: EDepotControllerAction.GET_DEPOT_ORDERS_RETURN_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetDepotOrdersReturnSearchRequest = {
+  type: EDepotControllerAction.GET_DEPOT_ORDERS_RETURN_SEARCH_REQUEST;
+  payload: {
+    params: TGetDepotOrdersParams;
+    cb?: (response: TGetDepotOrdersReturnResponse) => void;
+  };
+};
+
+export type TGetDepotOrdersReturnSearchSuccess = {
+  type: EDepotControllerAction.GET_DEPOT_ORDERS_RETURN_SEARCH_SUCCESS;
+  payload: { response: TGetDepotOrdersReturnResponse };
+};
+
+export type TGetDepotOrdersReturnSearchFailed = {
+  type: EDepotControllerAction.GET_DEPOT_ORDERS_RETURN_SEARCH_FAILED;
   payload: { error: unknown };
 };

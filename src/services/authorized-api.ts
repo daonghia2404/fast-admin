@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
-import { navigate } from '@reach/router';
 
 import { Paths } from '@/pages/routers';
 
@@ -42,9 +41,9 @@ const AuthorizedInstance = (baseURL: string): AxiosInstance => {
     return request;
   };
 
-  const onTokenRefreshed = (error: Error | null, newAccessToken?: string): void => {
-    tokenSubscribers.map((cb: (error: Error | null, newAccessToken?: string) => void) => cb(error, newAccessToken));
-  };
+  // const onTokenRefreshed = (error: Error | null, newAccessToken?: string): void => {
+  //   tokenSubscribers.map((cb: (error: Error | null, newAccessToken?: string) => void) => cb(error, newAccessToken));
+  // };
 
   const onResponseSuccess = (response: AxiosResponse): AxiosResponse => response;
 

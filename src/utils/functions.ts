@@ -175,7 +175,7 @@ export const getFullPathFile = (path: string): string => {
 };
 
 export const formatISODateToDateTime = (time: string, format?: string): string => {
-  return moment(time).format(format || 'YYYY/MM/DD - HH:mm');
+  return moment(time).format(format || 'YYYY-MM-DD - HH:mm');
 };
 
 export const formatMoneyVND = (config: {

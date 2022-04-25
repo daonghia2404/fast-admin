@@ -5,8 +5,8 @@ import { Moment } from 'moment';
 import Table from '@/components/Table';
 import { EEmpty, EFormatDate } from '@/common/enums';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, depotStatusOptions } from '@/common/constants';
-import { TGetDepotStoresParams } from '@/services/api/depot-controller/types';
-import { getDepotStoragesAction } from '@/redux/actions';
+import { TDepotStoragesResponse, TGetDepotStoresParams } from '@/services/api/depot-controller/types';
+import { getDepotStoragesAction, getDepotStoragesSearchAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EDepotControllerAction } from '@/redux/actions/depot-controller/constants';
 import Select, { TSelectOption } from '@/components/Select';
@@ -18,6 +18,7 @@ import { formatISODateToDateTime } from '@/utils/functions';
 
 import { TInputStorageProps } from './InputStorage.types';
 import './InputStorage.scss';
+import InputStorageSearchModal from '@/pages/Orders/InputStorage/InputStorageSearchModal';
 
 const InputStorage: React.FC<TInputStorageProps> = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,17 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
     status: undefined,
     date: undefined,
   });
+  const [orderStorageSearchModalState, setOrderStorageSearchModalState] = useState<{
+    visible: boolean;
+    data?: TDepotStoragesResponse[];
+    search?: string;
+    status?: TSelectOption;
+    date?: Moment;
+    pageIndex?: number;
+    pageSize?: number;
+  }>({
+    visible: false,
+  });
   const depotStorages = useSelector((state: TRootState) => state.depotReducer.depotStorages);
   const getDepotStoragesLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EDepotControllerAction.GET_DEPOT_STORAGES],
@@ -44,6 +56,14 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
   const handlePageChange = (page: number, pageSize?: number): void => {
     setGetParamsRequest({
       ...getParamsRequest,
+      pageIndex: page,
+      pageSize: pageSize || getParamsRequest.pageSize,
+    });
+  };
+
+  const handlePageSearchChange = (page: number, pageSize?: number): void => {
+    setOrderStorageSearchModalState({
+      ...orderStorageSearchModalState,
       pageIndex: page,
       pageSize: pageSize || getParamsRequest.pageSize,
     });
@@ -73,11 +93,17 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
   };
 
   const handleSearchSubmit = (): void => {
-    setGetParamsRequest({
-      ...getParamsRequest,
-      ...filtersRenderValue,
+    setOrderStorageSearchModalState({
+      ...orderStorageSearchModalState,
+      visible: true,
       pageIndex: DEFAULT_PAGE,
+      pageSize: DEFAULT_PAGE_SIZE,
+      ...filtersRenderValue,
     });
+  };
+
+  const handleCloseOrderStorageSearchModalState = (): void => {
+    setOrderStorageSearchModalState({ visible: false });
   };
 
   const filtersRender = (): React.ReactNode => {
@@ -215,7 +241,31 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
         year: getParamsRequest?.date ? getParamsRequest?.date.year() : undefined,
       }),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, getParamsRequest]);
+
+  const getDepotStoragesSearchData = useCallback(() => {
+    if (orderStorageSearchModalState.visible) {
+      dispatch(
+        getDepotStoragesSearchAction.request({
+          getCount: true,
+          pageIndex: orderStorageSearchModalState.pageIndex || DEFAULT_PAGE,
+          pageSize: orderStorageSearchModalState.pageSize || DEFAULT_PAGE_SIZE,
+          search: orderStorageSearchModalState?.search,
+          status: orderStorageSearchModalState?.status?.value,
+          day: orderStorageSearchModalState?.date ? orderStorageSearchModalState?.date.date() : undefined,
+          month: orderStorageSearchModalState?.date ? orderStorageSearchModalState?.date.month() + 1 : undefined,
+          year: orderStorageSearchModalState?.date ? orderStorageSearchModalState?.date.year() : undefined,
+        }),
+      );
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, orderStorageSearchModalState]);
+
+  useEffect(() => {
+    getDepotStoragesSearchData();
+  }, [getDepotStoragesSearchData]);
 
   useEffect(() => {
     getDepotStoragesData();
@@ -237,6 +287,12 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
         onReload={handleReloadData}
         filtersRender={filtersRender()}
         onJumpingPage={handleJumpingPage}
+      />
+
+      <InputStorageSearchModal
+        {...orderStorageSearchModalState}
+        onClose={handleCloseOrderStorageSearchModalState}
+        onPaginationChange={handlePageSearchChange}
       />
     </div>
   );

@@ -1,0 +1,25 @@
+@import '../../../../assets/styles/global';
+
+.InputOrderSearchModal {
+  &-wrapper {
+    .Modal-body {
+      padding: 3.6rem;
+    }
+  }
+
+  &-header {
+    margin-bottom: 2rem;
+
+    .ant-form-item {
+      &:not(:last-child) {
+        margin-right: .8rem;
+      }
+    }
+  }
+
+  &-table {
+    .Table {
+      padding: 0;
+    }
+  }
+}

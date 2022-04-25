@@ -7,7 +7,7 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { showNotification, validationRules } from '@/utils/functions';
 import { ETypeMemberConfigModal } from '@/containers/MemberConfigModal/MemberConfigModal.enums';
-import { createUpdateAccountAction, getAccountAction, getAllRolesAction } from '@/redux/actions';
+import { createUpdateAccountAction, getAllRolesAction } from '@/redux/actions';
 import { ETypeNotification } from '@/common/enums';
 import Select from '@/components/Select';
 import { TRootState } from '@/redux/reducers';
@@ -48,9 +48,9 @@ const MemberConfigModal: React.FC<TMemberConfigModalProps> = ({ visible, data, t
     onSubmit?.();
   };
 
-  const getAccountData = useCallback(() => {
-    if (visible && data?.id) dispatch(getAccountAction.request({ userId: String(data.id) }));
-  }, [visible, data, dispatch]);
+  // const getAccountData = useCallback(() => {
+  //   if (visible && data?.id) dispatch(getAccountAction.request({ userId: String(data.id) }));
+  // }, [visible, data, dispatch]);
 
   const getRolesData = useCallback(() => {
     if (visible) dispatch(getAllRolesAction.request());

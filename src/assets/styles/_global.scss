@@ -135,6 +135,7 @@ html {
       padding: 1rem 2rem;
       font-size: 1.8rem;
       font-weight: 300;
+      text-transform: uppercase;
 
       &.text {
         padding-top: 2rem;
@@ -166,4 +167,9 @@ html {
       text-decoration: underline;
     }
   }
+}
+
+.ant-notification-notice-with-icon .ant-notification-notice-description {
+  margin-left: 4.5rem;
+  margin-right: 2rem;
 }
