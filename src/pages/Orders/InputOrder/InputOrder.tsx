@@ -225,6 +225,11 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
         total={depotOrderState?.data?.Total}
         showOrder
         hideCreate
+        showTotalInfo
+        m3={depotOrderState?.data.M3}
+        kg={depotOrderState?.data.Kg}
+        advanceMoney={depotOrderState?.data.AdvanceMoney}
+        grossMoney={depotOrderState?.data.GrossMoney}
         loading={getDepotOrdersLoading}
         onPaginationChange={handlePageChange}
         onReload={handleReloadData}

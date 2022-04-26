@@ -13,7 +13,7 @@ import { getDepotOrdersAction } from '@/redux/actions';
 import QuickOrderModal from '@/containers/QuickOrderModal';
 import { EDepotControllerAction } from '@/redux/actions/depot-controller/constants';
 import { TRootState } from '@/redux/reducers';
-import { showNotification } from '@/utils/functions';
+import { formatMoneyVND, showNotification } from '@/utils/functions';
 import { ETypeNotification } from '@/common/enums';
 
 import './Table.scss';
@@ -34,6 +34,11 @@ export const Table: React.FC<TTableProps> = ({
   hideCreate,
   filtersRender,
   quickSearchLadingCode,
+  showTotalInfo,
+  advanceMoney,
+  grossMoney,
+  kg,
+  m3,
   onDeletes,
   onCheckboxChange,
   onReload,
@@ -221,6 +226,23 @@ export const Table: React.FC<TTableProps> = ({
               onChange={handlePageSizeChange}
               value={pageSizeValue}
             /> */}
+            {showTotalInfo && (
+              <>
+                {grossMoney && (
+                  <div className="Table-main-footer-item-info blue">
+                    Tổng tiền: {formatMoneyVND({ amount: grossMoney || 0, showSuffix: true })}
+                  </div>
+                )}
+                <div className={classNames('Table-main-footer-item-info', { red: !grossMoney })}>Tổng mã: {total}</div>
+                <div className="Table-main-footer-item-info">Tổng Kg: {kg}</div>
+                <div className="Table-main-footer-item-info">Tổng m3: {m3}</div>
+                {advanceMoney && (
+                  <div className="Table-main-footer-item-info red">
+                    Tổng ứng: {formatMoneyVND({ amount: advanceMoney || 0, showSuffix: true })}
+                  </div>
+                )}
+              </>
+            )}
           </div>
 
           <div className="Table-main-footer-item flex items-center">

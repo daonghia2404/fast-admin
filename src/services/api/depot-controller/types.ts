@@ -32,6 +32,8 @@ export type TGetDepotStoresResponse = TCommonResponse & {
   data: {
     Data: TDepotStoragesResponse[];
     Total: number;
+    Kg: number;
+    M3: number;
   };
 };
 export type TGetDepotOrdersParams = {
@@ -79,5 +81,9 @@ export type TGetDepotOrdersReturnResponse = TCommonResponse & {
   data: {
     Data: TDepotOrderReturnResponse[];
     Total: number;
+    Kg: number;
+    M3: number;
+    AdvanceMoney: number;
+    GrossMoney: number;
   };
 };

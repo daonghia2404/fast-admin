@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { navigate } from '@reach/router';
 
 import { getServiceAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { formatISODateToDateTime, getFullPathFile } from '@/utils/functions';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
+import { Paths } from '@/pages/routers';
 
 import './ServicesList.scss';
 
@@ -34,11 +36,16 @@ const ServicesList: React.FC = () => {
       {!loading && (
         <>
           <div className="ServicesList-header flex items-center justify-center">
-            <div className="ServicesList-header-title">Các Dịch Vụ Khác</div>
+            <div className="ServicesList-header-title">CÁC DỊCH VỤ KHÁC</div>
           </div>
           <div className="ServicesList-list">
             {servicesData.map((item) => (
-              <div className="ServicesList-list-item flex items-start">
+              <div
+                className="ServicesList-list-item flex items-start"
+                onClick={(): void => {
+                  navigate(Paths.ServiceDetail(String(item.articleId)));
+                }}
+              >
                 <div className="ServicesList-list-item-image">
                   <img src={getFullPathFile(item.thumbnail)} alt="" />
                 </div>

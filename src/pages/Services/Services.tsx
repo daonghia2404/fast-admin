@@ -63,7 +63,7 @@ const Service: React.FC = () => {
                     <ServiceBox
                       title={item.title}
                       description={item.description}
-                      image={getFullPathFile(item.thumbnail)}
+                      image={getFullPathFile(item.thumbnail || item.imageDetail)}
                       onClick={(): void => handleClickService(item)}
                     />
                   </div>

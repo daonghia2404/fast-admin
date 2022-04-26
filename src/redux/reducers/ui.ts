@@ -11,6 +11,7 @@ export interface IUIState {
     width: number;
   };
   visibleRegisterModal?: boolean;
+  visibleLoginModal?: boolean;
 }
 const initialState: IUIState = {
   device: {
@@ -30,6 +31,10 @@ const reducer = createReducer(initialState, (handleAction) => [
   handleAction(uiActions.toggleRegisterModal, (state, { payload }) => ({
     ...state,
     visibleRegisterModal: payload.visible,
+  })),
+  handleAction(uiActions.toggleLoginModal, (state, { payload }) => ({
+    ...state,
+    visibleLoginModal: payload.visible,
   })),
 ]);
 

@@ -65,18 +65,21 @@
         margin: 0 0 1rem !important;
       }
 
+      &.active,
       &:hover {
-        a {
+        a,
+        span {
           color: $shamrock;
         }
       }
 
-      a {
+      a,
+      span {
         font-size: 2rem;
         text-transform: uppercase;
         color: $white;
         transition: $common-transition;
-        ;
+        cursor: pointer;
       }
     }
   }

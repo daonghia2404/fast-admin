@@ -21,6 +21,17 @@
     &-item {
       padding: 1.4rem .8rem;
       border-bottom: 1px solid $mercury;
+      cursor: pointer;
+
+      &:hover {
+        .ServicesList-list-item {
+          &-info {
+            &-title {
+              color: $shamrock;
+            }
+          }
+        }
+      }
 
       &-image {
         border-radius: 1rem;
@@ -45,6 +56,7 @@
           margin-bottom: 0.8rem;
           font-size: 1.6rem;
           font-weight: 500;
+          transition: $common-transition;
         }
 
         &-description {

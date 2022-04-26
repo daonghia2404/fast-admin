@@ -89,6 +89,10 @@
   &-dropdown {
     min-width: 25rem !important;
 
+    .ant-select-item-option-content {
+      text-transform: uppercase;
+    }
+
     .ant-select-item-empty {
       font-size: 1.4rem;
       text-align: center;

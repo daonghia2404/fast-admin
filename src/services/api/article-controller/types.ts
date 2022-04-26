@@ -62,6 +62,7 @@ export type TArticleResponse = {
   modifiedDate: string;
   status: boolean;
   thumbnail: string;
+  imageDetail: string;
   title: string;
 };
 

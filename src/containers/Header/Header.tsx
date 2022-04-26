@@ -39,6 +39,7 @@ const Header: React.FC<THeaderProps> = () => {
   const userInfoState = useSelector((state: TRootState) => state.authReducer.user);
   const logoState = useSelector((state: TRootState) => state.bannerReducer.logo?.data?.ListImage?.[0]?.filePath);
   const visibleRegisterModalState = useSelector((state: TRootState) => state.uiReducer.visibleRegisterModal);
+  const visibleLoginModalState = useSelector((state: TRootState) => state.uiReducer.visibleLoginModal);
 
   const [visibleMenu, setVisibleMenu] = useState<boolean>(false);
   const [authModalState, setAuthModalState] = useState<{
@@ -80,6 +81,7 @@ const Header: React.FC<THeaderProps> = () => {
       visible: false,
     });
     dispatch(uiActions.toggleRegisterModal(false));
+    dispatch(uiActions.toggleLoginModal(false));
   };
 
   const handleOpenPrivacyPolicyModal = (): void => {
@@ -210,6 +212,12 @@ const Header: React.FC<THeaderProps> = () => {
       handleOpenAuthModal(EKeyTabAuthModal.SIGN_UP);
     }
   }, [visibleRegisterModalState]);
+
+  useEffect(() => {
+    if (visibleLoginModalState) {
+      handleOpenAuthModal(EKeyTabAuthModal.SIGN_IN);
+    }
+  }, [visibleLoginModalState]);
 
   return (
     <div className={classNames('Header flex justify-between items-center', { visible: visibleMenu })}>

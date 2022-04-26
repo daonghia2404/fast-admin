@@ -107,6 +107,23 @@
       &-item {
         font-size: 1.6rem;
 
+        &-info {
+          text-transform: uppercase;
+          font-size: 1.8rem;
+
+          &.red {
+            color: $red;
+          }
+
+          &.blue {
+            color: $tory-blue;
+          }
+
+          &:not(:last-child) {
+            margin-right: 1.5rem;
+          }
+        }
+
         .Select {
           margin-left: 1.2rem;
         }

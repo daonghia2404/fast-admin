@@ -22,6 +22,7 @@ import Loading from '@/containers/Loading';
 
 import { TBlogDetailProps } from './BlogDetail.types';
 import './BlogDetail.scss';
+import TextArea from '@/components/TextArea';
 
 const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
   const dispatch = useDispatch();
@@ -53,6 +54,8 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
       status: values.status?.value,
       categoryId: values.categoryId?.value,
       thumbnail: values.thumbnail,
+      imageDetail: values.imageDetail,
+      description: values.description,
       articleId: isUpdateBlog ? articleState?.articleId : undefined,
     };
 
@@ -83,6 +86,9 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
           <Form.Item name="title" label="Tiêu đề bài viết" rules={[validationRules.required()]}>
             <Input size="large" adminStyle placeholder="Nhập tiêu đề bài viết" />
           </Form.Item>
+          <Form.Item name="description" label="Mô tả bài viết" rules={[validationRules.required()]}>
+            <TextArea adminStyle placeholder="Nhập tiêu đề bài viết" />
+          </Form.Item>
           <Form.Item name="content" label="Nội dung bài viết">
             <CkEditor />
           </Form.Item>
@@ -100,7 +106,10 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
           <Form.Item name="categoryId" label="Danh mục bài viết" rules={[validationRules.required()]}>
             <Select size="large" adminStyle placeholder="Chọn danh mục bài viết" options={articleCategoryOptions} />
           </Form.Item>
-          <Form.Item name="thumbnail" label="Hỉnh ảnh">
+          <Form.Item name="thumbnail" label="Ảnh đại diện">
+            <UploadSingleImage />
+          </Form.Item>
+          <Form.Item name="imageDetail" label="Ảnh chi tiết">
             <UploadSingleImage />
           </Form.Item>
           {isUpdateBlog && (

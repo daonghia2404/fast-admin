@@ -16,6 +16,11 @@ export type TTableProps = {
   loading?: boolean;
   filtersRender?: React.ReactNode;
   quickSearchLadingCode?: boolean;
+  kg?: number;
+  m3?: number;
+  advanceMoney?: number;
+  grossMoney?: number;
+  showTotalInfo?: boolean;
   onChange?: (page: number, pageSize?: number) => void;
   onDeletes?: () => void;
   onCheckboxChange?: (selectedRowKeys: React.Key[], selectedRows: any[]) => void;

@@ -3,7 +3,7 @@ import moment from 'moment';
 import { notification } from 'antd';
 import { Rule } from 'antd/lib/form';
 
-import { ETypeNotification } from '@/common/enums';
+import { EEmpty, ETypeNotification } from '@/common/enums';
 import { regex } from '@/common/constants';
 import env from '@/env';
 
@@ -175,6 +175,7 @@ export const getFullPathFile = (path: string): string => {
 };
 
 export const formatISODateToDateTime = (time: string, format?: string): string => {
+  if (moment(time).year() < 1970) return EEmpty.STRIKE_THROUGH;
   return moment(time).format(format || 'YYYY-MM-DD - HH:mm');
 };
 

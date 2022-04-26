@@ -8,6 +8,7 @@ import { EArticleControllerAction } from '@/redux/actions/article-controller/con
 import PageLoading from '@/containers/PageLoading';
 
 import './Contact.scss';
+import { scrollToTop } from '@/utils/functions';
 
 const Contact: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,10 @@ const Contact: React.FC = () => {
   useEffect(() => {
     getContentData();
   }, [getContentData]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="Contact">

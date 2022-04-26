@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '@/containers/Header';
 import Footer from '@/containers/Footer';
 import { TGuestProps } from './Guest.types';
+import ContactElement from '@/containers/ContactElement';
 
 import './Guest.scss';
 
@@ -16,6 +17,8 @@ const Guest: React.FC<TGuestProps> = ({ children }) => {
       <div className="Guest-footer">
         <Footer />
       </div>
+
+      <ContactElement />
     </div>
   );
 };

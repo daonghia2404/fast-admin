@@ -7,7 +7,7 @@ import ServicesList from '@/containers/ServicesList';
 import { getServiceDetailAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
-import { getFullPathFile } from '@/utils/functions';
+import { getFullPathFile, scrollToTop } from '@/utils/functions';
 import PageLoading from '@/containers/PageLoading';
 
 import './ServiceDetail.scss';
@@ -34,11 +34,15 @@ const ServiceDetail: React.FC = () => {
     getServiceDetailData();
   }, [getServiceDetailData]);
 
+  useEffect(() => {
+    scrollToTop();
+  }, [id]);
+
   return (
     <div className="ServiceDetail">
       {article?.data?.thumbnail && (
         <div className="ServiceDetail-banner">
-          <img src={getFullPathFile(article.data.thumbnail)} alt="" />
+          <img src={getFullPathFile(article.data.imageDetail || article.data.thumbnail)} alt="" />
         </div>
       )}
 

@@ -234,6 +234,9 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
         total={depotStorages?.data.Total}
         showOrder
         hideCreate
+        showTotalInfo
+        m3={depotStorages?.data.M3}
+        kg={depotStorages?.data.Kg}
         loading={getDepotStoragesLoading}
         onPaginationChange={handlePageChange}
         onReload={handleReloadData}
