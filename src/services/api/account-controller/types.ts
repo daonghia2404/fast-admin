@@ -21,7 +21,9 @@ export type TGetAccountsResponse = TCommonResponse & {
 };
 
 export type TGetAccountParams = { userId: string };
-export type TGetAccountResponse = unknown;
+export type TGetAccountResponse = {
+  data: TAccountResponse;
+};
 export type TGetAllRolesResponse = {
   data: {
     ListRole: {

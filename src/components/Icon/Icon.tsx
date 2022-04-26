@@ -45,6 +45,8 @@ import SettingCheck from './SettingCheck';
 import Plus from './Plus';
 import StatusRunning from './StatusRunning';
 import ClockRevert from './ClockRevert';
+import Truck from './Truck';
+import Headset from './Headset';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -129,6 +131,10 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <StatusRunning color={color} />;
       case EIconName.ClockRevert:
         return <ClockRevert color={color} />;
+      case EIconName.Truck:
+        return <Truck color={color} />;
+      case EIconName.Headset:
+        return <Headset color={color} />;
 
       default:
         return <></>;

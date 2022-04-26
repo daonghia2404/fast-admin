@@ -4,7 +4,6 @@ export type TTableProps = {
   page?: number;
   pageSize?: number;
   total?: number;
-  onChange?: (page: number, pageSize?: number) => void;
   className?: string;
   columns: TTableColumn[];
   hideHeader?: boolean;
@@ -16,6 +15,8 @@ export type TTableProps = {
   rowKey?: string;
   loading?: boolean;
   filtersRender?: React.ReactNode;
+  quickSearchLadingCode?: boolean;
+  onChange?: (page: number, pageSize?: number) => void;
   onDeletes?: () => void;
   onCheckboxChange?: (selectedRowKeys: React.Key[], selectedRows: any[]) => void;
   title?: () => React.ReactElement;

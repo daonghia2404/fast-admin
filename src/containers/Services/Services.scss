@@ -22,8 +22,28 @@
     }
   }
 
+
+  .animation {
+    display: block;
+    animation: slideUp 1s linear forwards;
+
+    @keyframes slideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(25%);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+    }
+  }
+
   &-item {
     &-image {
+      display: none;
+
       @media (max-width: 991px) {
         max-width: 80rem;
         margin: 0 auto 3rem;
@@ -37,13 +57,13 @@
 
   &-card {
     padding: 3rem 2.5rem;
-    background: $white;
     border-radius: .5rem;
-    box-shadow: $common-box-shadow;
     flex: 0 0 calc(100% / 2 - .9rem);
     max-width: calc(100% / 2 - .9rem);
     margin-bottom: 1.8rem;
     cursor: pointer;
+    transition: $common-transition;
+    border: 1px solid $silver;
 
     @media (max-width: 768px) {
       flex: 0 0 100%;
@@ -52,6 +72,10 @@
 
     &.active,
     &:hover {
+      border-color: transparent;
+      background: $white;
+      box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.08), 0 16px 48px 0 rgba(0, 0, 0, 0.1);
+
       .Services-card {
         &-info {
           &-title {
@@ -64,7 +88,13 @@
     &-icon {
       flex: 0 0 2.8rem;
       max-width: 2.8rem;
+      height: 2.8rem;
       margin-right: 1.2rem;
+
+      .Icon svg {
+        width: 100%;
+        height: 100%;
+      }
     }
 
     &-info {

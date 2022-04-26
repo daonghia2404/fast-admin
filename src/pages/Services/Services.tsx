@@ -53,8 +53,8 @@ const Service: React.FC = () => {
             <div className="Services-wrapper">
               <div className="Services-title">Dịch Vụ</div>
               <div className="Services-description">
-                huyên cung cấp dịch vụ vận tải hàng hoá bằng đường bộ từ Trung Quốc về Việt Nam. Chúng tôi luôn mang đến
-                dịch vụ vận chuyển tốt nhất, an toàn và đảm bảo.
+                Chuyên cung cấp dịch vụ vận tải hàng hoá bằng đường bộ từ Trung Quốc về Việt Nam. Chúng tôi luôn mang
+                đến dịch vụ vận chuyển tốt nhất, an toàn và đảm bảo.
               </div>
 
               <div className="Services-list flex flex-wrap">

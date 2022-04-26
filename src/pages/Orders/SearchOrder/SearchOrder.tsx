@@ -10,7 +10,7 @@ import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { TRootState } from '@/redux/reducers';
 import { EDepotControllerAction } from '@/redux/actions/depot-controller/constants';
 import { getDepotOrdersAction } from '@/redux/actions';
-import { TDepotOrderResponse, TGetDepotOrdersResponse } from '@/services/api/depot-controller/types';
+import { TDepotOrderResponse } from '@/services/api/depot-controller/types';
 
 import './SearchOrder.scss';
 
@@ -24,6 +24,7 @@ const SearchOrder: React.FC = () => {
   }>({
     visible: false,
   });
+
   const getDepotOrderLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EDepotControllerAction.GET_DEPOT_ORDERS],
   );
@@ -33,8 +34,8 @@ const SearchOrder: React.FC = () => {
     dispatch(getDepotOrdersAction.request(ladingCode, handleOpenOrderModalState));
   };
 
-  const handleOpenOrderModalState = (response: TGetDepotOrdersResponse): void => {
-    setQuickOrderModalState({ visible: true, data: response.data });
+  const handleOpenOrderModalState = (): void => {
+    setQuickOrderModalState({ visible: true });
   };
 
   const handleCloseOrderModalState = (): void => {

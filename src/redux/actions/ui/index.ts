@@ -1,7 +1,7 @@
 import { createActionCreator } from 'deox';
 
 import { EUIAction } from './constants';
-import { TResetActionStatus, TSetDevice } from './types';
+import { TResetActionStatus, TSetDevice, TToggleRegisterModal } from './types';
 
 export const uiActions = {
   setDevice: createActionCreator(
@@ -15,5 +15,11 @@ export const uiActions = {
     (resolve) =>
       (actionName: string): TResetActionStatus =>
         resolve({ actionName: actionName.replace('_REQUEST', '') }),
+  ),
+  toggleRegisterModal: createActionCreator(
+    EUIAction.TOGGLE_REGISTER_MODAL,
+    (resolve) =>
+      (visible: boolean): TToggleRegisterModal =>
+        resolve({ visible }),
   ),
 };

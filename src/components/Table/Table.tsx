@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Table as AntdTable } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { dataOptionsPageSize, DEFAULT_PAGE } from '@/common/constants';
 import { TTableProps } from './Table.types';
 import Pagination from '@/components/Pagination';
-import Select, { TSelectOption } from '@/components/Select';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
+import { TDepotOrderResponse } from '@/services/api/depot-controller/types';
+import { getDepotOrdersAction } from '@/redux/actions';
+import QuickOrderModal from '@/containers/QuickOrderModal';
+import { EDepotControllerAction } from '@/redux/actions/depot-controller/constants';
+import { TRootState } from '@/redux/reducers';
+import { showNotification } from '@/utils/functions';
+import { ETypeNotification } from '@/common/enums';
 
 import './Table.scss';
 
@@ -27,16 +33,29 @@ export const Table: React.FC<TTableProps> = ({
   hideFooter,
   hideCreate,
   filtersRender,
+  quickSearchLadingCode,
   onDeletes,
   onCheckboxChange,
-  onJumpingPage,
   onReload,
   title,
   onPaginationChange,
   onAdd,
 }) => {
-  const [jumpingPage, setJumpingPage] = useState<string>('');
-  const pageSizeValue = dataOptionsPageSize.find((option) => Number(option.value) === pageSize);
+  const dispatch = useDispatch();
+  // const [jumpingPage, setJumpingPage] = useState<string>('');
+  // const pageSizeValue = dataOptionsPageSize.find((option) => Number(option.value) === pageSize);
+
+  const [ladingCode, setLadingCode] = useState<string>('');
+  const getDepotOrderLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EDepotControllerAction.GET_DEPOT_ORDERS],
+  );
+
+  const [quickOrderModalState, setQuickOrderModalState] = useState<{
+    visible: boolean;
+    data?: TDepotOrderResponse[];
+  }>({
+    visible: false,
+  });
 
   const renderColumns = showOrder
     ? [
@@ -50,13 +69,34 @@ export const Table: React.FC<TTableProps> = ({
       ]
     : columns;
 
-  const handlePageSizeChange = (option: TSelectOption | null): void => {
-    if (option?.value) onPaginationChange?.(page || DEFAULT_PAGE, Number(option.value));
+  const handleSubmitSearchByLadingCode = (): void => {
+    if (ladingCode) {
+      dispatch(getDepotOrdersAction.request(ladingCode, handleOpenOrderModalState));
+    } else {
+      showNotification(ETypeNotification.ERROR, 'Vui lòng nhập mã vận đơn muốn tìm kiếm');
+    }
   };
 
-  const handleChangeJumpingPage = (value: string): void => {
-    setJumpingPage(value);
+  const handleOpenOrderModalState = (): void => {
+    setQuickOrderModalState({ visible: true });
   };
+
+  const handleCloseOrderModalState = (): void => {
+    setQuickOrderModalState({ visible: false });
+  };
+
+  const handleReload = (): void => {
+    setLadingCode('');
+    onReload?.();
+  };
+
+  // const handlePageSizeChange = (option: TSelectOption | null): void => {
+  //   if (option?.value) onPaginationChange?.(page || DEFAULT_PAGE, Number(option.value));
+  // };
+
+  // const handleChangeJumpingPage = (value: string): void => {
+  //   setJumpingPage(value);
+  // };
 
   return (
     <div className={classNames('Table', className)}>
@@ -68,7 +108,7 @@ export const Table: React.FC<TTableProps> = ({
                 icon={<Icon name={EIconName.Reload} color={EIconColor.WHITE} />}
                 className="black"
                 adminStyle
-                onClick={onReload}
+                onClick={handleReload}
               />
             </div>
             {!hideCreate && (
@@ -82,6 +122,22 @@ export const Table: React.FC<TTableProps> = ({
                   onClick={onAdd}
                 />
               </div>
+            )}
+
+            {quickSearchLadingCode && (
+              <>
+                <div className="Table-main-header-item-control">
+                  <Input placeholder="Tra cứu nhanh mã VĐ" adminStyle value={ladingCode} onChange={setLadingCode} />
+                </div>
+                <div className="Table-main-header-item-control">
+                  <Button
+                    icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />}
+                    type="primary"
+                    onClick={handleSubmitSearchByLadingCode}
+                    disabled={getDepotOrderLoading}
+                  />
+                </div>
+              </>
             )}
 
             {checkedValue && checkedValue.length > 0 && (
@@ -184,6 +240,8 @@ export const Table: React.FC<TTableProps> = ({
           </div>
         </div>
       )}
+
+      <QuickOrderModal {...quickOrderModalState} onClose={handleCloseOrderModalState} />
     </div>
   );
 };

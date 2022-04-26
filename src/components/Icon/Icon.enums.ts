@@ -39,6 +39,8 @@ export enum EIconName {
   Plus = 'Plus',
   StatusRunning = 'StatusRunning',
   ClockRevert = 'ClockRevert',
+  Truck = 'Truck',
+  Headset = 'Headset',
 }
 export enum EIconColor {
   BLACK = '#000',

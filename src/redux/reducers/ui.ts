@@ -10,6 +10,7 @@ export interface IUIState {
     type: string;
     width: number;
   };
+  visibleRegisterModal?: boolean;
 }
 const initialState: IUIState = {
   device: {
@@ -25,6 +26,10 @@ const reducer = createReducer(initialState, (handleAction) => [
       type: payload.deviceWidth > 991 ? EDeviceType.DESKTOP : EDeviceType.MOBILE,
       width: payload.deviceWidth,
     },
+  })),
+  handleAction(uiActions.toggleRegisterModal, (state, { payload }) => ({
+    ...state,
+    visibleRegisterModal: payload.visible,
   })),
 ]);
 

@@ -10,7 +10,7 @@ import { getAccountAction, getAccountsAction, getAllRolesAction } from '@/redux/
 export interface IState {
   roles?: TGetAllRolesResponse;
   accounts?: TGetAccountsResponse;
-  account: TGetAccountResponse;
+  account?: TGetAccountResponse;
 }
 const initialState: IState = {
   roles: undefined,

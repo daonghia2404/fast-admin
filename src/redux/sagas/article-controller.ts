@@ -12,6 +12,7 @@ import {
   getContactAction,
   getFooterAction,
   getHomeContentAction,
+  getHomeIntroAction,
   getMiddleBandAction,
   getPolicyAction,
   getRuleAction,
@@ -28,6 +29,7 @@ import {
   TGetContactResponse,
   TGetFooterResponse,
   TGetHomeContentResponse,
+  TGetHomeIntroResponse,
   TGetMiddleBandResponse,
   TGetPolicyResponse,
   TGetRuleResponse,
@@ -44,6 +46,17 @@ export function* getHomeContentSaga(action: ActionType<typeof getHomeContentActi
     cb?.(response);
   } catch (err) {
     yield put(getHomeContentAction.failure(err));
+  }
+}
+export function* getHomeIntroSaga(action: ActionType<typeof getHomeIntroAction.request>): Generator {
+  const { cb } = action.payload;
+  try {
+    const response = (yield call(ControllerInstance.getHomeIntro)) as TGetHomeIntroResponse;
+
+    yield put(getHomeIntroAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getHomeIntroAction.failure(err));
   }
 }
 
@@ -195,6 +208,7 @@ export function* deleteArticlesSaga(action: ActionType<typeof deleteArticlesActi
 
 export default function* root(): Generator {
   yield all([takeLatest(getHomeContentAction.request.type, getHomeContentSaga)]);
+  yield all([takeLatest(getHomeIntroAction.request.type, getHomeIntroSaga)]);
   yield all([takeLatest(getServiceAction.request.type, getServiceSaga)]);
   yield all([takeLatest(getServiceDetailAction.request.type, getServiceDetailSaga)]);
   yield all([takeLatest(getPolicyAction.request.type, getPolicySaga)]);

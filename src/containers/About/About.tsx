@@ -4,22 +4,22 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { TRootState } from '@/redux/reducers';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
-import { getAboutUsAction } from '@/redux/actions';
+import { getHomeIntroAction } from '@/redux/actions';
 import { getFullPathFile } from '@/utils/functions';
 
 import './About.scss';
 
 const About: React.FC = () => {
   const dispatch = useDispatch();
-  const aboutUsData = useSelector((state: TRootState) => state.articleReducer.aboutUs);
+  const homeIntroData = useSelector((state: TRootState) => state.articleReducer.homeIntro);
   const getContentLoading = useSelector(
-    (state: TRootState) => state.loadingReducer[EArticleControllerAction.GET_ABOUT_US],
+    (state: TRootState) => state.loadingReducer[EArticleControllerAction.GET_HOME_INTRO],
   );
 
-  const article = aboutUsData?.data?.ListArticle?.[0];
+  const article = homeIntroData?.data?.ListArticle?.[0];
 
   const getContentData = useCallback(() => {
-    dispatch(getAboutUsAction.request());
+    dispatch(getHomeIntroAction.request());
   }, [dispatch]);
 
   useEffect(() => {

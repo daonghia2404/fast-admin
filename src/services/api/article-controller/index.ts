@@ -16,6 +16,7 @@ import {
   TGetFooterResponse,
   TGetMiddleBandResponse,
   TGetServiceDetailResponse,
+  TGetHomeIntroResponse,
 } from '@/services/api/article-controller/types';
 
 class Controller {
@@ -51,6 +52,11 @@ class Controller {
 
   getAboutUs = async (): Promise<TGetAboutUsResponse> => {
     const response = await Service.get('/api/Article/getAboutUs');
+    return response.data;
+  };
+
+  getHomeIntro = async (): Promise<TGetHomeIntroResponse> => {
+    const response = await Service.get('/api/Article/getHomeIntro');
     return response.data;
   };
 

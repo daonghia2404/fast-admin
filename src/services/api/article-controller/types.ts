@@ -31,6 +31,11 @@ export type TGetAboutUsResponse = TCommonResponse & {
     ListArticle: TArticleResponse[];
   };
 };
+export type TGetHomeIntroResponse = TCommonResponse & {
+  data: {
+    ListArticle: TArticleResponse[];
+  };
+};
 export type TGetMiddleBandResponse = TCommonResponse & {
   data: {
     ListArticle: TArticleResponse[];

@@ -44,6 +44,9 @@ import {
   TGetServiceDetailFailed,
   TGetServiceDetailRequest,
   TGetServiceDetailSuccess,
+  TGetHomeIntroFailed,
+  TGetHomeIntroRequest,
+  TGetHomeIntroSuccess,
 } from '@/redux/actions/article-controller/types';
 import {
   TCreateUpdateArticleBody,
@@ -57,6 +60,7 @@ import {
   TGetContactResponse,
   TGetFooterResponse,
   TGetHomeContentResponse,
+  TGetHomeIntroResponse,
   TGetMiddleBandResponse,
   TGetPolicyResponse,
   TGetRuleResponse,
@@ -207,6 +211,27 @@ export const getRuleAction = {
     EArticleControllerAction.GET_RULE_FAILED,
     (resolve) =>
       (error: unknown): TGetRuleFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getHomeIntroAction = {
+  request: createActionCreator(
+    EArticleControllerAction.GET_HOME_INTRO_REQUEST,
+    (resolve) =>
+      (cb?: (response: TGetHomeIntroResponse) => void): TGetHomeIntroRequest =>
+        resolve({ cb }),
+  ),
+  success: createActionCreator(
+    EArticleControllerAction.GET_HOME_INTRO_SUCCESS,
+    (resolve) =>
+      (response: TGetHomeIntroResponse): TGetHomeIntroSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EArticleControllerAction.GET_HOME_INTRO_FAILED,
+    (resolve) =>
+      (error: unknown): TGetHomeIntroFailed =>
         resolve({ error }),
   ),
 };

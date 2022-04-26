@@ -11,6 +11,7 @@ import {
   TGetContactResponse,
   TGetFooterResponse,
   TGetHomeContentResponse,
+  TGetHomeIntroResponse,
   TGetMiddleBandResponse,
   TGetPolicyResponse,
   TGetRuleResponse,
@@ -101,6 +102,23 @@ export type TGetRuleSuccess = {
 
 export type TGetRuleFailed = {
   type: EArticleControllerAction.GET_RULE_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetHomeIntroRequest = {
+  type: EArticleControllerAction.GET_HOME_INTRO_REQUEST;
+  payload: {
+    cb?: (response: TGetHomeIntroResponse) => void;
+  };
+};
+
+export type TGetHomeIntroSuccess = {
+  type: EArticleControllerAction.GET_HOME_INTRO_SUCCESS;
+  payload: { response: TGetHomeIntroResponse };
+};
+
+export type TGetHomeIntroFailed = {
+  type: EArticleControllerAction.GET_HOME_INTRO_FAILED;
   payload: { error: unknown };
 };
 

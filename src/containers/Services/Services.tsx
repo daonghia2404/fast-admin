@@ -19,14 +19,14 @@ const Services: React.FC = () => {
     (state: TRootState) => state.loadingReducer[EArticleControllerAction.GET_HOME_CONTENT],
   );
   const homeContent = useSelector((state: TRootState) => state.articleReducer.homeContent);
-  const activeArticle = homeContent?.data?.ListArticle?.[activeSection];
+  const activeArticle = homeContent?.data?.ListArticle;
 
   const renderIcon = (index: number): EIconName => {
     switch (index % 4) {
       case 0:
-        return EIconName.CloudDownload;
+        return EIconName.Truck;
       case 1:
-        return EIconName.Video;
+        return EIconName.House;
       case 2:
         return EIconName.Calendar;
       case 3:
@@ -50,11 +50,11 @@ const Services: React.FC = () => {
         {!getHomeContentLoading && (
           <div className="Services-wrapper flex items-center flex-wrap">
             <div className="Services-wrapper-item">
-              {activeArticle?.thumbnail && (
-                <div className="Services-item-image">
-                  <img src={getFullPathFile(activeArticle.thumbnail)} alt="" />
+              {activeArticle?.map((item, index) => (
+                <div className={classNames('Services-item-image', { animation: index === activeSection })}>
+                  <img src={getFullPathFile(item.thumbnail)} alt="" />
                 </div>
-              )}
+              ))}
             </div>
             <div className="Services-wrapper-item flex flex-wrap justify-between">
               {homeContent?.data?.ListArticle?.map((item, index) => (

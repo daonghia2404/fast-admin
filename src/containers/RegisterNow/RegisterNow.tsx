@@ -5,9 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Logo from '@/assets/images/logo_bd.png';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
-import { getMiddleBandAction } from '@/redux/actions';
+import { getMiddleBandAction, uiActions } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
-import { Paths } from '@/pages/routers';
 
 import './RegisterNow.scss';
 
@@ -16,6 +15,10 @@ const RegisterNow: React.FC = () => {
 
   const middleBandState = useSelector((state: TRootState) => state.articleReducer.middleBand);
   const article = middleBandState?.data?.ListArticle?.[0];
+
+  const handleOpenRegisterModal = (): void => {
+    dispatch(uiActions.toggleRegisterModal(true));
+  };
 
   const getMiddleBandData = useCallback(() => {
     dispatch(getMiddleBandAction.request());
@@ -33,7 +36,7 @@ const RegisterNow: React.FC = () => {
             <div className="RegisterNow-logo">
               <img src={Logo} alt="" />
             </div>
-            <div className="RegisterNow-logo-description">Mang niềm tin tới khách hàng</div>
+            <div className="RegisterNow-logo-description">MANG NIỀM TIN TỚI KHÁCH HÀNG</div>
           </div>
           <div className="RegisterNow-wrapper-item">
             <div
@@ -52,7 +55,7 @@ const RegisterNow: React.FC = () => {
                 uppercase
                 size="large"
                 icon={<Icon name={EIconName.AngleRight} color={EIconColor.WHITE} />}
-                link={Paths.Contact}
+                onClick={handleOpenRegisterModal}
               />
             </div>
           </div>

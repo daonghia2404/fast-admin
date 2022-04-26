@@ -19,7 +19,7 @@ import { THeaderProps } from '@/containers/Header/Header.types';
 import { useOnClickOutside } from '@/utils/hooks';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import AuthHelpers from '@/services/helpers';
-import { getLogoAction, getUserInfoAction } from '@/redux/actions';
+import { getLogoAction, getUserInfoAction, uiActions } from '@/redux/actions';
 import ModalConfirm from '@/containers/ModalConfirm';
 import { getFullPathFile } from '@/utils/functions';
 
@@ -38,6 +38,7 @@ const Header: React.FC<THeaderProps> = () => {
 
   const userInfoState = useSelector((state: TRootState) => state.authReducer.user);
   const logoState = useSelector((state: TRootState) => state.bannerReducer.logo?.data?.ListImage?.[0]?.filePath);
+  const visibleRegisterModalState = useSelector((state: TRootState) => state.uiReducer.visibleRegisterModal);
 
   const [visibleMenu, setVisibleMenu] = useState<boolean>(false);
   const [authModalState, setAuthModalState] = useState<{
@@ -78,6 +79,7 @@ const Header: React.FC<THeaderProps> = () => {
     setAuthModalState({
       visible: false,
     });
+    dispatch(uiActions.toggleRegisterModal(false));
   };
 
   const handleOpenPrivacyPolicyModal = (): void => {
@@ -202,6 +204,12 @@ const Header: React.FC<THeaderProps> = () => {
   useEffect(() => {
     if (atk) getUserInfoData();
   }, [atk, getUserInfoData]);
+
+  useEffect(() => {
+    if (visibleRegisterModalState) {
+      handleOpenAuthModal(EKeyTabAuthModal.SIGN_UP);
+    }
+  }, [visibleRegisterModalState]);
 
   return (
     <div className={classNames('Header flex justify-between items-center', { visible: visibleMenu })}>

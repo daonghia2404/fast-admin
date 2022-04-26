@@ -11,7 +11,9 @@ const DropdownCustom: React.FC<TDropdownCustomProps> = ({
   overlay,
   overlayClassName,
   children,
+  placement,
   trigger,
+  getPopupContainer,
   onVisibleChange,
 }) => {
   const handleVisibleChange = (currentVisible: boolean): void => {
@@ -20,8 +22,9 @@ const DropdownCustom: React.FC<TDropdownCustomProps> = ({
 
   const antdDropdownProps = {
     overlay,
+    placement,
     overlayClassName: classNames('DropdownCustom-overlay', overlayClassName),
-    getPopupContainer: (node: HTMLElement): HTMLElement => node,
+    getPopupContainer: getPopupContainer || ((node: HTMLElement): HTMLElement => node),
     trigger: trigger || ['click'],
     onVisibleChange: handleVisibleChange,
   };

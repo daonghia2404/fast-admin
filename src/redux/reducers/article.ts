@@ -8,6 +8,7 @@ import {
   TGetContactResponse,
   TGetFooterResponse,
   TGetHomeContentResponse,
+  TGetHomeIntroResponse,
   TGetMiddleBandResponse,
   TGetPolicyResponse,
   TGetRuleResponse,
@@ -22,6 +23,7 @@ import {
   getContactAction,
   getFooterAction,
   getHomeContentAction,
+  getHomeIntroAction,
   getMiddleBandAction,
   getPolicyAction,
   getRuleAction,
@@ -31,6 +33,7 @@ import {
 
 export interface IState {
   homeContent?: TGetHomeContentResponse;
+  homeIntro?: TGetHomeIntroResponse;
   service?: TGetServiceResponse;
   serviceDetail?: TGetServiceDetailResponse;
   policy?: TGetPolicyResponse;
@@ -53,6 +56,7 @@ const initialState: IState = {
   aboutUs: undefined,
   middleBand: undefined,
   footer: undefined,
+  homeIntro: undefined,
 
   articles: undefined,
   article: undefined,
@@ -66,6 +70,14 @@ const reducer = createReducer(initialState, (handleAction) => [
     return {
       ...state,
       homeContent: response,
+    };
+  }),
+  handleAction(getHomeIntroAction.success, (state, { payload }) => {
+    const { response } = payload;
+
+    return {
+      ...state,
+      homeIntro: response,
     };
   }),
   handleAction(getServiceAction.success, (state, { payload }) => {
