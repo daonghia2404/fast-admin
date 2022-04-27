@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { Form } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Table from '@/components/Table';
@@ -133,7 +134,7 @@ const MembersTable: React.FC<TMembersTableProps> = () => {
 
   const filtersRender = (): React.ReactNode => {
     return (
-      <>
+      <Form className="flex items-center" onFinish={handleSearchSubmit}>
         <div className="Table-main-header-item-control">
           <Input
             placeholder="Tìm kiếm"
@@ -143,13 +144,9 @@ const MembersTable: React.FC<TMembersTableProps> = () => {
           />
         </div>
         <div className="Table-main-header-item-control">
-          <Button
-            icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />}
-            type="primary"
-            onClick={handleSearchSubmit}
-          />
+          <Button icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} type="primary" htmlType="submit" />
         </div>
-      </>
+      </Form>
     );
   };
 

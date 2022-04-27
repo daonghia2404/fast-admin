@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Form } from 'antd';
 
 import Table from '@/components/Table';
 import { EEmpty, ETypeNotification } from '@/common/enums';
@@ -9,9 +10,6 @@ import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import BannerConfigModal from '@/containers/BannerConfigModal';
 import { deleteBannerAction, getBannerCategoryAction, getBannersAction } from '@/redux/actions';
 import { TBannerResponse, TGetBannersBody } from '@/services/api/banner-controller/types';
-
-import { TBannersTableProps } from './BannersTable.types';
-import './BannersTable.scss';
 import Input from '@/components/Input';
 import { TRootState } from '@/redux/reducers';
 import { EBannerControllerAction } from '@/redux/actions/banner-controller/constants';
@@ -19,6 +17,9 @@ import { ETypeBannerConfigModal } from '@/containers/BannerConfigModal/BannerCon
 import Select, { TSelectOption } from '@/components/Select';
 import ModalConfirm from '@/containers/ModalConfirm';
 import { getFullPathFile, showNotification } from '@/utils/functions';
+
+import { TBannersTableProps } from './BannersTable.types';
+import './BannersTable.scss';
 
 const BannersTable: React.FC<TBannersTableProps> = () => {
   const dispatch = useDispatch();
@@ -142,7 +143,7 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
 
   const filtersRender = (): React.ReactNode => {
     return (
-      <>
+      <Form className="flex items-center" onFinish={handleSearchSubmit}>
         <div className="Table-main-header-item-control">
           <Select
             placeholder="Chọn vị trí"
@@ -164,10 +165,11 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
           <Button
             icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />}
             type="primary"
-            onClick={handleSearchSubmit}
+            htmlType="submit"
+            disabled={getBannersLoading}
           />
         </div>
-      </>
+      </Form>
     );
   };
 

@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
-  const footerState = useSelector((state: TRootState) => state.articleReducer.middleBand);
+  const footerState = useSelector((state: TRootState) => state.articleReducer.footer);
   const userInfo = useSelector((state: TRootState) => state.authReducer.user?.data?.id);
   const article = footerState?.data?.ListArticle?.[0];
 

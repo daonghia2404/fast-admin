@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Moment } from 'moment';
+import { Form } from 'antd';
 
 import Table from '@/components/Table';
 import { EEmpty, EFormatDate } from '@/common/enums';
@@ -83,7 +84,7 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
 
   const filtersRender = (): React.ReactNode => {
     return (
-      <>
+      <Form className="flex items-center" onFinish={handleSearchSubmit}>
         <div className="Table-main-header-item-control">
           <Select
             placeholder="Chọn trạng thái"
@@ -109,13 +110,9 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
           />
         </div>
         <div className="Table-main-header-item-control">
-          <Button
-            icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />}
-            type="primary"
-            onClick={handleSearchSubmit}
-          />
+          <Button icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} type="primary" htmlType="submit" />
         </div>
-      </>
+      </Form>
     );
   };
 

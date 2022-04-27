@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Form } from 'antd';
 
 import Table from '@/components/Table';
 import { EEmpty, ETypeNotification } from '@/common/enums';
@@ -11,14 +12,14 @@ import { deleteClientAction, getClientEmployeeAction, getClientsAction } from '@
 import { TClientResponse, TGetClientsBody } from '@/services/api/client-controller/types';
 import { TRootState } from '@/redux/reducers';
 import { EClientControllerAction } from '@/redux/actions/client-controller/constants';
-
-import { TUsersTableProps } from './UsersTable.types';
-import './UsersTable.scss';
 import Input from '@/components/Input';
 import Select, { TSelectOption } from '@/components/Select';
 import { ETypeUserConfigModal } from '@/containers/UserConfigModal/UserConfigModal.enums';
 import ModalConfirm from '@/containers/ModalConfirm';
 import { showNotification } from '@/utils/functions';
+
+import { TUsersTableProps } from './UsersTable.types';
+import './UsersTable.scss';
 
 const UsersTable: React.FC<TUsersTableProps> = () => {
   const dispatch = useDispatch();
@@ -141,7 +142,7 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
 
   const filtersRender = (): React.ReactNode => {
     return (
-      <>
+      <Form className="flex items-center" onFinish={handleSearchSubmit}>
         <div className="Table-main-header-item-control">
           <Input
             placeholder="Mã người phụ trách"
@@ -167,13 +168,9 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
           />
         </div>
         <div className="Table-main-header-item-control">
-          <Button
-            icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />}
-            type="primary"
-            onClick={handleSearchSubmit}
-          />
+          <Button icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} type="primary" htmlType="submit" />
         </div>
-      </>
+      </Form>
     );
   };
 

@@ -29,6 +29,7 @@
     &-text {
       font-size: 1.6rem;
       font-weight: 300;
+      text-transform: uppercase;
     }
 
     &-row {
@@ -49,6 +50,7 @@
   .ant-form-item-label {
     font-size: 1.8rem;
     font-weight: 500;
+    text-transform: uppercase;
 
     label::before {
       display: none !important;

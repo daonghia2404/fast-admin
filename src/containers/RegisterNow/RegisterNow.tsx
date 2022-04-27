@@ -36,7 +36,7 @@ const RegisterNow: React.FC = () => {
             <div className="RegisterNow-logo">
               <img src={Logo} alt="" />
             </div>
-            <div className="RegisterNow-logo-description">MANG NIỀM TIN TỚI KHÁCH HÀNG</div>
+            <div className="RegisterNow-logo-description">MANG NIỀM TIN ĐẾN VỚI KHÁCH HÀNG</div>
           </div>
           <div className="RegisterNow-wrapper-item">
             <div

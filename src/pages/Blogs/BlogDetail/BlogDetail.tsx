@@ -118,7 +118,7 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
                 <Icon name={EIconName.ClockRevert} />
               </div>
               <div className="BlogDetail-config-text">
-                Cập nhật lần cuối:{' '}
+                Cập nhật lần cuối:{'  '}
                 {articleState?.modifiedDate ? formatISODateToDateTime(articleState?.modifiedDate) : ''}
               </div>
             </div>

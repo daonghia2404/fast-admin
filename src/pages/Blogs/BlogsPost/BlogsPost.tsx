@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
+import { Form } from 'antd';
 
 import Table from '@/components/Table';
 import { EEmpty, ETypeNotification } from '@/common/enums';
@@ -189,7 +190,7 @@ const BlogsPost: React.FC<TBlogsPostProps> = () => {
 
   const filtersRender = (): React.ReactNode => {
     return (
-      <>
+      <Form className="flex items-center" onFinish={handleSearchSubmit}>
         <div className="Table-main-header-item-control">
           <Select
             placeholder="Chọn danh mục"
@@ -216,13 +217,9 @@ const BlogsPost: React.FC<TBlogsPostProps> = () => {
           />
         </div>
         <div className="Table-main-header-item-control">
-          <Button
-            icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />}
-            type="primary"
-            onClick={handleSearchSubmit}
-          />
+          <Button icon={<Icon name={EIconName.Search} color={EIconColor.WHITE} />} type="primary" htmlType="submit" />
         </div>
-      </>
+      </Form>
     );
   };
 

@@ -52,9 +52,9 @@ const ServicesList: React.FC = () => {
                 <div className="ServicesList-list-item-info">
                   <div className="ServicesList-list-item-info-title">{item.title}</div>
                   <div className="ServicesList-list-item-info-description">{item.description}</div>
-                  <div className="ServicesList-list-item-info-date">
+                  {/* <div className="ServicesList-list-item-info-date">
                     {item.createdDate ? formatISODateToDateTime(item.createdDate) : ''}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ))}
