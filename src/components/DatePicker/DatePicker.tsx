@@ -9,7 +9,14 @@ import { EFormatDate } from '@/common/enums';
 
 import './DatePicker.scss';
 
-const DatePicker: React.FC<TDatePickerProps> = ({ className, adminStyle, dropdownClassName, onChange, ...rest }) => {
+const DatePicker: React.FC<TDatePickerProps> = ({
+  className,
+  adminStyle,
+  dropdownClassName,
+  format,
+  onChange,
+  ...rest
+}) => {
   const handleChange = (value: Moment | null, valueString: string | null): void => {
     onChange?.(value, valueString);
   };
@@ -18,7 +25,7 @@ const DatePicker: React.FC<TDatePickerProps> = ({ className, adminStyle, dropdow
     <div className={classNames('DatePicker', { 'admin-style': adminStyle })}>
       <AntdDatePicker
         {...rest}
-        format={EFormatDate.COMMON}
+        format={format || EFormatDate.COMMON}
         dropdownClassName={classNames('DatePicker-dropdown', dropdownClassName)}
         onChange={handleChange}
         suffixIcon={<Icon name={EIconName.CalendarGrid} />}

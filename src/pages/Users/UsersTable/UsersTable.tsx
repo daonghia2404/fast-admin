@@ -37,6 +37,7 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
   });
   const clientsState = useSelector((state: TRootState) => state.clientReducer.clients?.data);
   const clientsEmployeeState = useSelector((state: TRootState) => state.clientReducer.clientEmployee?.data) || [];
+  const clientsEmployeeOptions = clientsEmployeeState?.map((item) => ({ label: item.employeeName, value: item.id }));
 
   const [deleteModalState, setDeleteModalState] = useState<{
     visible: boolean;
@@ -48,7 +49,7 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
   const [filtersRenderValue, setFiltersRenderValue] = useState<{
     search?: string;
     status?: TSelectOption;
-    employeeId?: string;
+    employeeId?: TSelectOption;
   }>({
     search: undefined,
     status: undefined,
@@ -72,10 +73,15 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
   };
 
   const handleChangeFiltersRenderValue = (key: string, value: any): void => {
-    setFiltersRenderValue({
+    const newFilterValue = {
       ...filtersRenderValue,
       [key]: value || undefined,
-    });
+    };
+    setFiltersRenderValue(newFilterValue);
+
+    if (key !== 'search') {
+      handleSearchSubmit(newFilterValue);
+    }
   };
 
   const handlePageChange = (page: number, pageSize?: number): void => {
@@ -95,10 +101,10 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
     setGetParamsRequest({ pageIndex: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE, getCount: true });
   };
 
-  const handleSearchSubmit = (): void => {
+  const handleSearchSubmit = (newFilterValue?: any): void => {
     setGetParamsRequest({
       ...getParamsRequest,
-      ...filtersRenderValue,
+      ...(newFilterValue || filtersRenderValue),
       pageIndex: DEFAULT_PAGE,
     });
   };
@@ -142,11 +148,12 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
 
   const filtersRender = (): React.ReactNode => {
     return (
-      <Form className="flex items-center" onFinish={handleSearchSubmit}>
+      <Form className="flex items-center" onFinish={(): void => handleSearchSubmit()}>
         <div className="Table-main-header-item-control">
-          <Input
-            placeholder="Mã người phụ trách"
+          <Select
+            placeholder="Chọn người phụ trách"
             adminStyle
+            options={clientsEmployeeOptions}
             value={filtersRenderValue.employeeId}
             onChange={(value): void => handleChangeFiltersRenderValue('employeeId', value)}
           />
@@ -244,6 +251,7 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
       getClientsAction.request({
         ...getParamsRequest,
         status: getParamsRequest?.status?.value,
+        employeeId: getParamsRequest?.employeeId?.value,
       }),
     );
   }, [dispatch, getParamsRequest]);

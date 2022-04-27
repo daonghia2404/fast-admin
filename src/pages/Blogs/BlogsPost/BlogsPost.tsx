@@ -72,10 +72,10 @@ const BlogsPost: React.FC<TBlogsPostProps> = () => {
     setGetParamsRequest({ pageIndex: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE, getCount: true });
   };
 
-  const handleSearchSubmit = (): void => {
+  const handleSearchSubmit = (newFilterValue?: any): void => {
     setGetParamsRequest({
       ...getParamsRequest,
-      ...filtersRenderValue,
+      ...(newFilterValue || filtersRenderValue),
       pageIndex: DEFAULT_PAGE,
     });
   };
@@ -88,10 +88,15 @@ const BlogsPost: React.FC<TBlogsPostProps> = () => {
   };
 
   const handleChangeFiltersRenderValue = (key: string, value: any): void => {
-    setFiltersRenderValue({
+    const newFilterValue = {
       ...filtersRenderValue,
       [key]: value || undefined,
-    });
+    };
+    setFiltersRenderValue(newFilterValue);
+
+    if (key !== 'search') {
+      handleSearchSubmit(newFilterValue);
+    }
   };
 
   const handleNavigateAddBlog = (): void => {
@@ -190,7 +195,7 @@ const BlogsPost: React.FC<TBlogsPostProps> = () => {
 
   const filtersRender = (): React.ReactNode => {
     return (
-      <Form className="flex items-center" onFinish={handleSearchSubmit}>
+      <Form className="flex items-center" onFinish={(): void => handleSearchSubmit()}>
         <div className="Table-main-header-item-control">
           <Select
             placeholder="Chọn danh mục"

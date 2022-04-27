@@ -1,12 +1,6 @@
 @import '../../assets/styles/global';
 
 .Button {
-  &.uppercase {
-    .ant-btn {
-      text-transform: uppercase;
-    }
-  }
-
   &.only-icon {
     .ant-btn {
       width: 4.4rem;
@@ -51,6 +45,7 @@
     padding: 0 1rem;
     cursor: pointer;
     width: 100%;
+    text-transform: uppercase;
 
     &.ant-btn-lg {
       height: 5.6rem;

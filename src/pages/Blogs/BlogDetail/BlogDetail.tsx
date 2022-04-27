@@ -87,7 +87,7 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
             <Input size="large" adminStyle placeholder="Nhập tiêu đề bài viết" />
           </Form.Item>
           <Form.Item name="description" label="Mô tả bài viết" rules={[validationRules.required()]}>
-            <TextArea adminStyle placeholder="Nhập tiêu đề bài viết" />
+            <TextArea adminStyle placeholder="Nhập mô tả bài viết" />
           </Form.Item>
           <Form.Item name="content" label="Nội dung bài viết">
             <CkEditor />

@@ -1,11 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Moment } from 'moment';
-import { Form } from 'antd';
+import { Form, Tooltip } from 'antd';
 
 import Table from '@/components/Table';
 import { EEmpty, EFormatDate } from '@/common/enums';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, depotStatusOptions } from '@/common/constants';
+import {
+  dataDayOptions,
+  dataMonthOptions,
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  depotStatusDeliveryOptions,
+  LIMIT_DESCRIPTION_LENGTH,
+} from '@/common/constants';
 import { TGetDepotStoresParams } from '@/services/api/depot-controller/types';
 import { getDepotStoragesAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
@@ -31,11 +38,15 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
   const [filtersRenderValue, setFiltersRenderValue] = useState<{
     search?: string;
     status?: TSelectOption;
-    date?: Moment;
+    day?: TSelectOption;
+    month?: TSelectOption;
+    year?: Moment;
   }>({
     search: undefined,
     status: undefined,
-    date: undefined,
+    day: undefined,
+    month: undefined,
+    year: undefined,
   });
 
   const depotStorages = useSelector((state: TRootState) => state.depotReducer.depotStorages);
@@ -55,7 +66,9 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
     setFiltersRenderValue({
       search: undefined,
       status: undefined,
-      date: undefined,
+      day: undefined,
+      month: undefined,
+      year: undefined,
     });
     setGetParamsRequest({ pageIndex: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE, getCount: true });
   };
@@ -68,37 +81,62 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
   };
 
   const handleChangeFiltersRenderValue = (key: string, value: any): void => {
-    setFiltersRenderValue({
+    const newFilterValue = {
       ...filtersRenderValue,
       [key]: value || undefined,
-    });
+    };
+    setFiltersRenderValue(newFilterValue);
+
+    if (key !== 'search') {
+      handleSearchSubmit(newFilterValue);
+    }
   };
 
-  const handleSearchSubmit = (): void => {
+  const handleSearchSubmit = (newFilterValue?: any): void => {
     setGetParamsRequest({
       ...getParamsRequest,
+      ...(newFilterValue || filtersRenderValue),
       pageIndex: DEFAULT_PAGE,
-      ...filtersRenderValue,
     });
   };
 
   const filtersRender = (): React.ReactNode => {
     return (
-      <Form className="flex items-center" onFinish={handleSearchSubmit}>
+      <Form className="flex items-center" onFinish={(): void => handleSearchSubmit()}>
         <div className="Table-main-header-item-control">
           <Select
             placeholder="Chọn trạng thái"
-            options={depotStatusOptions}
+            options={depotStatusDeliveryOptions}
             value={filtersRenderValue.status}
             onChange={(option): void => handleChangeFiltersRenderValue('status', option)}
           />
         </div>
         <div className="Table-main-header-item-control">
-          <DatePicker
+          <Select
             placeholder="Chọn ngày"
             adminStyle
-            value={filtersRenderValue.date}
-            onChange={(value): void => handleChangeFiltersRenderValue('date', value)}
+            value={filtersRenderValue.day}
+            options={dataDayOptions}
+            onChange={(value): void => handleChangeFiltersRenderValue('day', value)}
+          />
+        </div>
+        <div className="Table-main-header-item-control">
+          <Select
+            placeholder="Chọn tháng"
+            adminStyle
+            value={filtersRenderValue.month}
+            options={dataMonthOptions}
+            onChange={(value): void => handleChangeFiltersRenderValue('month', value)}
+          />
+        </div>
+        <div className="Table-main-header-item-control">
+          <DatePicker
+            placeholder="Chọn năm"
+            picker="year"
+            adminStyle
+            format="YYYY"
+            value={filtersRenderValue.year}
+            onChange={(value): void => handleChangeFiltersRenderValue('year', value)}
           />
         </div>
         <div className="Table-main-header-item-control">
@@ -180,7 +218,16 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
       key: 'note',
       title: 'Ghi chú',
       dataIndex: 'note',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
+      render: (value: string): React.ReactElement => {
+        const isShowMore = value?.length > LIMIT_DESCRIPTION_LENGTH;
+        if (value) {
+          if (isShowMore) return <Tooltip title={value}>{value.substring(0, LIMIT_DESCRIPTION_LENGTH)}...</Tooltip>;
+
+          return <>{value}</>;
+        }
+
+        return <>{EEmpty.STRIKE_THROUGH}</>;
+      },
     },
     {
       key: 'status',
@@ -208,9 +255,9 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
       getDepotStoragesAction.request({
         ...getParamsRequest,
         status: getParamsRequest?.status?.value,
-        day: getParamsRequest?.date ? getParamsRequest?.date.date() : undefined,
-        month: getParamsRequest?.date ? getParamsRequest?.date.month() + 1 : undefined,
-        year: getParamsRequest?.date ? getParamsRequest?.date.year() : undefined,
+        day: getParamsRequest?.day?.value,
+        month: getParamsRequest?.month?.value,
+        year: getParamsRequest?.year ? getParamsRequest?.year.year() : undefined,
       }),
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps

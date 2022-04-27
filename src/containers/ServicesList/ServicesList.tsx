@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 
 import { getServiceAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
-import { formatISODateToDateTime, getFullPathFile } from '@/utils/functions';
+import { getFullPathFile } from '@/utils/functions';
 import { EArticleControllerAction } from '@/redux/actions/article-controller/constants';
 import { Paths } from '@/pages/routers';
 

@@ -36,6 +36,7 @@
     &-item {
       font-size: 1.6rem;
       color: $gray;
+      text-transform: uppercase;
 
       &:nth-child(1) {
         @media (max-width: 768px) {
@@ -78,6 +79,7 @@
 
         &::placeholder {
           color: $shamrock;
+          text-transform: uppercase;
         }
       }
 
@@ -96,6 +98,7 @@
 
           &::placeholder {
             color: $shamrock;
+            text-transform: uppercase;
           }
         }
 

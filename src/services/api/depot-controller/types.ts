@@ -6,9 +6,9 @@ export type TGetDepotStoresParams = {
   pageSize: number;
   skip?: number;
   getCount: boolean;
-  day?: number;
-  month?: number;
-  year?: number;
+  day?: TSelectOption;
+  month?: TSelectOption;
+  year?: any;
   status?: TSelectOption;
   search?: string;
 };
@@ -41,10 +41,10 @@ export type TGetDepotOrdersParams = {
   pageSize: number;
   skip?: number;
   getCount: boolean;
-  day?: number;
-  month?: number;
-  year?: number;
-  status?: boolean;
+  day?: TSelectOption;
+  month?: TSelectOption;
+  year?: any;
+  status?: TSelectOption;
   search?: string;
 };
 export type TGetDepotOrdersResponse = TCommonResponse & {

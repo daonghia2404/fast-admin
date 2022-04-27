@@ -32,8 +32,8 @@ export const dataHeaderAdminNavigation = [
   { icon: EIconName.Blog, disabled: false, title: 'Bài viết', link: `${LayoutPaths.Admin}${Paths.Blogs}` },
   {
     icon: EIconName.Settings,
-    disabled: true,
+    disabled: false,
     title: 'Cài đặt hệ thống',
-    link: `${LayoutPaths.Admin}${Paths.Dashboard}`,
+    link: `${LayoutPaths.Admin}${Paths.Settings}`,
   },
 ];

@@ -7,6 +7,7 @@ export type TGetClientsBody = {
   pageSize: number;
   skip?: number;
   getCount: boolean;
+  employeeId?: TSelectOption;
   search?: string;
   categoryId?: string;
   status?: TSelectOption;

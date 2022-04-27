@@ -66,10 +66,15 @@ const MembersTable: React.FC<TMembersTableProps> = () => {
   };
 
   const handleChangeFiltersRenderValue = (key: string, value: any): void => {
-    setFiltersRenderValue({
+    const newFilterValue = {
       ...filtersRenderValue,
       [key]: value || undefined,
-    });
+    };
+    setFiltersRenderValue(newFilterValue);
+
+    if (key !== 'search') {
+      handleSearchSubmit(newFilterValue);
+    }
   };
 
   const handlePageChange = (page: number, pageSize?: number): void => {
@@ -87,10 +92,10 @@ const MembersTable: React.FC<TMembersTableProps> = () => {
     setGetParamsRequest({ pageIndex: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE, getCount: true });
   };
 
-  const handleSearchSubmit = (): void => {
+  const handleSearchSubmit = (newFilterValue?: any): void => {
     setGetParamsRequest({
       ...getParamsRequest,
-      ...filtersRenderValue,
+      ...(newFilterValue || filtersRenderValue),
       pageIndex: DEFAULT_PAGE,
     });
   };
@@ -134,7 +139,7 @@ const MembersTable: React.FC<TMembersTableProps> = () => {
 
   const filtersRender = (): React.ReactNode => {
     return (
-      <Form className="flex items-center" onFinish={handleSearchSubmit}>
+      <Form className="flex items-center" onFinish={(): void => handleSearchSubmit()}>
         <div className="Table-main-header-item-control">
           <Input
             placeholder="Tìm kiếm"

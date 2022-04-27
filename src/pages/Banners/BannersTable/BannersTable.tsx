@@ -69,10 +69,15 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
   const [bannersTableCheckedValue, setBannersTableCheckedValue] = useState<TBannerResponse[]>([]);
 
   const handleChangeFiltersRenderValue = (key: string, value: any): void => {
-    setFiltersRenderValue({
+    const newFilterValue = {
       ...filtersRenderValue,
       [key]: value || undefined,
-    });
+    };
+    setFiltersRenderValue(newFilterValue);
+
+    if (key !== 'search') {
+      handleSearchSubmit(newFilterValue);
+    }
   };
 
   const handlePageChange = (page: number, pageSize?: number): void => {
@@ -89,10 +94,11 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
     });
     setGetParamsRequest({ pageIndex: DEFAULT_PAGE, pageSize: DEFAULT_PAGE_SIZE, getCount: true });
   };
-  const handleSearchSubmit = (): void => {
+
+  const handleSearchSubmit = (newFilterValue?: any): void => {
     setGetParamsRequest({
       ...getParamsRequest,
-      ...filtersRenderValue,
+      ...(newFilterValue || filtersRenderValue),
       pageIndex: DEFAULT_PAGE,
     });
   };
@@ -143,7 +149,7 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
 
   const filtersRender = (): React.ReactNode => {
     return (
-      <Form className="flex items-center" onFinish={handleSearchSubmit}>
+      <Form className="flex items-center" onFinish={(): void => handleSearchSubmit()}>
         <div className="Table-main-header-item-control">
           <Select
             placeholder="Chọn vị trí"

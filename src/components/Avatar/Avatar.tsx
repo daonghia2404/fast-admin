@@ -2,6 +2,8 @@ import React from 'react';
 import { Avatar as AntdAvatar } from 'antd';
 import classNames from 'classnames';
 
+import ImageAvatarDefault from '@/assets/images/image-avatar-default.png';
+
 import { formatAbbreviationsName } from '@/utils/functions';
 import { TAvatarProps } from './Avatar.types';
 
@@ -20,16 +22,10 @@ const Avatar: React.FC<TAvatarProps> = ({
     onClickAvatar?.();
   };
 
-  const isShowImg = !forceContent && image;
-  const isShowDefault = forceContent || fullname;
-
   return (
     <div className={classNames('Avatar', className)} onClick={handleClickAvatar} style={style}>
-      <AntdAvatar src={!forceContent ? image : ''} size={size}>
-        {isShowImg && <AntdAvatar src={image} size={size} />}
-        {isShowDefault && (
-          <AntdAvatar size={size}>{forceContent || formatAbbreviationsName(fullname || '')}</AntdAvatar>
-        )}
+      <AntdAvatar src={image || ImageAvatarDefault} size={size}>
+        {forceContent || formatAbbreviationsName(fullname || '')}
       </AntdAvatar>
     </div>
   );

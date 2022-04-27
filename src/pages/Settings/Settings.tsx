@@ -18,11 +18,6 @@ const Settings: React.FC = () => {
       title: 'Máy chủ email',
       content: <EmailSetting />,
     },
-    {
-      key: '3',
-      title: 'Tab 3',
-      content: <></>,
-    },
   ];
 
   return (
