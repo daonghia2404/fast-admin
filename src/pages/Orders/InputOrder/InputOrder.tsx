@@ -107,7 +107,7 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
       <Form className="flex items-center" onFinish={(): void => handleSearchSubmit()}>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn trạng thái"
+            placeholder="Trạng thái"
             defaultValue={depotStatusPaymentOptions[0]}
             options={depotStatusPaymentOptions}
             value={filtersRenderValue.status}
@@ -117,7 +117,7 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
         </div>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn ngày"
+            placeholder="Ngày"
             adminStyle
             value={filtersRenderValue.day}
             options={dataDayOptions}
@@ -126,7 +126,7 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
         </div>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn tháng"
+            placeholder="Tháng"
             adminStyle
             value={filtersRenderValue.month}
             options={dataMonthOptions}
@@ -135,7 +135,7 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
         </div>
         <div className="Table-main-header-item-control">
           <DatePicker
-            placeholder="Chọn năm"
+            placeholder="Năm"
             picker="year"
             format="YYYY"
             adminStyle

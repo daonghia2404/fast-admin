@@ -105,7 +105,7 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
       <Form className="flex items-center" onFinish={(): void => handleSearchSubmit()}>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn trạng thái"
+            placeholder="Trạng thái"
             defaultValue={depotStatusDeliveryOptions[0]}
             options={depotStatusDeliveryOptions}
             allowClear={false}
@@ -115,7 +115,7 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
         </div>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn ngày"
+            placeholder="Ngày"
             adminStyle
             value={filtersRenderValue.day}
             options={dataDayOptions}
@@ -124,7 +124,7 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
         </div>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn tháng"
+            placeholder="Tháng"
             adminStyle
             value={filtersRenderValue.month}
             options={dataMonthOptions}
@@ -133,7 +133,7 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
         </div>
         <div className="Table-main-header-item-control">
           <DatePicker
-            placeholder="Chọn năm"
+            placeholder="Năm"
             picker="year"
             adminStyle
             format="YYYY"

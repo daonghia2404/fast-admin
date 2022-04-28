@@ -151,7 +151,7 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
       <Form className="flex items-center" onFinish={(): void => handleSearchSubmit()}>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn người phụ trách"
+            placeholder="Người phụ trách"
             adminStyle
             options={clientsEmployeeOptions}
             value={filtersRenderValue.employeeId}
@@ -160,7 +160,7 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
         </div>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn trạng thái"
+            placeholder="Trạng thái"
             options={customerStatusOptions}
             value={filtersRenderValue.status}
             onChange={(option): void => handleChangeFiltersRenderValue('status', option)}

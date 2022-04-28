@@ -198,7 +198,7 @@ const BlogsPost: React.FC<TBlogsPostProps> = () => {
       <Form className="flex items-center" onFinish={(): void => handleSearchSubmit()}>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn danh mục"
+            placeholder="Danh mục"
             adminStyle
             value={filtersRenderValue.categoryId}
             options={articleCategoryOptions}
@@ -207,7 +207,7 @@ const BlogsPost: React.FC<TBlogsPostProps> = () => {
         </div>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn trạng thái"
+            placeholder="Trạng thái"
             options={statusOptions}
             value={filtersRenderValue.status}
             onChange={(option): void => handleChangeFiltersRenderValue('status', option)}

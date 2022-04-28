@@ -152,7 +152,7 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
       <Form className="flex items-center" onFinish={(): void => handleSearchSubmit()}>
         <div className="Table-main-header-item-control">
           <Select
-            placeholder="Chọn vị trí"
+            placeholder="Vị trí"
             adminStyle
             value={filtersRenderValue.identity}
             options={bannersCategoryOptions}
