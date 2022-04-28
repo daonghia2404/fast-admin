@@ -65,7 +65,7 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
   const handleReloadData = (): void => {
     setFiltersRenderValue({
       search: undefined,
-      status: undefined,
+      status: depotStatusDeliveryOptions[0],
       day: undefined,
       month: undefined,
       year: undefined,
@@ -106,7 +106,9 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
         <div className="Table-main-header-item-control">
           <Select
             placeholder="Chọn trạng thái"
+            defaultValue={depotStatusDeliveryOptions[0]}
             options={depotStatusDeliveryOptions}
+            allowClear={false}
             value={filtersRenderValue.status}
             onChange={(option): void => handleChangeFiltersRenderValue('status', option)}
           />
@@ -254,7 +256,7 @@ const InputStorage: React.FC<TInputStorageProps> = () => {
     dispatch(
       getDepotStoragesAction.request({
         ...getParamsRequest,
-        status: getParamsRequest?.status?.value,
+        status: getParamsRequest?.status?.value || undefined,
         day: getParamsRequest?.day?.value,
         month: getParamsRequest?.month?.value,
         year: getParamsRequest?.year ? getParamsRequest?.year.year() : undefined,

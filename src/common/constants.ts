@@ -89,13 +89,15 @@ export const statusOptions = [
 ];
 
 export const depotStatusPaymentOptions = [
+  { value: null, label: 'Tất cả' },
   { value: true, label: 'Đã thanh toán', color: EIconColor.SHAMROCK },
   { value: false, label: 'Chưa thanh toán', color: EIconColor.RED },
 ];
 
 export const depotStatusDeliveryOptions = [
+  { value: null, label: 'Tất cả' },
   { value: true, label: 'Đã giao', color: EIconColor.SHAMROCK },
   { value: false, label: 'Chưa giao', color: EIconColor.RED },
 ];
 
-export const LIMIT_DESCRIPTION_LENGTH = 50;
+export const LIMIT_DESCRIPTION_LENGTH = 6;

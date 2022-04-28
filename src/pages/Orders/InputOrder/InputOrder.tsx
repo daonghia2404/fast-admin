@@ -67,7 +67,7 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
   const handleReloadData = (): void => {
     setFiltersRenderValue({
       search: undefined,
-      status: undefined,
+      status: depotStatusPaymentOptions[0],
       day: undefined,
       month: undefined,
       year: undefined,
@@ -108,8 +108,10 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
         <div className="Table-main-header-item-control">
           <Select
             placeholder="Chọn trạng thái"
+            defaultValue={depotStatusPaymentOptions[0]}
             options={depotStatusPaymentOptions}
             value={filtersRenderValue.status}
+            allowClear={false}
             onChange={(option): void => handleChangeFiltersRenderValue('status', option)}
           />
         </div>
@@ -157,6 +159,20 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
   };
 
   const columns = [
+    {
+      key: 'dateReturned',
+      title: 'Ngày trả',
+      dataIndex: 'dateReturned',
+      render: (value: string): string =>
+        value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
+    },
+    {
+      key: 'dateReceived',
+      title: 'Ngày nhận',
+      dataIndex: 'dateReceived',
+      render: (value: string): string =>
+        value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
+    },
     {
       key: 'clientCode',
       title: 'Mã KH',
@@ -206,23 +222,15 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
-      key: 'dateReturned',
-      title: 'Ngày trả',
-      dataIndex: 'dateReturned',
-      render: (value: string): string =>
-        value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
-    },
-    {
-      key: 'dateReceived',
-      title: 'Ngày nhận',
-      dataIndex: 'dateReceived',
-      render: (value: string): string =>
-        value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
-    },
-    {
       key: 'price',
-      title: 'Thành tiền',
+      title: 'Đơn giá',
       dataIndex: 'price',
+      render: (value: string): string => (value ? formatMoneyVND({ amount: value }) : EEmpty.STRIKE_THROUGH),
+    },
+    {
+      key: 'money',
+      title: 'Thành tiền',
+      dataIndex: 'money',
       render: (value: string): string => (value ? formatMoneyVND({ amount: value }) : EEmpty.STRIKE_THROUGH),
     },
     {
@@ -259,7 +267,7 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
     dispatch(
       getDepotOrdersReturnAction.request({
         ...getParamsRequest,
-        status: getParamsRequest?.status?.value,
+        status: getParamsRequest?.status?.value || undefined,
         day: getParamsRequest?.day?.value,
         month: getParamsRequest?.month?.value,
         year: getParamsRequest?.year ? getParamsRequest?.year.year() : undefined,
