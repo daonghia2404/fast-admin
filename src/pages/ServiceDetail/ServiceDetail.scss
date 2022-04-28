@@ -4,12 +4,20 @@
   background: $alabaster;
 
   &-banner {
+    height: 35rem;
     display: flex;
     position: relative;
     overflow: hidden;
 
+    @media (max-width: 768px) {
+      height: 20rem;
+    }
+
     img {
+      @include centerImage;
       width: 100%;
+      object-fit: cover;
+      border-radius: 0;
     }
   }
 

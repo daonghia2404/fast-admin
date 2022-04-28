@@ -10,10 +10,11 @@
 
   &-image {
     position: relative;
+    height: 33rem;
     overflow: hidden;
 
     img {
-      width: 100%;
+      @include centerImage;
     }
   }
 
