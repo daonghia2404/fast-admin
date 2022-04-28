@@ -162,6 +162,7 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
     {
       key: 'dateReturned',
       title: 'Ngày trả',
+      className: 'nowrap',
       dataIndex: 'dateReturned',
       render: (value: string): string =>
         value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
@@ -169,6 +170,7 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
     {
       key: 'dateReceived',
       title: 'Ngày nhận',
+      className: 'nowrap',
       dataIndex: 'dateReceived',
       render: (value: string): string =>
         value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
@@ -176,60 +178,70 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
     {
       key: 'clientCode',
       title: 'Mã KH',
+      className: 'nowrap',
       dataIndex: 'clientCode',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'ladingCode',
       title: 'Mã Vận Đơn',
+      className: 'nowrap',
       dataIndex: 'ladingCode',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'kg',
       title: 'Kg',
+      className: 'nowrap',
       dataIndex: 'kg',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'advanceMoney',
       title: 'Ứng',
+      className: 'nowrap',
       dataIndex: 'advanceMoney',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'm3',
       title: 'M3',
+      className: 'nowrap',
       dataIndex: 'm3',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'd1',
       title: 'D1',
+      className: 'nowrap',
       dataIndex: 'd1',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'd2',
       title: 'D2',
+      className: 'nowrap',
       dataIndex: 'd2',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'd3',
       title: 'D3',
+      className: 'nowrap',
       dataIndex: 'd3',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'price',
       title: 'Đơn giá',
+      className: 'nowrap',
       dataIndex: 'price',
       render: (value: string): string => (value ? formatMoneyVND({ amount: value }) : EEmpty.STRIKE_THROUGH),
     },
     {
       key: 'money',
       title: 'Thành tiền',
+      className: 'nowrap',
       dataIndex: 'money',
       render: (value: string): string => (value ? formatMoneyVND({ amount: value }) : EEmpty.STRIKE_THROUGH),
     },
@@ -251,6 +263,7 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
     {
       key: 'payStatus',
       title: 'Trạng thái',
+      className: 'nowrap',
       dataIndex: 'payStatus',
       render: (): string => EEmpty.STRIKE_THROUGH,
     },
@@ -258,6 +271,7 @@ const InputOrder: React.FC<TInputOrderProps> = () => {
       key: 'payDate',
       title: 'Ngày thanh toán',
       dataIndex: 'payDate',
+      className: 'nowrap',
       render: (value: string): string =>
         value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
     },

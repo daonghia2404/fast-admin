@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form } from 'antd';
+import { Form, Tooltip } from 'antd';
 
 import Modal from '@/components/Modal';
 import Table from '@/components/Table';
@@ -12,6 +12,7 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { getDepotOrdersAction } from '@/redux/actions';
+import { LIMIT_DESCRIPTION_LENGTH } from '@/common/constants';
 
 import { TQuickOrderModalProps } from './QuickOrderModal.types';
 import './QuickOrderModal.scss';
@@ -34,36 +35,42 @@ const QuickOrderModal: React.FC<TQuickOrderModalProps> = ({ visible, onClose }) 
       key: 'depotName',
       title: 'Nhập Kho',
       dataIndex: 'depotName',
+      className: 'nowrap',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'date',
       title: 'Ngày',
       dataIndex: 'date',
+      className: 'nowrap',
       render: (value: string): string =>
         value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'clientCode',
       title: 'Mã KH',
+      className: 'nowrap',
       dataIndex: 'clientCode',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'ladingCode',
       title: 'Mã Vận Đơn',
+      className: 'nowrap',
       dataIndex: 'ladingCode',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'kg',
       title: 'Kg',
+      className: 'nowrap',
       dataIndex: 'kg',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'status',
       title: 'Trạng thái',
+      className: 'nowrap',
       dataIndex: 'status',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
@@ -71,7 +78,16 @@ const QuickOrderModal: React.FC<TQuickOrderModalProps> = ({ visible, onClose }) 
       key: 'note',
       title: 'Ghi Chú',
       dataIndex: 'note',
-      render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
+      render: (value: string): React.ReactElement => {
+        const isShowMore = value?.length > LIMIT_DESCRIPTION_LENGTH;
+        if (value) {
+          if (isShowMore) return <Tooltip title={value}>{value.substring(0, LIMIT_DESCRIPTION_LENGTH)}...</Tooltip>;
+
+          return <>{value}</>;
+        }
+
+        return <>{EEmpty.STRIKE_THROUGH}</>;
+      },
     },
   ];
 

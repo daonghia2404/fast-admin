@@ -149,6 +149,7 @@ html {
 }
 
 .style-content-editable {
+
   figure.image img,
   figure.table {
     max-width: 100%;
@@ -177,4 +178,8 @@ html {
 .ant-tooltip-inner {
   font-size: 1.4rem;
   white-space: pre-wrap;
+}
+
+.ant-notification-notice {
+  transform: translateY(6rem);
 }

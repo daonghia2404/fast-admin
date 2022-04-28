@@ -185,11 +185,13 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
     {
       key: 'id',
       title: 'ID',
+      className: 'nowrap',
       dataIndex: 'id',
     },
     {
       key: 'code',
       title: 'Code',
+      className: 'nowrap',
       dataIndex: 'code',
     },
     {
@@ -220,6 +222,7 @@ const UsersTable: React.FC<TUsersTableProps> = () => {
     {
       key: 'customerStatus',
       title: 'Trạng thái',
+      className: 'nowrap',
       dataIndex: 'customerStatus',
       render: (value: string): React.ReactElement => {
         const status = customerStatusOptions.find((item) => String(item.value) === String(value));

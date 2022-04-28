@@ -38,13 +38,12 @@
         display: flex;
         flex: 0 0 9rem;
         max-width: 9rem;
-        height: 9rem;
         margin-right: 1rem;
         position: relative;
         overflow: hidden;
 
         img {
-          @include centerImage;
+          width: 100%;
         }
       }
 

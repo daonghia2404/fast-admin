@@ -9,12 +9,11 @@
   transition: $common-transition;
 
   &-image {
-    height: 33rem;
     position: relative;
     overflow: hidden;
 
     img {
-      @include centerImage;
+      width: 100%;
     }
   }
 

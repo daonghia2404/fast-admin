@@ -6,7 +6,6 @@ import classNames from 'classnames';
 
 import Logo from '@/assets/images/logo_ft.png';
 import { dataMenuFooter } from '@/containers/Footer/Footer.data';
-import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { getFooterAction, uiActions } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EFooterAction } from '@/containers/Footer/Footer.enums';
@@ -80,7 +79,7 @@ const Footer: React.FC = () => {
             20A Truong Dinh Street, Vo Thi Sau Ward, District 3, Ho Chi Minh City, Vietnam
           </div> */}
         </div>
-        <div className="Footer-socials flex items-center">
+        {/* <div className="Footer-socials flex items-center">
           <Link to="/" className="Footer-socials-item">
             <Icon name={EIconName.ZaloCircle} color={EIconColor.WHITE} />
           </Link>
@@ -90,7 +89,7 @@ const Footer: React.FC = () => {
           <Link to="/" className="Footer-socials-item">
             <Icon name={EIconName.FacebookCircle} color={EIconColor.WHITE} />
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );

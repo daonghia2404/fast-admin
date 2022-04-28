@@ -26,6 +26,7 @@ const InputStorageSearchModal: React.FC<TInputStorageSearchModalProps> = ({
   const columns = [
     {
       key: 'depotName',
+      className: 'nowrap',
       title: 'Nhập Kho',
       dataIndex: 'depotName',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
@@ -33,6 +34,7 @@ const InputStorageSearchModal: React.FC<TInputStorageSearchModalProps> = ({
     {
       key: 'date',
       title: 'Ngày',
+      className: 'nowrap',
       dataIndex: 'date',
       render: (value: string): string =>
         value ? formatISODateToDateTime(value, EFormatDate.COMMON) : EEmpty.STRIKE_THROUGH,
@@ -40,24 +42,28 @@ const InputStorageSearchModal: React.FC<TInputStorageSearchModalProps> = ({
     {
       key: 'clientCode',
       title: 'Mã KH',
+      className: 'nowrap',
       dataIndex: 'clientCode',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'ladingCode',
       title: 'Mã Vận Đơn',
+      className: 'nowrap',
       dataIndex: 'ladingCode',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'kg',
       title: 'Kg',
+      className: 'nowrap',
       dataIndex: 'kg',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },
     {
       key: 'status',
       title: 'Trạng thái',
+      className: 'nowrap',
       dataIndex: 'status',
       render: (value: string): string => value || EEmpty.STRIKE_THROUGH,
     },

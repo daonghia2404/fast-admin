@@ -210,6 +210,7 @@ const BannersTable: React.FC<TBannersTableProps> = () => {
     {
       key: 'status',
       title: 'Trạng thái',
+      className: 'nowrap',
       dataIndex: 'status',
       render: (value: string): React.ReactElement => {
         const status = statusOptions.find((item) => String(item.value) === String(value));

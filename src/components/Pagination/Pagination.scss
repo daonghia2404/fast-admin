@@ -1,9 +1,16 @@
 @import '../../assets/styles/global';
 
 .Pagination {
-  background: $alabaster;
 
-  .ant-pagination-prev, .ant-pagination-next, .ant-pagination-jump-prev, .ant-pagination-jump-next {
+  .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-link-icon,
+  .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
+    color: $shamrock;
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next,
+  .ant-pagination-jump-prev,
+  .ant-pagination-jump-next {
     margin: 0;
   }
 
@@ -14,10 +21,11 @@
 
     &:not(.ant-pagination-disabled):hover {
       .Pagination {
+
         &-first,
         &-last {
           color: $shamrock;
-        }      
+        }
       }
     }
   }
@@ -33,6 +41,10 @@
     border: 1px solid $mercury;
     transition: $common-transition;
     text-transform: uppercase;
+
+    @media (max-width: 575px) {
+      display: none;
+    }
   }
 
   &-first {
@@ -53,6 +65,11 @@
     margin: 0;
     border: 1px solid $mercury;
 
+    @media (max-width: 575px) {
+      width: 4rem;
+      height: 4rem;
+    }
+
     a {
       height: 5rem;
       line-height: 5rem;
@@ -60,6 +77,12 @@
       color: $black;
       display: block;
       transition: $common-transition;
+
+      @media (max-width: 575px) {
+        height: 4rem;
+        line-height: 4rem;
+        font-size: 1.4rem;
+      }
     }
 
     &:focus-visible,
